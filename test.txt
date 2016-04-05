@@ -1,1 +1,3 @@
 alien explorer shouold be renamed aliendestroyer ...or something like that . alien exterminator
+
+add gravity , if planet is too small, bullet comes back around!
