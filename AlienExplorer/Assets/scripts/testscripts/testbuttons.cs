@@ -12,6 +12,8 @@ public class testbuttons : MonoBehaviour {
     void Update()
     {
         buttontester();
+
+        transform.Translate(new Vector3(Time.deltaTime, transform.position.y, transform.position.z));
     }
 
     void buttontester() {
@@ -20,6 +22,12 @@ public class testbuttons : MonoBehaviour {
         if (CrossPlatformInputManager.GetButton("OnButtonEscape"))
         {
             Debug.Log("ESCAPE");
+        }
+
+        //inventory
+        if (CrossPlatformInputManager.GetButton("OnButtonInventoryOn"))
+        {
+            Debug.Log("inventory");
         }
 
         //Menu
@@ -31,6 +39,10 @@ public class testbuttons : MonoBehaviour {
         {
             Debug.Log("restart");
         }
+
+    
+
+        
 
         //controls
         if (CrossPlatformInputManager.GetButton("OnButtonBoost"))
@@ -55,6 +67,17 @@ public class testbuttons : MonoBehaviour {
 
 
 
+        //mainmenu
+
+        if (CrossPlatformInputManager.GetButton("OnButtonPlayGame"))
+        {
+            Debug.Log("Play");
+        }
+
+        if (CrossPlatformInputManager.GetButton("OnButtonExit"))
+        {
+            Debug.Log("exit");
+        }
 
     }
 }

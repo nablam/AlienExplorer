@@ -7,6 +7,7 @@ namespace S3
     {
         private GameManager_Master _gameManager;
         public GameObject menu;
+        public GameObject InventoryButton;
     
         void Start()
         {
@@ -48,6 +49,7 @@ namespace S3
                 menu.SetActive(!menu.activeSelf); //if it is deactivatred it will be activated
                 _gameManager.isMenueOn = !_gameManager.isMenueOn;
                 _gameManager.CAllEventMenueToggel(); //will cause menue toggle to happen, and the pause to follow
+                InventoryButton.SetActive(!InventoryButton.activeSelf);
             }
             else
             {

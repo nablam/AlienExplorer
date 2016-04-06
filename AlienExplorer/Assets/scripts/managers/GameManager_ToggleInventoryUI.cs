@@ -32,7 +32,9 @@ namespace S3 {
         }
 
         void checkforInventoryUItoggleRequest() {
-            if (CrossPlatformInputManager.GetButtonUp(toggleinventoryButton) && !_gameManager.isMenueOn && !_gameManager.isGameOver && hasInventory)
+
+         //   if (CrossPlatformInputManager.GetButtonUp("OnButtonInventory"))  toggleInventoryUI();
+            if (CrossPlatformInputManager.GetButtonUp("OnButtonInventory") && !_gameManager.isMenueOn && !_gameManager.isGameOver && hasInventory)
             {
                 toggleInventoryUI();
             }
