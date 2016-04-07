@@ -9,6 +9,7 @@ TagManager:
   - enemyshipTAG
   - enemylandTAG
   - planetTAG
+  - playerbottomTAG
   layers:
   - Default
   - TransparentFX
