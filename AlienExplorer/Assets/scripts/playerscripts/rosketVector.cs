@@ -13,8 +13,8 @@ public class rosketVector : MonoBehaviour {
 
     void Start () {
         cf = GetComponent<ConstantForce>();
-        print(transform.GetChild(1).name);
-        print(transform.GetChild(0).name);
+        //print(transform.GetChild(1).name);
+        //print(transform.GetChild(0).name);
 
         bottomcollider = transform.GetChild(0).GetComponent<BoxCollider>();
     }
@@ -24,6 +24,8 @@ public class rosketVector : MonoBehaviour {
  
         normalcontrols(5,4);
     }
+
+  
 
     void normalcontrols(float forwardValue, float rotationValue)
     {
@@ -66,11 +68,7 @@ public class rosketVector : MonoBehaviour {
     }
 
 
-    void OnTriggerStay(Collider other)
-    {
-        print("boom");
-        // if (other == collider1) { }
-    }
+    
 
     void OnCollisionEnter(Collision collider)
     {
