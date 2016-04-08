@@ -4,6 +4,8 @@ using System.Collections;
 public class planetGravityScript : MonoBehaviour
 {
 
+    public bool applyGravity;
+
     private Color color = Color.green;
 
     GameObject player;
@@ -17,14 +19,15 @@ public class planetGravityScript : MonoBehaviour
     Vector3 oppositPlayerNormalizedFROM00;
     float radius;
 
-    float TimeatA;
-    float TimeatB;
+ 
     float lastDist;
 
     float time_atDist;
     float time_atLASTDist;
 
     float speedtowardplanet;
+
+    Vector3 diff;
     void OnDrawGizmos() {
         Gizmos.color = color;
         Gizmos.DrawLine(Vector3.zero, transform.position);
@@ -32,21 +35,15 @@ public class planetGravityScript : MonoBehaviour
 
     void Start()
     {
-        TimeatA = 0f;
-        TimeatB = 0f;
-
         lastDist = 0f;
-
         speedtowardplanet = 0f;
         time_atDist=0f;
         time_atLASTDist=0f;
-
         player = GameObject.Find("rocketprefab");
         mypos = transform.position;
         radius = transform.localScale.y / 2;
-
         gravforce = radius * 3;
-       // print("radius=" + radius);
+    
     }
 
 
@@ -54,40 +51,19 @@ public class planetGravityScript : MonoBehaviour
     {
         okpullfix();
         findplayerspeed();
-         
-
+        playerosgettingclosser();
+        AngleOfShipRelativeToPlanet();
     }
 
 
-    void findplayerspeed() {
-
-
-        playerosgettingclosser();
-
+    void findplayerspeed() {     
         mypos = transform.position;
         playerpos = player.transform.position;
-        Vector3 diff = mypos - playerpos;
-        Vector3 blackvector = diff;
-
-        float distA = radius + (radius / 6);
-        float distB = radius + (radius / 10);
-
+        diff = mypos - playerpos;
       
-
-        if (blackvector.magnitude < distA && blackvector.magnitude > distB)
-        {
-            print("reached point A");
-            TimeatA = Time.time;
-            
-        }
-        if (blackvector.magnitude < distB && blackvector.magnitude > radius)
-        {
-            print("reached point B");
-            TimeatB = Time.time;
-        }
-
-        Debug.DrawLine(mypos, mypos-diff, Color.black);
+       // Debug.DrawLine(mypos, mypos-diff, Color.black);
     }
+
 
 
     void playerosgettingclosser() {
@@ -95,35 +71,47 @@ public class planetGravityScript : MonoBehaviour
         float distance = (transform.position - player.transform.position).magnitude;
         time_atDist = Time.time;
         if (distance < lastDist)
-        {
-           
+        {          
             speedtowardplanet = (distance - lastDist) / ( time_atLASTDist - time_atDist );
-
-            print("speed toward planet " + speedtowardplanet);
+          //  print("speed toward planet " + speedtowardplanet);
         }
         lastDist = distance;
         time_atLASTDist = time_atDist;
     }
 
 
-    void showplayerspeed() {
-       print( player.GetComponent<Rigidbody>().velocity);
 
-    }
+
+
+    float AngleOfShipRelativeToPlanet() {
+      
+     //  Debug.DrawLine(mypos, mypos - diff, Color.black);
+        Vector3 playerposVector = (player.transform.position - transform.position);
+        float angle = Vector3.Angle(playerposVector, player.transform.forward);
+     //   Debug.Log(angle);
+        return angle;
+   }
+
+
+
     void okpullfix()
     {
         mypos = transform.position;
         playerpos = player.transform.position;
         oppositplayer = (mypos - playerpos);
         GravitationalpullDirectionAndForce = mypos + (oppositplayer.normalized) * gravforce;
-        
 
-        if (Vector3.Distance(mypos, playerpos) < gravforce)
+
+        if (applyGravity)
         {
-            player.GetComponent<Rigidbody>().AddForce( (oppositplayer / (radius / 2)) *1.5f );
-           
+            if (Vector3.Distance(mypos, playerpos) < gravforce)
+            {
+                player.GetComponent<Rigidbody>().AddForce((oppositplayer / (radius / 2)) * 1.5f);
 
+
+            }
         }
+
 
 
         Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
@@ -131,6 +119,8 @@ public class planetGravityScript : MonoBehaviour
     }
     void OnCollisionEnter(Collision collider)
     {
+        if (AngleOfShipRelativeToPlanet() >10f   ) { Destroy(collider.gameObject); }
+
         if (collider.gameObject.tag == "playerTAG") {
             print("XXXXXcollision at speed" + speedtowardplanet);
             if (speedtowardplanet > 5f) {
@@ -138,6 +128,25 @@ public class planetGravityScript : MonoBehaviour
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     #region oldcode

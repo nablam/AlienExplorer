@@ -13,8 +13,7 @@ public class rosketVector : MonoBehaviour {
 
     void Start () {
         cf = GetComponent<ConstantForce>();
-        //print(transform.GetChild(1).name);
-        //print(transform.GetChild(0).name);
+       
 
         bottomcollider = transform.GetChild(0).GetComponent<BoxCollider>();
     }
@@ -22,7 +21,15 @@ public class rosketVector : MonoBehaviour {
  
 	void Update () {
  
-        normalcontrols(5,4);
+        normalcontrols(8,4);
+
+
+
+        //  var locVel = transform.InverseTransformDirection(GetComponent<Rigidbody>().velocity);
+        //  print("velo=" + transform.TransformDirection(locVel) );
+
+        print(cf.relativeForce);
+        //  Debug.DrawLine(transform.position, transform.position+(transform.forward*4) );
     }
 
   
@@ -65,10 +72,7 @@ public class rosketVector : MonoBehaviour {
         }
 
         this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-    }
-
-
-    
+    } 
 
     void OnCollisionEnter(Collision collider)
     {
