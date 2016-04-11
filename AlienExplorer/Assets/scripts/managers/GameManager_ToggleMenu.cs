@@ -8,6 +8,7 @@ namespace S3
         private GameManager_Master _gameManager;
         public GameObject menu;
         public GameObject InventoryButton;
+        
     
         void Start()
         {
@@ -23,13 +24,13 @@ namespace S3
         void OnEnable()
         {
             SetInitialReferences();
-            _gameManager.GameOverEvent += ToggleMenu;
+            _gameManager.GameOverEvent += ToggleMenu;    
         }
 
 
         void OnDisable()
         {
-            _gameManager.GameOverEvent -= ToggleMenu;
+            _gameManager.GameOverEvent -= ToggleMenu;          
         }
 
         void SetInitialReferences()
@@ -56,6 +57,8 @@ namespace S3
                 Debug.Log("need to assigne a ui GO to the toggle menuu script ");
             }
         }
+
+
 
     }
 

@@ -25,7 +25,7 @@ public class GM_GameOver : MonoBehaviour
         {
             if (panelGameOver != null)
             {
-                panelGameOver.SetActive(false);
+                panelGameOver.SetActive(true);
             }
         }
 

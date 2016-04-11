@@ -11,6 +11,7 @@ namespace S3
         public event GAmeManagerEventHandler RestartLevelEvent;
         public event GAmeManagerEventHandler InventoryUiToggle;
         public event GAmeManagerEventHandler GoToMenuScreenEvent;
+        public event GAmeManagerEventHandler playerAskedtoLand;
         public event GAmeManagerEventHandler playerLanded;
         public event GAmeManagerEventHandler playerTookOff;
         public event GAmeManagerEventHandler playerdied;
@@ -19,6 +20,10 @@ namespace S3
         public bool isGameOver;
         public bool isInvetoryUiOn;
         public bool isMenueOn;
+        public bool isAskedToLandl;
+        public bool isRoverMode;
+        public bool isRocketMode;
+        public bool isLanded;
 
         public void CAllEventMenueToggel()
         {
@@ -53,6 +58,15 @@ namespace S3
         }
 
 
+        public void CAllPlayerASkedToLand()
+        {
+            if (playerAskedtoLand != null)
+            {
+                playerAskedtoLand();
+            }
+        }
+
+
         public void CAllPlayerLanded()
         {
             if (playerLanded != null)
@@ -60,6 +74,7 @@ namespace S3
                 playerLanded();
             }
         }
+
 
         public void CAllGamePlayerTookOff()
         {

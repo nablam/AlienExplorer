@@ -7,13 +7,15 @@ namespace S3{
 
         private GameManager_Master _gammaster;
         private GameObject rocket;
-        // Use this for initialization
+
+        private rosketVector rv;
+        
         void Start()
         {
 
              
             rocket = GameObject.Find("rocketprefab");
-
+            rv = rocket.GetComponent<rosketVector>();
 
         }
 
@@ -22,9 +24,14 @@ namespace S3{
         {
             showplayerspeed();
 
+            if (rocket != null) {
 
-
-            transform.position = new Vector3(rocket.transform.position.x, rocket.transform.position.y, transform.position.z);
+                if (rv.rocketspeed != float.PositiveInfinity)
+                    transform.position = new Vector3(rocket.transform.position.x, rocket.transform.position.y, -45f - (Mathf.Abs(rv.rocketspeed * 2)));
+                else
+                    transform.position = new Vector3(rocket.transform.position.x, rocket.transform.position.y, transform.position.z + 0f);
+            }
+         
         }
 
 

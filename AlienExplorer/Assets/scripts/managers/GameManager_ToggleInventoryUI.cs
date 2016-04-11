@@ -39,6 +39,7 @@ namespace S3 {
                 toggleInventoryUI();
             }
         }
+
         void toggleInventoryUI() {
             if (inventoryUI != null) {
                 inventoryUI.SetActive(!inventoryUI.activeSelf);

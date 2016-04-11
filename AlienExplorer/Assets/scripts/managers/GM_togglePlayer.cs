@@ -35,6 +35,8 @@ namespace S3
                 androidActionController.SetActive(!androidActionController.activeSelf);
             }
         }
+
+
     }
 
 }

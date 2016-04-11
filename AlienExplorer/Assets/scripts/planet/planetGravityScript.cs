@@ -1,133 +1,143 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class planetGravityScript : MonoBehaviour
-{
 
-    public bool applyGravity;
-
-    private Color color = Color.green;
-
-    GameObject player;
-    Vector3 playerpos;
-    Vector3 mypos;
-    Vector3 oppositplayer;
-    Vector3 unitOposit;
-    Vector3 GravitationalpullDirectionAndForce;
-    float gravforce;
-
-    Vector3 oppositPlayerNormalizedFROM00;
-    float radius;
-
- 
-    float lastDist;
-
-    float time_atDist;
-    float time_atLASTDist;
-
-    float speedtowardplanet;
-
-    Vector3 diff;
-    void OnDrawGizmos() {
-        Gizmos.color = color;
-        Gizmos.DrawLine(Vector3.zero, transform.position);
-    }
-
-    void Start()
+namespace S3 {
+    public class planetGravityScript : MonoBehaviour
     {
-        lastDist = 0f;
-        speedtowardplanet = 0f;
-        time_atDist=0f;
-        time_atLASTDist=0f;
-        player = GameObject.Find("rocketprefab");
-        mypos = transform.position;
-        radius = transform.localScale.y / 2;
-        gravforce = radius * 3;
-    
-    }
 
+        public bool applyGravity;
 
-    void FixedUpdate()
-    {
-        okpullfix();
-        findplayerspeed();
-        playerosgettingclosser();
-        AngleOfShipRelativeToPlanet();
-    }
+        private Color color = Color.green;
 
+        GameObject player;
+        Vector3 playerpos;
+        Vector3 mypos;
+        Vector3 oppositplayer;
+        Vector3 unitOposit;
+        Vector3 GravitationalpullDirectionAndForce;
+        float gravforce;
 
-    void findplayerspeed() {     
-        mypos = transform.position;
-        playerpos = player.transform.position;
-        diff = mypos - playerpos;
-      
-       // Debug.DrawLine(mypos, mypos-diff, Color.black);
-    }
+        Vector3 oppositPlayerNormalizedFROM00;
+        float radius;
 
+        float lastDist_speedTOPlanet;
+        float time_atDist_speedTOPlanet;
+        float time_atLASTDist_speedTOPlanet;
+        float speedtowardplanet_seedTOPlanet;
+        Vector3 diff;
 
+        GameManager_Master _gameManager;
 
-    void playerosgettingclosser() {
-
-        float distance = (transform.position - player.transform.position).magnitude;
-        time_atDist = Time.time;
-        if (distance < lastDist)
-        {          
-            speedtowardplanet = (distance - lastDist) / ( time_atLASTDist - time_atDist );
-          //  print("speed toward planet " + speedtowardplanet);
-        }
-        lastDist = distance;
-        time_atLASTDist = time_atDist;
-    }
-
-
-
-
-
-    float AngleOfShipRelativeToPlanet() {
-      
-     //  Debug.DrawLine(mypos, mypos - diff, Color.black);
-        Vector3 playerposVector = (player.transform.position - transform.position);
-        float angle = Vector3.Angle(playerposVector, player.transform.forward);
-     //   Debug.Log(angle);
-        return angle;
-   }
-
-
-
-    void okpullfix()
-    {
-        mypos = transform.position;
-        playerpos = player.transform.position;
-        oppositplayer = (mypos - playerpos);
-        GravitationalpullDirectionAndForce = mypos + (oppositplayer.normalized) * gravforce;
-
-
-        if (applyGravity)
+        void OnDrawGizmos()
         {
-            if (Vector3.Distance(mypos, playerpos) < gravforce)
+            // _gameManager.CAllGameOverEvent();
+            Gizmos.color = color;
+            Gizmos.DrawLine(Vector3.zero, transform.position);
+        }
+
+        void Start()
+        {
+
+            _gameManager = GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
+            lastDist_speedTOPlanet = 0f;
+            speedtowardplanet_seedTOPlanet = 0f;
+
+            time_atDist_speedTOPlanet = 0f;
+            time_atLASTDist_speedTOPlanet = 0f;
+            player = GameObject.Find("rocketprefab");
+            mypos = transform.position;
+            radius = transform.localScale.y / 2;
+            gravforce = radius * 3;
+
+        }
+
+
+        void FixedUpdate()
+        {
+            okpullfix();
+            playerosgettingclosser();
+            AngleOfShipRelativeToPlanet();
+        }
+
+        void playerosgettingclosser()
+        {
+            if (player != null)
             {
-                player.GetComponent<Rigidbody>().AddForce((oppositplayer / (radius / 2)) * 1.5f);
+                float distance = (transform.position - player.transform.position).magnitude;
+                time_atDist_speedTOPlanet = Time.time;
+                if (distance < lastDist_speedTOPlanet)
+                {
+                    speedtowardplanet_seedTOPlanet = (distance - lastDist_speedTOPlanet) / (time_atLASTDist_speedTOPlanet - time_atDist_speedTOPlanet);
+                    //  print("speed toward planet " + speedtowardplanet);
+                }
+                lastDist_speedTOPlanet = distance;
+                time_atLASTDist_speedTOPlanet = time_atDist_speedTOPlanet;
+            }
+
+        }
+
+        float AngleOfShipRelativeToPlanet()
+        {
+            float angle = 0f;
+            if (player != null)
+            {
+                //Debug.DrawLine(mypos, mypos - diff, Color.black);
+                Vector3 playerposVector = (player.transform.position - transform.position);
+                angle = Vector3.Angle(playerposVector, player.transform.forward);
+            }
+            return angle;
+        }
 
 
+
+        void okpullfix()
+        {
+            if (player != null)
+            {
+
+                mypos = transform.position;
+                playerpos = player.transform.position;
+                oppositplayer = (mypos - playerpos);
+                GravitationalpullDirectionAndForce = mypos + (oppositplayer.normalized) * gravforce;
+
+
+                if (applyGravity)
+                {
+                    if (Vector3.Distance(mypos, playerpos) < gravforce)
+                    {
+                        player.GetComponent<Rigidbody>().AddForce((oppositplayer / (radius / 2)) * 1.5f);
+
+
+                    }
+                }
+
+                Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
+            }
+        }
+
+
+        void OnCollisionEnter(Collision collider)
+        {
+            if (AngleOfShipRelativeToPlanet() > 10f) { Destroy(collider.gameObject); }
+
+            if (collider.gameObject.tag == "playerTAG")
+            {
+                print("XXXXXcollision at speed" + speedtowardplanet_seedTOPlanet);
+                if (speedtowardplanet_seedTOPlanet > 5f)
+                {
+                    _gameManager.CAllGameOverEvent();
+                    Destroy(collider.gameObject);
+                }
+                else //landed properly
+                {
+                    _gameManager.CAllPlayerASkedToLand();
+                }
             }
         }
 
 
 
-        Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
-    //    Debug.DrawLine(mypos, playerpos, Color.yellow);
-    }
-    void OnCollisionEnter(Collision collider)
-    {
-        if (AngleOfShipRelativeToPlanet() >10f   ) { Destroy(collider.gameObject); }
-
-        if (collider.gameObject.tag == "playerTAG") {
-            print("XXXXXcollision at speed" + speedtowardplanet);
-            if (speedtowardplanet > 5f) {
-                Destroy(collider.gameObject);
-            }
-        }
-    }
 
 
 
@@ -146,100 +156,98 @@ public class planetGravityScript : MonoBehaviour
 
 
 
-
-
-
-    #region oldcode
+        #region oldcode
 
 
 
 
 
-    void okpull()
-    {
-        mypos = transform.position;
-        playerpos = player.transform.position;
-        oppositplayer = (mypos - playerpos);
-        GravitationalpullDirectionAndForce = mypos + (oppositplayer.normalized) * gravforce;
-        float g = GravitationalpullDirectionAndForce.magnitude;
+        //void okpull()
+        //{
+        //    mypos = transform.position;
+        //    playerpos = player.transform.position;
+        //    oppositplayer = (mypos - playerpos);
+        //    GravitationalpullDirectionAndForce = mypos + (oppositplayer.normalized) * gravforce;
+        //    float g = GravitationalpullDirectionAndForce.magnitude;
 
-        if (Vector3.Distance(mypos, playerpos) < gravforce)
-        {
-            player.GetComponent<Rigidbody>().AddForce(GravitationalpullDirectionAndForce/10);
-            Debug.Log(GravitationalpullDirectionAndForce);
-        }
+        //    if (Vector3.Distance(mypos, playerpos) < gravforce)
+        //    {
+        //        player.GetComponent<Rigidbody>().AddForce(GravitationalpullDirectionAndForce/10);
+        //        Debug.Log(GravitationalpullDirectionAndForce);
+        //    }
 
 
-        Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
-        Debug.DrawLine(mypos, playerpos, Color.yellow);
-    }
+        //    Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
+        //    Debug.DrawLine(mypos, playerpos, Color.yellow);
+        //}
 
-    void badpull2()
-    {
+        //void badpull2()
+        //{
 
-        Vector3 playerpos;
+        //    Vector3 playerpos;
 
-        Vector3 behind;
+        //    Vector3 behind;
 
-        Vector3 vtoplayer;
-        Vector3 rangeofaction;
-        playerpos = player.transform.position;
-        oppositplayer = mypos - playerpos;
-        oppositplayer.Normalize();
-        GravitationalpullDirectionAndForce = oppositplayer * radius * 3;
-        float g = GravitationalpullDirectionAndForce.magnitude;
-        vtoplayer = playerpos - mypos;
+        //    Vector3 vtoplayer;
+        //    Vector3 rangeofaction;
+        //    playerpos = player.transform.position;
+        //    oppositplayer = mypos - playerpos;
+        //    oppositplayer.Normalize();
+        //    GravitationalpullDirectionAndForce = oppositplayer * radius * 3;
+        //    float g = GravitationalpullDirectionAndForce.magnitude;
+        //    vtoplayer = playerpos - mypos;
 
-        //  print(vtoplayer.magnitude);
+        //    //  print(vtoplayer.magnitude);
 
-        if (vtoplayer.magnitude < g)
-        {
+        //    if (vtoplayer.magnitude < g)
+        //    {
 
-            player.GetComponent<Rigidbody>().AddForce(GravitationalpullDirectionAndForce / (radius * 2f));
+        //        player.GetComponent<Rigidbody>().AddForce(GravitationalpullDirectionAndForce / (radius * 2f));
 
-        }
+        //    }
 
-        Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
-        Debug.DrawLine(mypos, playerpos, Color.yellow);
+        //    Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
+        //    Debug.DrawLine(mypos, playerpos, Color.yellow);
 
-    }
+        //}
 
-    void badpull()
-    {
+        //void badpull()
+        //{
 
-        Vector3 playerpos;
-      
-        Vector3 behind;
+        //    Vector3 playerpos;
 
-        Vector3 vtoplayer;
-        Vector3 rangeofaction;
-        playerpos = player.transform.position;
-        oppositplayer = mypos - playerpos;
-        oppositplayer.Normalize();
-        GravitationalpullDirectionAndForce = oppositplayer * radius * 3  ;
-        float g = GravitationalpullDirectionAndForce.magnitude;
-        vtoplayer = playerpos - mypos;
+        //    Vector3 behind;
 
-        //  print(vtoplayer.magnitude);
+        //    Vector3 vtoplayer;
+        //    Vector3 rangeofaction;
+        //    playerpos = player.transform.position;
+        //    oppositplayer = mypos - playerpos;
+        //    oppositplayer.Normalize();
+        //    GravitationalpullDirectionAndForce = oppositplayer * radius * 3  ;
+        //    float g = GravitationalpullDirectionAndForce.magnitude;
+        //    vtoplayer = playerpos - mypos;
 
-        if (vtoplayer.magnitude < g)
-        {
+        //    //  print(vtoplayer.magnitude);
 
-            player.GetComponent<Rigidbody>().AddForce(GravitationalpullDirectionAndForce / (radius*2f));
+        //    if (vtoplayer.magnitude < g)
+        //    {
 
-        }
+        //        player.GetComponent<Rigidbody>().AddForce(GravitationalpullDirectionAndForce / (radius*2f));
 
-        Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
-        Debug.DrawLine(mypos, playerpos, Color.yellow);
+        //    }
+
+        //    Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
+        //    Debug.DrawLine(mypos, playerpos, Color.yellow);
+
+        //}
+
+
+        //void OnCollisionEnter(Collision collider)
+        //{
+        //    print(collider.gameObject.tag);
+        //}
+        #endregion
 
     }
-
-
-    //void OnCollisionEnter(Collision collider)
-    //{
-    //    print(collider.gameObject.tag);
-    //}
-    #endregion
 
 }
-
