@@ -42,33 +42,15 @@ namespace S3{
                         transform.position = new Vector3(rocket.transform.position.x, rocket.transform.position.y, transform.position.z + 0f);
                 }
             }
-
             else
-
-
              if (_gammaster.isRoverMode)
             {
                 if (roverref != null)
                 {
-
-                   
-                    // roverref.transform.parent = this.transform;
-                      transform.position = new Vector3(roverref.transform.position.x, roverref.transform.position.y, transform.position.z + 0f);
-                    //  transform.rotation = new Quaternion( 0 ,0, roverref.transform.rotation.y, 0);// transform.rotation.w);
-
-                     float therot = (roverref.transform.eulerAngles.x -270 ) % 360;
-                    transform.rotation = Quaternion.Euler(0,  0, therot);
-                    // transform.eulerAngles =  new Vector3(0,0, therot);
-
-                    //Debug.Log(transform.rotation + "  " +" "+ roverref.transform.rotation+ " " + transform.eulerAngles + " "+ roverref.transform.rotation.eulerAngles);
-
+                    transform.position = new Vector3(roverref.transform.position.x, roverref.transform.position.y, transform.position.z + 0f);
+                    transform.localRotation = new Quaternion(0,  0, -roverref.transform.localRotation.y, roverref.transform.localRotation.w );
                 }
             }
-
-
-
-
-
         }
 
 
