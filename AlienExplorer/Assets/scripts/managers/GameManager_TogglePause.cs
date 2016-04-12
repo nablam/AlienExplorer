@@ -13,6 +13,7 @@ namespace S3
             _gameManager.MenueToggelEvent += TogglePause; //if this event happens, pausetoggle fires
             _gameManager.InventoryUiToggle += TogglePause;
             _gameManager.playerAskedtoLand += TogglePause;
+            _gameManager.playerAskedtoTakeOff += TogglePause;
         }
 
 
@@ -21,6 +22,7 @@ namespace S3
             _gameManager.MenueToggelEvent -= TogglePause;
             _gameManager.InventoryUiToggle -= TogglePause;
             _gameManager.playerAskedtoLand -= TogglePause;
+            _gameManager.playerAskedtoTakeOff -= TogglePause;
         }
 
         void SetInitialReferences() {

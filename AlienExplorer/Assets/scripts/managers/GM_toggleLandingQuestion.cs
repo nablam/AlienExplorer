@@ -55,6 +55,7 @@ namespace S3 {
                 _gameManager.GetComponent<GameManager_TogglePause>().DoPublicTogglePause();
                 _gameManager.isRocketMode = true;
                 _gameManager.isRoverMode = false;
+               
             }
 
 

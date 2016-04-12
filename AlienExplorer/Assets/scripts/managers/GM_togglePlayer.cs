@@ -36,15 +36,19 @@ namespace S3
             if (_gameManager.isRocketMode) {
                 if (androidActionController != null)
                 {
-                    androidActionController.SetActive(!androidActionController.activeSelf);
+                    // androidActionController.SetActive(!androidActionController.activeSelf);
+                    androidActionController.SetActive(true);
+                    androidROVERActionController.SetActive(false);
                 }
             }
             else
-                  if (_gameManager.isRoverMode)
+            if (_gameManager.isRoverMode)
             {
                 if (androidROVERActionController != null)
                 {
-                    androidROVERActionController.SetActive(!androidROVERActionController.activeSelf);
+                    // androidROVERActionController.SetActive(!androidROVERActionController.activeSelf);
+                    androidActionController.SetActive(false);
+                    androidROVERActionController.SetActive(true);
                 }
             }
         }

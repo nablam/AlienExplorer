@@ -26,6 +26,8 @@ namespace S3{
             roverref = rocket.transform.GetChild(0).gameObject;
             RScript = roverref.GetComponent<Rover_Script>();
 
+            t = 0;
+
         }
 
         // Update is called once per frame
@@ -47,12 +49,28 @@ namespace S3{
             {
                 if (roverref != null)
                 {
-                    transform.position = new Vector3(roverref.transform.position.x, roverref.transform.position.y, transform.position.z + 0f);
-                    transform.localRotation = new Quaternion(0,  0, -roverref.transform.localRotation.y, roverref.transform.localRotation.w );
+                    followrover();// StartCoroutine("camfix");
+
                 }
             }
         }
 
+        float t;
+        IEnumerator camfix() {
+
+            Quaternion start = transform.rotation;
+            Quaternion end = roverref.transform.localRotation;
+            t += 0.1f;
+          //  transform.rotation = Quaternion.Slerp(start,end ,t );
+            yield return new WaitForSeconds(2f);
+            followrover();
+        }
+
+        void followrover()
+        {
+            transform.position = new Vector3(roverref.transform.position.x, roverref.transform.position.y, transform.position.z + 0f);
+            transform.localRotation = new Quaternion(0, 0, -roverref.transform.localRotation.y, roverref.transform.localRotation.w);
+        }
 
         void showplayerspeed()
         {

@@ -136,7 +136,7 @@ namespace S3 {
             //else
             if (collider.gameObject.tag == "playerTAG")
             {
-                print("XXXXXcollision at speed" + speedtowardplanet_seedTOPlanet);
+               // print("XXXXXcollision at speed" + speedtowardplanet_seedTOPlanet);
                 if (speedtowardplanet_seedTOPlanet > 5f || AngleOfShipRelativeToPlanet() > 9f)
                 {
                     _gameManager.CAllGameOverEvent();
