@@ -29,6 +29,9 @@ namespace S3 {
 
         GameManager_Master _gameManager;
 
+        GameObject roverref;
+        Rover_Script RScript;
+        
         void OnDrawGizmos()
         {
             // _gameManager.CAllGameOverEvent();
@@ -46,9 +49,15 @@ namespace S3 {
             time_atDist_speedTOPlanet = 0f;
             time_atLASTDist_speedTOPlanet = 0f;
             player = GameObject.Find("rocketprefab");
+
+           
             mypos = transform.position;
             radius = transform.localScale.y / 2;
             gravforce = radius * 3;
+
+            roverref = player.transform.GetChild(0).gameObject;
+            RScript = roverref.GetComponent<Rover_Script>();
+
 
         }
 
@@ -57,7 +66,7 @@ namespace S3 {
         {
             okpullfix();
             playerosgettingclosser();
-            AngleOfShipRelativeToPlanet();
+           //print( "angl  " +AngleOfShipRelativeToPlanet());
         }
 
         void playerosgettingclosser()
@@ -117,14 +126,18 @@ namespace S3 {
         }
 
 
+        void setCurplanetToRover() {
+            RScript.setCurPlanet(this.gameObject);
+        }
+
         void OnCollisionEnter(Collision collider)
         {
-            if (AngleOfShipRelativeToPlanet() > 10f) { Destroy(collider.gameObject); }
-
+            //if (AngleOfShipRelativeToPlanet() > 9f) { Destroy(collider.gameObject); }
+            //else
             if (collider.gameObject.tag == "playerTAG")
             {
                 print("XXXXXcollision at speed" + speedtowardplanet_seedTOPlanet);
-                if (speedtowardplanet_seedTOPlanet > 5f)
+                if (speedtowardplanet_seedTOPlanet > 5f || AngleOfShipRelativeToPlanet() > 9f)
                 {
                     _gameManager.CAllGameOverEvent();
                     Destroy(collider.gameObject);
@@ -132,6 +145,9 @@ namespace S3 {
                 else //landed properly
                 {
                     _gameManager.CAllPlayerASkedToLand();
+                    setCurplanetToRover();
+
+               
                 }
             }
         }

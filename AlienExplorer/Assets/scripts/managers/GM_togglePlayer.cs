@@ -8,12 +8,14 @@ namespace S3
     {
         private GameManager_Master _gameManager;
         public GameObject androidActionController;
+        public GameObject androidROVERActionController;
 
         void OnEnable()
         {
             SetInitialReferences();
             _gameManager.MenueToggelEvent += TogglePlayerControl;
             _gameManager.InventoryUiToggle += TogglePlayerControl;
+            _gameManager.ChangeModeEvent += TogglePlayerControl;
         }
 
 
@@ -21,6 +23,7 @@ namespace S3
         {
             _gameManager.MenueToggelEvent -= TogglePlayerControl;
             _gameManager.InventoryUiToggle -= TogglePlayerControl;
+            _gameManager.ChangeModeEvent -= TogglePlayerControl;
         }
 
         void SetInitialReferences()
@@ -30,9 +33,19 @@ namespace S3
 
         void TogglePlayerControl()
         {
-            if (androidActionController != null)
+            if (_gameManager.isRocketMode) {
+                if (androidActionController != null)
+                {
+                    androidActionController.SetActive(!androidActionController.activeSelf);
+                }
+            }
+            else
+                  if (_gameManager.isRoverMode)
             {
-                androidActionController.SetActive(!androidActionController.activeSelf);
+                if (androidROVERActionController != null)
+                {
+                    androidROVERActionController.SetActive(!androidROVERActionController.activeSelf);
+                }
             }
         }
 

@@ -22,7 +22,7 @@ namespace S3 {
 
             if (CrossPlatformInputManager.GetButton("OnButtonYes"))
             {
-                _gameManager.CAllPlayerLanded();
+                //_gameManager.CAllPlayerLanded();
             }
             else
            if (CrossPlatformInputManager.GetButton("OnButtonNo"))

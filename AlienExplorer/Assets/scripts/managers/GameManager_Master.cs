@@ -12,7 +12,7 @@ namespace S3
         public event GAmeManagerEventHandler InventoryUiToggle;
         public event GAmeManagerEventHandler GoToMenuScreenEvent;
         public event GAmeManagerEventHandler playerAskedtoLand;
-        public event GAmeManagerEventHandler playerLanded;
+        public event GAmeManagerEventHandler ChangeModeEvent;
         public event GAmeManagerEventHandler playerTookOff;
         public event GAmeManagerEventHandler playerdied;
         public event GAmeManagerEventHandler GameOverEvent;
@@ -67,11 +67,11 @@ namespace S3
         }
 
 
-        public void CAllPlayerLanded()
+        public void CAllChangeMode()
         {
-            if (playerLanded != null)
+            if (ChangeModeEvent != null)
             {
-                playerLanded();
+                ChangeModeEvent();
             }
         }
 
