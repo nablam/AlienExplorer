@@ -11,7 +11,7 @@ namespace S3 {
 
         GameManager_Master _gameManager;
         public GameObject curplanet;
-        public float movespeed = 10f;
+        public float movespeed = 20f;
         private Vector3 moveDir;
         ConstantForce cf;
         GameObject player;
@@ -28,10 +28,10 @@ namespace S3 {
         {
             if (_gameManager.isRoverMode)
             {
-                //AndroidControls();
-                PCsontrols();
-
-                DoJump();
+                AndroidControls();            
+                DoJumpAndroid();
+                // PCsontrols();
+                // DoJumpPC();
             }
         }
 
@@ -58,14 +58,14 @@ namespace S3 {
 
             if (CrossPlatformInputManager.GetButton("OnButtonRightRover"))
             {
-                if (curplanet != null) { transform.RotateAround(curplanet.transform.position, curplanet.transform.forward, -Time.deltaTime * 10); }
+                if (curplanet != null) { transform.RotateAround(curplanet.transform.position, curplanet.transform.forward, -Time.deltaTime * movespeed); }
             }
 
 
 
             if (CrossPlatformInputManager.GetButton("OnButtonLeftRover"))
             {
-                if (curplanet != null) { transform.RotateAround(curplanet.transform.position, curplanet.transform.forward, Time.deltaTime * 10); }
+                if (curplanet != null) { transform.RotateAround(curplanet.transform.position, curplanet.transform.forward, Time.deltaTime * movespeed); }
 
             }
 
@@ -104,14 +104,14 @@ namespace S3 {
 
             if (Input.GetKey("right"))
             {
-                if (curplanet != null) { transform.RotateAround(curplanet.transform.position, curplanet.transform.forward, -Time.deltaTime * 10); }
+                if (curplanet != null) { transform.RotateAround(curplanet.transform.position, curplanet.transform.forward, -Time.deltaTime * movespeed); }
             }
 
 
 
             if (Input.GetKey("left"))
             {
-                if (curplanet != null) { transform.RotateAround(curplanet.transform.position, curplanet.transform.forward, Time.deltaTime * 10); }
+                if (curplanet != null) { transform.RotateAround(curplanet.transform.position, curplanet.transform.forward, Time.deltaTime * movespeed); }
 
             }
         }
@@ -126,21 +126,10 @@ namespace S3 {
 
         public bool isgroundedIguess;
 
-        void DoJump()
+        void DoJumpPC()
         {
 
             if (curplanet != null) {
-
-                //float rad= curplanet.GetComponent<planetGravityScript>().getRadius();             
-                // Vector3 diff = transform.position - curplanet.transform.position;
-                // float distOfgroundtocenter = rad + 0.5f;
-                // float mydistfromcenter = diff.magnitude;
-                //    print("planet's radius" + rad  + "dist from center = " + mydistfromcenter);
-
-                //     if (mydistfromcenter> distOfgroundtocenter-0.2f) isgroundedIguess = false;
-                //    else
-                //       isgroundedIguess = true;
-
 
                 if (isgroundedIguess && Input.GetKey("up"))
                 {                                    
@@ -151,6 +140,30 @@ namespace S3 {
 
                else
                if(!isgroundedIguess)
+                {
+                    transform.Translate(Vector3.back * 5 * Time.deltaTime);
+                }
+            }
+        }
+
+
+
+
+        void DoJumpAndroid()
+        {
+
+            if (curplanet != null)
+            {
+
+                if (isgroundedIguess && CrossPlatformInputManager.GetButton("OnButtonJump"))
+                {
+                    transform.Translate(Vector3.forward * 10 * Time.deltaTime);
+                    /*Starts Ienumerator jump*/
+                    StartCoroutine("jump");
+                }
+
+                else
+               if (!isgroundedIguess)
                 {
                     transform.Translate(Vector3.back * 5 * Time.deltaTime);
                 }

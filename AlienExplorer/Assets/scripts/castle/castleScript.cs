@@ -10,7 +10,9 @@ public class castleScript : MonoBehaviour {
 	void Start () {
         alienPath = "Alien_Land/Alien1";
 
-        MakeOneALien();
+
+
+        StartCoroutine("dofor5seconds");
     }
 	void Update () {
 	
@@ -22,4 +24,14 @@ public class castleScript : MonoBehaviour {
     }
 
     public void setMyplanetCenterAndRadius(Vector3 center, float radius) { myplanetCenter = center; myplanetRadius = radius; }
+
+
+    IEnumerator dofor5seconds() {
+        InvokeRepeating("MakeOneALien", 0, 4);
+        yield return new WaitForSeconds(12);
+        CancelInvoke("MakeOneALien");
+    }
+   
+
+
 }

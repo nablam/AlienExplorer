@@ -75,8 +75,8 @@ namespace S3 {
         {
             if (_gameManager.isRocketMode)
             {
-                normalcontrols(10, 4);
-                // androidcontrols(10, 4);
+               // normalcontrols(10, 4);
+                 androidcontrols(10, 4);
                 rocketspeed = transform.InverseTransformDirection(rb.velocity).z;
 
                 //  var locVel = transform.InverseTransformDirection(GetComponent<Rigidbody>().velocity);

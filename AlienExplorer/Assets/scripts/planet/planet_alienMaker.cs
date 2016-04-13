@@ -58,7 +58,31 @@ namespace S3
             {
                 Vector3 diff1 = (transform.position - player.transform.position);
                 Vector3 castleplace = dooppositline();
-                castlego = Instantiate(Resources.Load(castlepath), castleplace,  Quaternion.LookRotation(diff1)) as GameObject;
+                Vector3 Zaxis =   Vector3.Cross(castleplace, Vector3.forward);
+
+                // castlego = Instantiate(Resources.Load(castlepath), castleplace, Quaternion.LookRotation(diff1)) as GameObject;
+
+
+                castlego = Instantiate(Resources.Load(castlepath)) as GameObject;
+                castlego.transform.position = castleplace;
+                castlego.transform.rotation = Quaternion.LookRotation(diff1, Vector3.up );
+
+
+                //  castlego.transform.right = Vector3.forward;  //my red x going deep 
+
+
+
+                //    castlego.transform.forward = diff1;
+
+                //  castlego.transform.eulerAngles = new Vector3(diff1.x, diff1.y, 1);
+
+
+                //  castlego.transform.up= diff1;
+                //      castlego.transform.forward = diff1;
+
+                // castlego = Instantiate(Resources.Load(castlepath), castleplace, Quaternion.LookRotation(diff1, Zaxis)) as GameObject;
+
+
                 castlego.GetComponent<castleScript>().setMyplanetCenterAndRadius(this.transform.position, GetComponent<planetGravityScript>().getRadius() );
             }
         }

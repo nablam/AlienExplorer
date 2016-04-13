@@ -10,6 +10,7 @@ TagManager:
   - enemylandTAG
   - planetTAG
   - playerbottomTAG
+  - missileTAG
   layers:
   - Default
   - TransparentFX
