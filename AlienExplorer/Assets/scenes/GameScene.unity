@@ -511,7 +511,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -20}
-  m_SizeDelta: {x: 500, y: 40}
+  m_SizeDelta: {x: 400, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &368177027
 MonoBehaviour:
@@ -532,7 +532,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 100, y: 40}
+  m_CellSize: {x: 80, y: 40}
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -1228,6 +1228,27 @@ CanvasRenderer:
 GameObject:
   m_PrefabParentObject: {fileID: 169480, guid: 8f4d9c3f588224c4485bf47400d85d85, type: 2}
   m_PrefabInternal: {fileID: 808758893}
+--- !u!114 &1036256467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1036256466}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0.21
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
 --- !u!1001 &1058997848
 Prefab:
   m_ObjectHideFlags: 0
@@ -1267,26 +1288,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 11465092, guid: 75d751cf03f7add4d9d775981622c1ca, type: 2}
-      propertyPath: roverText
-      value: 
-      objectReference: {fileID: 1624922177}
     - target: {fileID: 11428928, guid: 75d751cf03f7add4d9d775981622c1ca, type: 2}
       propertyPath: healthText
       value: 
       objectReference: {fileID: 1086101072}
-    - target: {fileID: 475164, guid: 75d751cf03f7add4d9d775981622c1ca, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 475164, guid: 75d751cf03f7add4d9d775981622c1ca, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 475164, guid: 75d751cf03f7add4d9d775981622c1ca, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 2.47
-      objectReference: {fileID: 0}
+    - target: {fileID: 11465092, guid: 75d751cf03f7add4d9d775981622c1ca, type: 2}
+      propertyPath: roverText
+      value: 
+      objectReference: {fileID: 1624922177}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 75d751cf03f7add4d9d775981622c1ca, type: 2}
   m_IsPrefabParent: 0
@@ -2113,6 +2122,10 @@ Prefab:
     - target: {fileID: 2318978, guid: c2b038832838c6c438ec665a6b68a7c5, type: 2}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11402124, guid: c2b038832838c6c438ec665a6b68a7c5, type: 2}
+      propertyPath: strength
+      value: 2.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c2b038832838c6c438ec665a6b68a7c5, type: 2}

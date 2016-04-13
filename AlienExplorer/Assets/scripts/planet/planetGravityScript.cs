@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+//when planet radius is 100 and its strength is 2.2 and rocket speed is 10 
+//it gets a bit cool as you have to swing around the planet to escape its grip on ya ;)
 
 namespace S3 {
     public class planetGravityScript : MonoBehaviour
@@ -26,6 +27,7 @@ namespace S3 {
         float time_atLASTDist_speedTOPlanet;
         float speedtowardplanet_seedTOPlanet;
         Vector3 diff;
+        public float strength=1.5f;
 
         GameManager_Master _gameManager;
 
@@ -43,7 +45,7 @@ namespace S3 {
 
         void Start()
         {
-
+            
             _gameManager = GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
             lastDist_speedTOPlanet = 0f;
             speedtowardplanet_seedTOPlanet = 0f;
@@ -55,7 +57,7 @@ namespace S3 {
            
             mypos = transform.position;
             radius = transform.localScale.y / 2;
-            gravforce = radius * 2;
+            gravforce = radius * 2.5f;
 
          //   roverref = player.transform.GetChild(0).gameObject;
           //  RScript = roverref.GetComponent<Rover_Script>();
@@ -117,7 +119,7 @@ namespace S3 {
                 {
                     if (Vector3.Distance(mypos, playerpos) < gravforce)
                     {
-                        player.GetComponent<Rigidbody>().AddForce((oppositplayer / (radius / 2)) * 1.5f);
+                        player.GetComponent<Rigidbody>().AddForce((oppositplayer / (radius / 2)) * strength);
 
 
                     }

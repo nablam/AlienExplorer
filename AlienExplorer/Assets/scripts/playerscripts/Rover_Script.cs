@@ -143,35 +143,23 @@ namespace S3 {
 
 
                 if (isgroundedIguess && Input.GetKey("up"))
-                {
-                    
-                   
+                {                                    
                         transform.Translate(Vector3.forward * 10 * Time.deltaTime);
                         /*Starts Ienumerator jump*/
-                        StartCoroutine("jump");
-                      
-               
-
+                        StartCoroutine("jump");                                   
                 }
 
                else
                if(!isgroundedIguess)
                 {
-
                     transform.Translate(Vector3.back * 5 * Time.deltaTime);
-
                 }
-
-
-
-
             }
-
         }
         IEnumerator jump()
         {
             yield return new WaitForSeconds(1f);
-            
+            isgroundedIguess = false;
         }
         IEnumerator goup() {
 
