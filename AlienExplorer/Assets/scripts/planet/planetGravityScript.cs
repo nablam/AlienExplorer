@@ -29,8 +29,10 @@ namespace S3 {
 
         GameManager_Master _gameManager;
 
-        GameObject roverref;
-        Rover_Script RScript;
+        // GameObject roverref;
+        // Rover_Script RScript;
+
+        public float getRadius() { return radius; }
         
         void OnDrawGizmos()
         {
@@ -53,10 +55,10 @@ namespace S3 {
            
             mypos = transform.position;
             radius = transform.localScale.y / 2;
-            gravforce = radius * 3;
+            gravforce = radius * 2;
 
-            roverref = player.transform.GetChild(0).gameObject;
-            RScript = roverref.GetComponent<Rover_Script>();
+         //   roverref = player.transform.GetChild(0).gameObject;
+          //  RScript = roverref.GetComponent<Rover_Script>();
 
 
         }
@@ -126,14 +128,13 @@ namespace S3 {
         }
 
 
-        void setCurplanetToRover() {
-            RScript.setCurPlanet(this.gameObject);
-        }
+        //void setCurplanetToRover() {
+        //    RScript.setCurPlanet(this.gameObject);
+        //}
 
         void OnCollisionEnter(Collision collider)
         {
-            //if (AngleOfShipRelativeToPlanet() > 9f) { Destroy(collider.gameObject); }
-            //else
+          
             if (collider.gameObject.tag == "playerTAG")
             {
                // print("XXXXXcollision at speed" + speedtowardplanet_seedTOPlanet);
@@ -145,7 +146,7 @@ namespace S3 {
                 else //landed properly
                 {
                     _gameManager.CAllPlayerASkedToLand();
-                    setCurplanetToRover();
+                    //setCurplanetToRover();
 
                
                 }

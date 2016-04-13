@@ -58,14 +58,14 @@ namespace S3 {
             if (playerHEalth >= 100)
             {
                 playerHEalth = 100;
-                _gameManager.CAllGameOverEvent();
+                
             }
             setUI();
 
         }
         void setUI() {
             if (healthText != null) {
-                healthText.text = playerHEalth.ToString();
+                healthText.text = "health= "+playerHEalth.ToString();
             }
         }
     }

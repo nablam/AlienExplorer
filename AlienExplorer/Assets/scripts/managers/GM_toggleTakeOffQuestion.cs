@@ -10,6 +10,8 @@ namespace S3
 
 
         private GameManager_Master _gameManager;
+
+        private Player_Master _playerMaster;
         void OnEnable()
         {
             SetInitialReferences();
@@ -25,6 +27,7 @@ namespace S3
         void SetInitialReferences()
         {
             _gameManager = GetComponent<GameManager_Master>();
+            _playerMaster = GameObject.Find("rocketprefab").GetComponent<Player_Master>();
         }
 
         void ToggleQuestionUI()
@@ -55,13 +58,16 @@ namespace S3
             { 
                 ToggleQuestionUI();
                 _gameManager.GetComponent<GameManager_TogglePause>().DoPublicTogglePause();
-                
+
+                _playerMaster.CALLEventGarageRover();
 
                 _gameManager.isRocketMode = true;
                 _gameManager.isRoverMode = false;
 
-               // _gameManager.isAskedToTakeOff = false;
+               
+                // _gameManager.isAskedToTakeOff = false;
                 _gameManager.CAllChangeMode();
+
 
             }
             else

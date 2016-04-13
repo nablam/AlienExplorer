@@ -8,31 +8,89 @@ namespace S3{
         private GameManager_Master _gammaster;
         private GameObject rocket;
 
-        private rosketVector rv;
+        private rocketVector rv;
+        private Player_Master _playermaster;
 
-        GameObject roverref;
-        Rover_Script RScript;
+
+         public GameObject roverref;
+        //   Rover_Script RScript;
+
+
+
+        void OnEnable()
+        {
+            SetInitialReferences();
+            _playermaster.EventCreateRover += findCreatedRover;
+            _playermaster.EventGarageRover += forgetCreatedRover;
+        }
+
+        void findCreatedRover() { roverref = GameObject.Find("rover1(Clone)"); }
+        void forgetCreatedRover() { roverref = null; }
+
+        void OnDisable()
+        {
+            _playermaster.EventCreateRover -= findCreatedRover;
+            _playermaster.EventGarageRover -= forgetCreatedRover;
+        }
+
+        void SetInitialReferences()
+        {
+            _gammaster = GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
+            rocket = GameObject.Find("rocketprefab");
+            rv = rocket.GetComponent<rocketVector>();
+            _playermaster = rocket.GetComponent<Player_Master>();
+            //  roverref = rocket.transform.GetChild(0).gameObject;
+            //  RScript = roverref.GetComponent<Rover_Script>();
+            t = 0;
+        }
+
 
         void Start()
         {
-            _gammaster = GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>(); 
-
-            rocket = GameObject.Find("rocketprefab");
-            rv = rocket.GetComponent<rosketVector>();
-
-
-
-
-            roverref = rocket.transform.GetChild(0).gameObject;
-            RScript = roverref.GetComponent<Rover_Script>();
-
-            t = 0;
+         
 
         }
 
         // Update is called once per frame
         void Update()
         {
+            foccusRocket();
+            foccusRover();
+
+        }
+
+
+        void foccusRocket() {
+            if (_gammaster.isRocketMode)
+            {
+                if (rocket != null)
+                {
+
+                    if (rv.rocketspeed != float.PositiveInfinity)
+                        transform.position = new Vector3(rocket.transform.position.x, rocket.transform.position.y, -45f - (Mathf.Abs(rv.rocketspeed * 2)));
+                    else
+                        transform.position = new Vector3(rocket.transform.position.x, rocket.transform.position.y, transform.position.z + 0f);
+                }
+            }
+        }
+
+
+        void foccusRover() {
+            if (_gammaster.isRoverMode)
+            {
+                if (roverref == null) { findCreatedRover(); }
+                followrover();
+            }
+        }
+
+
+        void followrover()
+        {
+            transform.position = new Vector3(roverref.transform.position.x, roverref.transform.position.y, transform.position.z + 0f);
+            transform.localRotation = new Quaternion(0, 0, -roverref.transform.localRotation.y, roverref.transform.localRotation.w);
+        }
+
+        void oldWayofFocussingOnRocketOrRover() {
             if (_gammaster.isRocketMode)
             {
                 if (rocket != null)
@@ -45,32 +103,32 @@ namespace S3{
                 }
             }
             else
-             if (_gammaster.isRoverMode)
+            if (_gammaster.isRoverMode)
             {
-                if (roverref != null)
-                {
-                    followrover();// StartCoroutine("camfix");
+                //if (roverref != null)
+                //{
+                //    followrover(); 
 
-                }
+                //}
             }
         }
 
         float t;
-        IEnumerator camfix() {
+        //IEnumerator camfix() {
 
-            Quaternion start = transform.rotation;
-            Quaternion end = roverref.transform.localRotation;
-            t += 0.1f;
-          //  transform.rotation = Quaternion.Slerp(start,end ,t );
-            yield return new WaitForSeconds(2f);
-            followrover();
-        }
+        //    Quaternion start = transform.rotation;
+        //    Quaternion end = roverref.transform.localRotation;
+        //    t += 0.1f;
+        //  //  transform.rotation = Quaternion.Slerp(start,end ,t );
+        //    yield return new WaitForSeconds(2f);
+        //    followrover();
+        //}
 
-        void followrover()
-        {
-            transform.position = new Vector3(roverref.transform.position.x, roverref.transform.position.y, transform.position.z + 0f);
-            transform.localRotation = new Quaternion(0, 0, -roverref.transform.localRotation.y, roverref.transform.localRotation.w);
-        }
+        //void followrover()
+        //{
+        //    transform.position = new Vector3(roverref.transform.position.x, roverref.transform.position.y, transform.position.z + 0f);
+        //    transform.localRotation = new Quaternion(0, 0, -roverref.transform.localRotation.y, roverref.transform.localRotation.w);
+        //}
 
         void showplayerspeed()
         {

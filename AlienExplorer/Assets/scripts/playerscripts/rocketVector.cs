@@ -4,39 +4,71 @@ using UnityStandardAssets.CrossPlatformInput;
 
 
 namespace S3 {
-    public class rosketVector : MonoBehaviour
+    public class rocketVector : MonoBehaviour
     {
 
         ConstantForce cf;
-
-
         float moveCtrl;
         float moveSpeed = 60f;
-
-
-
         Vector3 shipPos_Last;
         public float rocketspeed = 0f;
         float timebackthere;
         float timenow;
-
         Rigidbody rb;
         private GameManager_Master _gameManager;
+        private Player_Master _playerMaster;
 
-        void Awake() { rocketspeed = 0f; }
+        private GameObject _rover;
+        private GameObject spawnPointForRover;
 
-        void Start()
+        private GameObject planetITouched;
+
+
+
+        //void Awake() { }
+
+        //void Start()
+        //{
+
+        //}
+
+        void OnEnable()
         {
+
+            spawnPointForRover = transform.GetChild(0).gameObject as GameObject;
+            rocketspeed = 0f;
+
             rb = GetComponent<Rigidbody>();
             timebackthere = 0f;
             shipPos_Last = transform.position;
             cf = GetComponent<ConstantForce>();
 
+            _playerMaster = GetComponent<Player_Master>();
             _gameManager = GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
-
             _gameManager.isRocketMode = true;
 
-    }
+            _playerMaster.EventCreateRover += popARoverinTheWorld;
+            _playerMaster.EventGarageRover += garageARoverOutofTheWorld;
+            _gameManager.isAskedToTakeOff = true;
+        }
+        void OnDisable()
+        {
+            _playerMaster.EventCreateRover -= popARoverinTheWorld;
+            _playerMaster.EventGarageRover -= garageARoverOutofTheWorld;
+        }
+
+        void popARoverinTheWorld() {
+          //  print("pop a rover");
+            _rover= Instantiate(Resources.Load("Rover_Resource/rover1"), spawnPointForRover.transform.position, spawnPointForRover.transform.rotation) as GameObject;
+            _rover.GetComponent<Rover_Script>().setCurPlanet(planetITouched);
+        }
+
+        void garageARoverOutofTheWorld()
+        {
+            Destroy(_rover);  
+        }
+
+
 
 
         void Update()
@@ -55,8 +87,6 @@ namespace S3 {
                 //  getmyspeed();
             }
         }
-
-
 
         void getmyspeed()
         {
@@ -160,18 +190,11 @@ namespace S3 {
 
 
             this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            planetITouched = collider.gameObject;
             // print(this.gameObject.GetComponent<Rigidbody>().velocity);
         }
 
 
     }
 }
-
-
-//    if (Input.GetKey("left"))  {}
-//    if (Input.GetKey("right"))  {}
-
-//if (Input.GetKey("up"))  {}
-//if (Input.GetKey("down"))  {}
-
 

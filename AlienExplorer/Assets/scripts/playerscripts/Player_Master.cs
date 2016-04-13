@@ -17,6 +17,16 @@ namespace S3 {
         public event PlayerHealthEventHAndler EventPlayerHEalthDown;
         public event PlayerHealthEventHAndler EventPlayerHEalthUp;
 
+
+        public delegate void PlayerRoversEventHandler();
+        public event PlayerRoversEventHandler EventPlayerLostaRover;
+        public event PlayerRoversEventHandler EventPlayerGainedaRover;
+        public event PlayerRoversEventHandler EventCreateRover;
+        public event PlayerRoversEventHandler EventGarageRover;
+
+
+
+
         //methods to call
         public void CALLEventInventoryChanged() { if (EventInventoryChanged != null) { EventInventoryChanged(); } }
 
@@ -27,5 +37,10 @@ namespace S3 {
         public void CALLEventPlayerHealthDown(int x) { if (EventPlayerHEalthDown != null) { EventPlayerHEalthDown(x); } }
         public void CALLEventPlayerHealthup(int x) { if (EventPlayerHEalthUp != null) { EventPlayerHEalthUp(x); } }
 
+
+        public void CALLEventPlayerLostRover() { if (EventPlayerLostaRover != null) { EventPlayerLostaRover(); } }
+        public void CALLEventPlayerGainedRover() { if (EventPlayerGainedaRover != null) { EventPlayerGainedaRover(); } }
+        public void CALLEventCreateRover() { if (EventCreateRover != null) { EventCreateRover(); } }
+        public void CALLEventGarageRover() { if (EventGarageRover != null) { EventGarageRover(); } }
     }
 }

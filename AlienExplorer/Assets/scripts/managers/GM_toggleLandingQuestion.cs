@@ -8,10 +8,13 @@ namespace S3 {
         public GameObject GuestionUi;
 
         private GameManager_Master _gameManager;
+        private Player_Master _playerMaster;
+
         void OnEnable()
         {
             SetInitialReferences();
             _gameManager.playerAskedtoLand += ToggleQuestionUI;
+
 
         }
 
@@ -23,6 +26,10 @@ namespace S3 {
         void SetInitialReferences()
         {
             _gameManager = GetComponent<GameManager_Master>();
+
+            _playerMaster =  GameObject.Find("rocketprefab").GetComponent<Player_Master>();
+
+
         }
 
         void ToggleQuestionUI() {
@@ -38,6 +45,7 @@ namespace S3 {
 
             if (CrossPlatformInputManager.GetButtonUp("OnButtonYes"))
             {
+                _playerMaster.CALLEventCreateRover();
                 //GameObject.Find("rocketprefab").GetComponent<BoxCollider>().enabled = false;
                 ToggleQuestionUI();
                 _gameManager.GetComponent<GameManager_TogglePause>().DoPublicTogglePause();
@@ -47,6 +55,8 @@ namespace S3 {
                 _gameManager.isRoverMode = true;
 
                 _gameManager.CAllChangeMode();
+               
+
             }
             else
            if (CrossPlatformInputManager.GetButtonUp("OnButtonNo"))
