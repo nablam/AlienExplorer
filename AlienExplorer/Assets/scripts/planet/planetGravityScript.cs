@@ -125,7 +125,7 @@ namespace S3 {
                     }
                 }
 
-                Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
+               // Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
             }
         }
 
@@ -133,6 +133,9 @@ namespace S3 {
         //void setCurplanetToRover() {
         //    RScript.setCurPlanet(this.gameObject);
         //}
+
+
+        public bool playerLandedOnMe;
 
         void OnCollisionEnter(Collision collider)
         {
@@ -147,11 +150,26 @@ namespace S3 {
                 }
                 else //landed properly
                 {
-                    _gameManager.CAllPlayerASkedToLand();
+                    playerLandedOnMe = true;
+                    _gameManager.CAllPlayerASkedToLand();                    
                     //setCurplanetToRover();
-
-               
                 }
+            }
+
+
+
+        }
+
+
+
+        void OnCollisionExit(Collision collider)
+        {
+
+            if (collider.gameObject.tag == "playerTAG")
+            {
+            
+                    playerLandedOnMe = false;
+                
             }
         }
 

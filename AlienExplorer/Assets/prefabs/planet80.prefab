@@ -12,6 +12,7 @@ GameObject:
   - 135: {fileID: 13540654}
   - 23: {fileID: 2318978}
   - 114: {fileID: 11402124}
+  - 114: {fileID: 11489076}
   m_Layer: 0
   m_Name: planet80
   m_TagString: planetTAG
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   applyGravity: 1
+  strength: 1.5
+  playerLandedOnMe: 0
+--- !u!114 &11489076
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 116390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d8cf0841f70b16438df33076399ae35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &13540654
 SphereCollider:
   m_ObjectHideFlags: 1
