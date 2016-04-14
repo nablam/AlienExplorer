@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
-namespace S3
+namespace nabspace
 {
     public class GameManager_ToggleMenu : MonoBehaviour
     {
@@ -42,6 +42,7 @@ namespace S3
         {
             if (CrossPlatformInputManager.GetButtonUp("OnButtonEscape")  && !_gameManager.isGameOver && !_gameManager.isInvetoryUiOn) {
                 ToggleMenu();
+                print("escape");
             }
         }
 

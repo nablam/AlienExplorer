@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-namespace S3{
+namespace nabspace{
 public class GM_GameOver : MonoBehaviour
 {
     private GameManager_Master _gameManager;

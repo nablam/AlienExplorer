@@ -3,7 +3,7 @@ using System.Collections;
 //when planet radius is 100 and its strength is 2.2 and rocket speed is 10 
 //it gets a bit cool as you have to swing around the planet to escape its grip on ya ;)
 
-namespace S3 {
+namespace nabspace {
     public class planetGravityScript : MonoBehaviour
     {
 
@@ -31,8 +31,8 @@ namespace S3 {
 
         GameManager_Master _gameManager;
 
-        // GameObject roverref;
-        // Rover_Script RScript;
+          //GameObject roverref;
+         // RoverOuterShellScript ROScript;
 
         public float getRadius() { return radius; }
         
@@ -59,7 +59,7 @@ namespace S3 {
             radius = transform.localScale.y / 2;
             gravforce = radius * 2.5f;
 
-         //   roverref = player.transform.GetChild(0).gameObject;
+           //roverref = player.transform.GetChild(0).gameObject;
           //  RScript = roverref.GetComponent<Rover_Script>();
 
 
@@ -153,6 +153,8 @@ namespace S3 {
                     playerLandedOnMe = true;
                     _gameManager.CAllPlayerASkedToLand();                    
                     //setCurplanetToRover();
+
+                
                 }
             }
 

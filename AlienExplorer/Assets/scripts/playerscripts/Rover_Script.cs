@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 
-namespace S3 {
+namespace nabspace {
 
 
     public class Rover_Script : MonoBehaviour
@@ -16,60 +16,73 @@ namespace S3 {
         ConstantForce cf;
         GameObject player;
 
+        bool goingright;
+
         void Start()
         {
             player = GameObject.Find("rocketprefab");
             _gameManager = GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
             cf = GetComponent<ConstantForce>();
+            goingright = true;
         }
 
+
+        void facetherightway() {
+            //  print(transform.localEulerAngles.x + " " + transform.localEulerAngles.y + " " + transform.localEulerAngles.z);
+
+          //  print(transform.eulerAngles);
+            if (!goingright) {
+                // transform.rotation = Quaternion.Euler(180f, 0,0);
+                transform.eulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 90);
+
+            }
+         else
+                transform.eulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 270);
+            //  transform.rotation = Quaternion.Euler(0, 0, 0, Space.Self);
+            //  transform.eulerAngles = new  Vector3(0, 0, 0);
+
+
+        }
 
         void Update()
         {
             if (_gameManager.isRoverMode)
             {
-                AndroidControls();            
-                DoJumpAndroid();
-                // PCsontrols();
-                // DoJumpPC();
+              //  AndroidControls();            
+              //  DoJumpAndroid();
+
+                 PCsontrols();
+                 DoJumpPC();
+
+                facetherightway();
             }
         }
 
         public void setCurPlanet(GameObject go) { curplanet = go; }
 
-        void AndroidControls() {
+        //void AndroidControls() {
+        //    triggerAskTotakeoff();
+        //    if (curplanet != null)
+        //    {
+        //        Vector3 diff = curplanet.transform.position - transform.position;
+        //        Debug.DrawLine(transform.position, transform.position + diff, Color.blue);
+        //        Vector3 myup = transform.position - curplanet.transform.position;
+        //        Debug.DrawLine(transform.position, transform.position + (myup.normalized * 2), Color.black);
+        //    }
 
+        //    if (CrossPlatformInputManager.GetButton("OnButtonRightRover"))
+        //    {
+        //        if (curplanet != null) { transform.RotateAround(curplanet.transform.position, curplanet.transform.forward, -Time.deltaTime * movespeed); }
+        //    }
 
-            triggerAskTotakeoff();
+        //    if (CrossPlatformInputManager.GetButton("OnButtonLeftRover"))
+        //    {
+        //        if (curplanet != null) { transform.RotateAround(curplanet.transform.position, curplanet.transform.forward, Time.deltaTime * movespeed); }
 
+        //    }
+        //}
 
-            if (curplanet != null)
-            {
-                Vector3 diff = curplanet.transform.position - transform.position;
-
-                Debug.DrawLine(transform.position, transform.position + diff, Color.blue);
-
-
-                Vector3 myup = transform.position - curplanet.transform.position;
-                Debug.DrawLine(transform.position, transform.position + (myup.normalized * 2), Color.black);
-
-
-            }
-
-            if (CrossPlatformInputManager.GetButton("OnButtonRightRover"))
-            {
-                if (curplanet != null) { transform.RotateAround(curplanet.transform.position, curplanet.transform.forward, -Time.deltaTime * movespeed); }
-            }
-
-
-
-            if (CrossPlatformInputManager.GetButton("OnButtonLeftRover"))
-            {
-                if (curplanet != null) { transform.RotateAround(curplanet.transform.position, curplanet.transform.forward, Time.deltaTime * movespeed); }
-
-            }
-
-        }
+        bool goingRight = true;
 
         void PCsontrols() {
 
@@ -104,13 +117,21 @@ namespace S3 {
 
             if (Input.GetKey("right"))
             {
+
+                goingright = true;
+
                 if (curplanet != null) { transform.RotateAround(curplanet.transform.position, curplanet.transform.forward, -Time.deltaTime * movespeed); }
+
             }
 
 
 
             if (Input.GetKey("left"))
             {
+
+
+
+                goingright = false;
                 if (curplanet != null) { transform.RotateAround(curplanet.transform.position, curplanet.transform.forward, Time.deltaTime * movespeed); }
 
             }

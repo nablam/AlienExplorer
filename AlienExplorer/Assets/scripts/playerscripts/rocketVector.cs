@@ -3,7 +3,7 @@ using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 
 
-namespace S3 {
+namespace nabspace {
     public class rocketVector : MonoBehaviour
     {
 
@@ -60,7 +60,7 @@ namespace S3 {
         void popARoverinTheWorld() {
           //  print("pop a rover");
             _rover= Instantiate(Resources.Load("Rover_Resource/rover1"), spawnPointForRover.transform.position, spawnPointForRover.transform.rotation) as GameObject;
-            _rover.GetComponent<Rover_Script>().setCurPlanet(planetITouched);
+            _rover.GetComponent<RoverOuterShellScript>().setCurPlanetOUTERSHELL(planetITouched);
         }
 
         void garageARoverOutofTheWorld()
@@ -75,16 +75,12 @@ namespace S3 {
         {
             if (_gameManager.isRocketMode)
             {
-               // normalcontrols(10, 4);
-                 androidcontrols(10, 4);
+                if(_gameManager.useAndroidControls) androidcontrols(10, 4);
+                else
+                normalcontrols(10, 4);
+           
                 rocketspeed = transform.InverseTransformDirection(rb.velocity).z;
 
-                //  var locVel = transform.InverseTransformDirection(GetComponent<Rigidbody>().velocity);
-                //  print("velo=" + transform.TransformDirection(locVel) );
-
-                // print(cf.relativeForce);
-                //  Debug.DrawLine(transform.position, transform.position+(transform.forward*4) );
-                //  getmyspeed();
             }
         }
 

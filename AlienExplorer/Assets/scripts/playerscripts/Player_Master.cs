@@ -2,7 +2,7 @@
 using System.Collections;
 
 
-namespace S3 {
+namespace nabspace {
     public class Player_Master : MonoBehaviour
     {
 

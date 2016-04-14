@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 
-namespace S3
+namespace nabspace
 {
     public class GM_toggleTakeOffQuestion : MonoBehaviour
     {

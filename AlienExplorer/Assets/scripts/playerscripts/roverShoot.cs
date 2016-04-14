@@ -3,7 +3,7 @@ using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 
 
-namespace S3 {
+namespace nabspace {
 
 
     public class roverShoot : MonoBehaviour
@@ -49,8 +49,8 @@ namespace S3 {
         // Update is called once per frame
         void Update()
         {
-            //PCshoot();
-             androidshoot();
+            PCshoot();
+            // androidshoot();
         }
     }
 }

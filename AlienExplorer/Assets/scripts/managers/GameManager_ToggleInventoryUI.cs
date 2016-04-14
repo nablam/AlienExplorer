@@ -3,7 +3,7 @@ using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 
 //vid 36
-namespace S3 {
+namespace nabspace {
     public class GameManager_ToggleInventoryUI : MonoBehaviour
     {
 

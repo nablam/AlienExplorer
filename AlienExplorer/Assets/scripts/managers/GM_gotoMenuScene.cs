@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-namespace S3 {
+namespace nabspace {
     public class GM_gotoMenuScene : MonoBehaviour
     {
 

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-namespace S3{
+namespace nabspace{
 
     public class camerascript1 : MonoBehaviour
     {
@@ -86,8 +86,9 @@ namespace S3{
 
         void followrover()
         {
-            transform.position = new Vector3(roverref.transform.position.x, roverref.transform.position.y, transform.position.z + 0f);
+             transform.position = new Vector3(roverref.transform.position.x, roverref.transform.position.y, transform.position.z + 0f);
             transform.localRotation = new Quaternion(0, 0, -roverref.transform.localRotation.y, roverref.transform.localRotation.w);
+          //  roverref.transform.parent = this.transform;
         }
 
         void oldWayofFocussingOnRocketOrRover() {

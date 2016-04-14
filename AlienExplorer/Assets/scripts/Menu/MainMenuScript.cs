@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-namespace S3 {
+namespace nabspace {
     public class MainMenuScript : MonoBehaviour
     {
 

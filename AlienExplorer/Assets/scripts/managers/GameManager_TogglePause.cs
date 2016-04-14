@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-namespace S3
+namespace nabspace
 {
     public class GameManager_TogglePause : MonoBehaviour
     {

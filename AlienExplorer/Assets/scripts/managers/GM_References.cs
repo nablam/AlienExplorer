@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace S3 {
+namespace nabspace {
     public class GM_References : MonoBehaviour
     {
         public string playerTagref;

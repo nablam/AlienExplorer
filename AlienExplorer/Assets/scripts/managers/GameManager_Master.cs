@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace S3
+namespace nabspace
 {
     public class GameManager_Master : MonoBehaviour
     {
@@ -26,6 +26,8 @@ namespace S3
         public bool isRoverMode;
         public bool isRocketMode;
         public bool isLanded;
+        public bool what;
+        public bool useAndroidControls;
 
         public void CAllEventMenueToggel()
         {
