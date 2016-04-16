@@ -62,7 +62,6 @@ namespace nabspace {
            //roverref = player.transform.GetChild(0).gameObject;
           //  RScript = roverref.GetComponent<Rover_Script>();
 
-
         }
 
 
@@ -70,7 +69,7 @@ namespace nabspace {
         {
             okpullfix();
             playerosgettingclosser();
-           //print( "angl  " +AngleOfShipRelativeToPlanet());
+        
         }
 
         void playerosgettingclosser()
@@ -108,20 +107,15 @@ namespace nabspace {
         {
             if (player != null)
             {
-
                 mypos = transform.position;
                 playerpos = player.transform.position;
                 oppositplayer = (mypos - playerpos);
                 GravitationalpullDirectionAndForce = mypos + (oppositplayer.normalized) * gravforce;
-
-
                 if (applyGravity)
                 {
                     if (Vector3.Distance(mypos, playerpos) < gravforce)
                     {
                         player.GetComponent<Rigidbody>().AddForce((oppositplayer / (radius / 2)) * strength);
-
-
                     }
                 }
 
@@ -158,6 +152,11 @@ namespace nabspace {
                 }
             }
 
+
+            if (collider.gameObject.tag == "enemyshipTAG") {
+                print("enemy collision");
+                Destroy(collider.gameObject);
+            }
 
 
         }

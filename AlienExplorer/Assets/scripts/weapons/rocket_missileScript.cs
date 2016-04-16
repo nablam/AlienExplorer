@@ -6,6 +6,7 @@ public class rocket_missileScript : MonoBehaviour {
     Transform playertrans;
     Vector3 playerpos;
 
+
 	void Start () {
 
         playertrans = GameObject.Find("rocketprefab").transform;
@@ -23,15 +24,35 @@ public class rocket_missileScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        playerpos = playertrans.position;
-        //  transform.Translate(transform.forward * Time.deltaTime);
-        transform.Translate(Vector3.forward * Time.deltaTime*speed, Space.Self);       
-        checkdestroyByDistance();
+        if (playertrans != null)
+        {
+            playerpos = playertrans.position;
+            //  transform.Translate(transform.forward * Time.deltaTime);
+            transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.Self);
+            checkdestroyByDistance();
+        }
+
     }
 
 
     void checkdestroyByDistance() {
 
         if (distToRocket() > 100f) Destroy(gameObject);
+    }
+
+
+
+    void OnCollisionEnter(Collision collider)
+    {
+
+        if (collider.gameObject.tag == "enemyshipTAG")
+        {        
+            Destroy(collider.gameObject);
+        }
+        if (collider.gameObject.tag == "enemylandTAG")
+        {
+            Destroy(collider.gameObject);
+        }
+
     }
 }
