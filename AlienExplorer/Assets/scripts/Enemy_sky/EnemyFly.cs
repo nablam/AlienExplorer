@@ -1,15 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyFly : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+namespace nabspace {
+
+    public class EnemyFly : MonoBehaviour
+    {
+        GameManager_Master _gameManager;
+
+        void Awake()
+        {
+            _gameManager = GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
+        }
+
+
+   
+
+        void OnCollisionEnter(Collision collider)
+        {
+            if (collider.gameObject.tag == "missileTAG")
+            {
+                _gameManager.CAllEnemyDied(this.gameObject);
+                Destroy(gameObject);
+            }
+        }
+    }
+
 }

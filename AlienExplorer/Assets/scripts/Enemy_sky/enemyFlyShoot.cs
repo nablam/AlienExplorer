@@ -19,7 +19,7 @@ namespace nabspace
         // Update is called once per frame
         void Update()
         {
-            if(efdp.AGRO) spawnmissile();
+         //   if(efdp.AGRO) spawnmissile();
              
         }
 

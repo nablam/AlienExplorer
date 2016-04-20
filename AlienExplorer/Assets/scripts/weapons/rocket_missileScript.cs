@@ -45,14 +45,16 @@ public class rocket_missileScript : MonoBehaviour {
     void OnCollisionEnter(Collision collider)
     {
 
-        if (collider.gameObject.tag == "enemyshipTAG")
-        {        
-            Destroy(collider.gameObject);
-        }
-        if (collider.gameObject.tag == "enemylandTAG")
-        {
-            Destroy(collider.gameObject);
-        }
+        Destroy(gameObject);
+
+        //if (collider.gameObject.tag == "enemyshipTAG")
+        //{        
+        //    Destroy(collider.gameObject);
+        //}
+        //if (collider.gameObject.tag == "enemylandTAG")
+        //{
+        //    Destroy(collider.gameObject);
+        //}
 
     }
 }

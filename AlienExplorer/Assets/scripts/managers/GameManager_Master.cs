@@ -18,6 +18,13 @@ namespace nabspace
         public event GAmeManagerEventHandler playerdied;
         public event GAmeManagerEventHandler GameOverEvent;
 
+
+        public delegate void EnemyManagerEventHandler(GameObject thisenemy);
+        public event EnemyManagerEventHandler EnemyHasDied;
+   
+
+
+
         public bool isGameOver;
         public bool isInvetoryUiOn;
         public bool isMenueOn;
@@ -28,6 +35,17 @@ namespace nabspace
         public bool isLanded;
         public bool what;
         public bool useAndroidControls;
+
+
+
+
+        public void CAllEnemyDied(GameObject thisGuy)
+        {
+            if (EnemyHasDied != null)
+            {
+                EnemyHasDied(thisGuy);
+            }
+        }
 
         public void CAllEventMenueToggel()
         {

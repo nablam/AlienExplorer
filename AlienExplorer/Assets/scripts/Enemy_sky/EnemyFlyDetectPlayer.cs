@@ -11,6 +11,7 @@ namespace nabspace {
         Vector3 initialposition;
         Vector3 curplayerpos;
         float mindistanceTotriggerattack = 100f;
+        float speed = 2;
 
         public bool AGRO;
         void Start()
@@ -76,7 +77,7 @@ namespace nabspace {
         void moveForward() {
 
 
-           transform.position += transform.forward * 10 * Time.deltaTime;
+           transform.position += transform.forward * speed * Time.deltaTime;
         }
 
 

@@ -16,8 +16,9 @@ namespace nabspace{
         //   Rover_Script RScript;
 
 
-        float minDistFromShip = 80f;
+        float minDistFromShip = 60f;
         float mindistFromRover = 50f;
+        float distanceFormshipFactor = 5f;
 
 
         void OnEnable()
@@ -70,7 +71,7 @@ namespace nabspace{
                 {
 
                     if (rv.rocketspeed != float.PositiveInfinity)
-                        transform.position = new Vector3(rocket.transform.position.x, rocket.transform.position.y, -minDistFromShip - (Mathf.Abs(rv.rocketspeed * 20)));
+                        transform.position = new Vector3(rocket.transform.position.x, rocket.transform.position.y, -minDistFromShip - (Mathf.Abs(rv.rocketspeed * distanceFormshipFactor)));
                     else
                         transform.position = new Vector3(rocket.transform.position.x, rocket.transform.position.y, transform.position.z + 0f);
                 }
