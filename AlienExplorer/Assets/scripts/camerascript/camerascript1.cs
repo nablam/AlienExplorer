@@ -17,9 +17,13 @@ namespace nabspace{
 
 
         float minDistFromShip = 60f;
+        float maxDistFRomShip = 220f;
         float mindistFromRover = 50f;
         float distanceFormshipFactor = 5f;
+        float fraction;
 
+        Vector3 initialCameraPositionAbovPlayer;
+        Vector3 finalCameraPositionAbovePlayer;
 
         void OnEnable()
         {
@@ -46,25 +50,69 @@ namespace nabspace{
             //  roverref = rocket.transform.GetChild(0).gameObject;
             //  RScript = roverref.GetComponent<Rover_Script>();
             t = 0;
+
+        //    initialCameraPositionAbovPlayer = new Vector3(rocket.transform.position.x, rocket.transform.position.y, minDistFromShip);
+         //   finalCameraPositionAbovePlayer = new Vector3(rocket.transform.position.x, rocket.transform.position.y, maxDistFRomShip);
+         //   transform.position = initialCameraPositionAbovPlayer;
         }
 
 
         void Start()
         {
-         
 
+           fraction = 0f;
         }
 
         // Update is called once per frame
         void Update()
         {
-            foccusRocket();
+            foccusRocketlerp();
             foccusRover();
 
         }
 
+        void foccusRocketlerp()
+        {
+            if (_gammaster.isRocketMode)
+            {
+                if (rocket != null)
+                {
+                    //    if(rv.ismoving) transform.position = Vector3.Lerp( new Vector3(rocket.transform.position.x, rocket.transform.position.y, rocket.transform.position.z- minDistFromShip) , new Vector3(rocket.transform.position.x, rocket.transform.position.y, rocket.transform.position.z - maxDistFRomShip), 10*Time.deltaTime);
+                    //     else
+                    //        transform.position = Vector3.Lerp(new Vector3(rocket.transform.position.x, rocket.transform.position.y, rocket.transform.position.z - maxDistFRomShip), new Vector3(rocket.transform.position.x, rocket.transform.position.y, rocket.transform.position.z - minDistFromShip), distanceFormshipFactor);
 
-        void foccusRocket() {
+
+                    //if (rv.ismoving) transform.position = new Vector3(rocket.transform.position.x, rocket.transform.position.y, rocket.transform.position.z - maxDistFRomShip );
+                    //else
+                    //    transform.position = new Vector3(rocket.transform.position.x, rocket.transform.position.y, rocket.transform.position.z - minDistFromShip);
+                    doslowup();
+                }
+            }
+        }
+
+
+        float maxdisd = 200f;
+        float mindist = 60f;
+        float cnt = 0;
+        void doslowup() {
+
+
+            if (rv.ismoving)
+            {
+                cnt++;
+                if (cnt > maxdisd) cnt = maxdisd;
+                transform.position = new Vector3(rocket.transform.position.x, rocket.transform.position.y, rocket.transform.position.z - cnt);
+            }
+            else
+            {
+                cnt--;
+                if (cnt < mindist) cnt=mindist ;
+                transform.position = new Vector3(rocket.transform.position.x, rocket.transform.position.y, rocket.transform.position.z - cnt);
+            }
+               
+        }
+
+            void foccusRocket1() {
             if (_gammaster.isRocketMode)
             {
                 if (rocket != null)

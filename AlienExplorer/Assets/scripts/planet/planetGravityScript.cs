@@ -31,8 +31,10 @@ namespace nabspace {
 
         GameManager_Master _gameManager;
 
-          //GameObject roverref;
-         // RoverOuterShellScript ROScript;
+        EnemyGeneratorScript egs;
+ 
+
+
 
         public float getRadius() { return radius; }
         
@@ -45,7 +47,7 @@ namespace nabspace {
 
         void Start()
         {
-            
+            egs = GameObject.Find("EnemyANDplanetGenerator").GetComponent<EnemyGeneratorScript>(); 
             _gameManager = GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
             lastDist_speedTOPlanet = 0f;
             speedtowardplanet_seedTOPlanet = 0f;
@@ -68,6 +70,7 @@ namespace nabspace {
         void FixedUpdate()
         {
             okpullfix();
+            okpullEnemyfix();
             playerosgettingclosser();
         
         }
@@ -124,6 +127,32 @@ namespace nabspace {
         }
 
 
+
+        void okpullEnemyfix()
+        {
+            if (egs != null)
+            {
+                mypos = transform.position;
+                foreach (GameObject go in egs.listofbadies) {
+                    Vector3 opositenemy = mypos - go.transform.position;
+                    if (applyGravity)
+                    {
+                        if (Vector3.Distance(mypos, go.transform.position) < gravforce)
+                        {
+                            go.transform.GetComponent<Rigidbody>().AddForce((opositenemy / (radius / 2)) * strength);
+                        }
+                    }
+                }
+
+       
+           
+               
+
+                // Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
+            }
+        }
+
+
         //void setCurplanetToRover() {
         //    RScript.setCurPlanet(this.gameObject);
         //}
@@ -155,6 +184,7 @@ namespace nabspace {
 
             if (collider.gameObject.tag == "enemyshipTAG") {
                 print("enemy collision");
+                _gameManager.CAllEnemyDied(collider.gameObject);
                 Destroy(collider.gameObject);
             }
 

@@ -10,8 +10,9 @@ namespace nabspace {
         GameManager_Master _gameManager;
         Vector3 initialposition;
         Vector3 curplayerpos;
-        float mindistanceTotriggerattack = 100f;
-        float speed = 2;
+        float mindistanceTotriggerattack = 200f;
+        float enemyshipForwardSpeed = 12f;
+        float enemyshipRotationSpeed = 10f;
 
         public bool AGRO;
         void Start()
@@ -66,18 +67,18 @@ namespace nabspace {
 
 
         void facePlayer() {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position, Vector3.back), 1 * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position, Vector3.back), enemyshipRotationSpeed * Time.deltaTime);
         }
 
         void faceThisPOsition(Vector3 here)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(here - transform.position, Vector3.back), 1 * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(here - transform.position, Vector3.back), enemyshipRotationSpeed * Time.deltaTime);
         }
 
         void moveForward() {
 
 
-           transform.position += transform.forward * speed * Time.deltaTime;
+           transform.position += transform.forward * enemyshipForwardSpeed * Time.deltaTime;
         }
 
 

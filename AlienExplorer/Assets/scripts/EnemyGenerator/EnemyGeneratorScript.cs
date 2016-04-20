@@ -30,12 +30,24 @@ namespace nabspace {
             player = GameObject.Find("rocketprefab");
             pathtoenemy = "EnemySkyResources/SkyEnemy1";
             listofbadies = new List<GameObject>();
-            for (int x = 0; x < 5; x++)
+            for (int x = 1; x < 5; x++)
             {
-                GameObject go = Instantiate(Resources.Load(pathtoenemy), new Vector3(-248, 100*x ,0),  transform.rotation ) as GameObject;
+                GameObject go = Instantiate(Resources.Load(pathtoenemy), new Vector3(-400, 100*x ,0),  transform.rotation ) as GameObject;
                 listofbadies.Add(go);
             }
 
+            for (int x = 0; x < 5; x++)
+            {
+                GameObject go = Instantiate(Resources.Load(pathtoenemy), new Vector3(400, 100 * x, 0), transform.rotation) as GameObject;
+                listofbadies.Add(go);
+            }
+       
+
+            for (int x = 0; x < 5; x++)
+            {
+                GameObject go = Instantiate(Resources.Load(pathtoenemy), new Vector3(-400, -100 * x, 0), transform.rotation) as GameObject;
+                listofbadies.Add(go);
+            }
         }
         void TakeOutThisEnemy(GameObject go) {
           

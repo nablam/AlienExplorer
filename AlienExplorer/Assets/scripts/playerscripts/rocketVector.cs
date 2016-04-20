@@ -23,7 +23,9 @@ namespace nabspace {
 
         private GameObject planetITouched;
 
-
+        float shipspeed = 18f;
+        float shiprotationspeed = 6f;
+        public bool ismoving = false;
 
         //void Awake() { }
 
@@ -75,9 +77,9 @@ namespace nabspace {
         {
             if (_gameManager.isRocketMode)
             {
-                if(_gameManager.useAndroidControls) androidcontrols(10, 4);
+                if(_gameManager.useAndroidControls) androidcontrols(shipspeed, shiprotationspeed);
                 else
-                normalcontrols(10, 4);
+                normalcontrols(shipspeed, shiprotationspeed);
            
                 rocketspeed = transform.InverseTransformDirection(rb.velocity).z;
 
@@ -100,9 +102,11 @@ namespace nabspace {
         void normalcontrols(float forwardValue, float rotationValue)
         {
             cf.relativeForce = new Vector3(0f, 0f, 0f);
+            ismoving = false;
 
             if (Input.GetKey("up"))
             {
+                ismoving = true;
                 cf.relativeForce = new Vector3(0f, 0f, forwardValue);
             }
 
@@ -142,8 +146,10 @@ namespace nabspace {
         {
             cf.relativeForce = new Vector3(0f, 0f, 0f);
 
+            ismoving = false;
             if (CrossPlatformInputManager.GetButton("OnButtonBoost"))
             {
+                ismoving = true;
                 cf.relativeForce = new Vector3(0f, 0f, forwardValue);
             }
 
@@ -184,9 +190,12 @@ namespace nabspace {
         void OnCollisionEnter(Collision collider)
         {
 
-
-            this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            planetITouched = collider.gameObject;
+            if (collider.gameObject.tag != "enemymissileTAG")
+            {
+                this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                planetITouched = collider.gameObject;
+            }
+    
             // print(this.gameObject.GetComponent<Rigidbody>().velocity);
         }
 
