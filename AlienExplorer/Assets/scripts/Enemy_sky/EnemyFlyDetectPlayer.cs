@@ -14,9 +14,12 @@ namespace nabspace {
         float enemyshipForwardSpeed = 12f;
         float enemyshipRotationSpeed = 10f;
 
+
+        ConstantForce cf;
         public bool AGRO;
         void Start()
         {
+            cf = GetComponent<ConstantForce>();
             AGRO = false;
             initialposition = transform.position;
             player = GameObject.Find("rocketprefab");
@@ -77,8 +80,8 @@ namespace nabspace {
 
         void moveForward() {
 
-
-           transform.position += transform.forward * enemyshipForwardSpeed * Time.deltaTime;
+            cf.relativeForce = new Vector3(0f, 0f, enemyshipForwardSpeed);
+            // transform.position += transform.forward * enemyshipForwardSpeed * Time.deltaTime;
         }
 
 

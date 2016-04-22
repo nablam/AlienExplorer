@@ -37,7 +37,7 @@ namespace nabspace
         {
             counter++;
             if(counter >= 200) {
-                print(" PEWWWWW");
+              //  print(" PEWWWWW");
                 counter = 0;
 
                 GameObject go = Instantiate(Resources.Load(EnemyMissilepath), cannon.transform.position, cannon.transform.rotation) as GameObject;

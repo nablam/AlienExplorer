@@ -121,6 +121,7 @@ namespace nabspace
         {
             if (GameOverEvent != null)
             {
+                isGameOver = true;
                 GameOverEvent();
             }
         }

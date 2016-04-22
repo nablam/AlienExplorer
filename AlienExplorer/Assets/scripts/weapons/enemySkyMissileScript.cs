@@ -7,11 +7,19 @@ namespace nabspace {
     {
 
         Player_Master pm;
+        GameManager_Master gm;
         float enemyrocketspeed = 100;
         void Start()
         {
-            pm = GameObject.Find("rocketprefab").GetComponent<Player_Master>();
-            StartCoroutine("killmissilein5seconds");
+            
+
+            gm= GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
+            if (!gm.isGameOver)
+            {
+                pm = GameObject.Find("rocketprefab").GetComponent<Player_Master>();
+                StartCoroutine("killmissilein5seconds");
+            }
+          
         }
 
         // Update is called once per frame
@@ -27,24 +35,24 @@ namespace nabspace {
             Destroy(gameObject);
         }
 
-        //void OnTriggerEnter(Collider other)
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.tag == "playerTAG")
+            {
+                pm.CALLEventPlayerHealthDown(1);
+                Destroy(this.gameObject);
+
+            }
+        }
+
+        //void OnCollisionEnter(Collision collider)
         //{
-        //    if (other.gameObject.tag == "playerTAG")
+        //    if (collider.gameObject.tag == "playerTAG")
         //    {
         //        pm.CALLEventPlayerHealthDown(10);
         //        Destroy(this.gameObject);
-               
         //    }
         //}
-
-        void OnCollisionEnter(Collision collider)
-        {
-            if (collider.gameObject.tag == "playerTAG")
-            {
-                pm.CALLEventPlayerHealthDown(10);
-                Destroy(this.gameObject);
-            }
-        }
 
     }
 }

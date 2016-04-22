@@ -17,7 +17,7 @@ namespace nabspace {
         Vector3 oppositplayer;
         Vector3 unitOposit;
         Vector3 GravitationalpullDirectionAndForce;
-        float gravforce;
+    
 
         Vector3 oppositPlayerNormalizedFROM00;
         float radius;
@@ -27,8 +27,17 @@ namespace nabspace {
         float time_atLASTDist_speedTOPlanet;
         float speedtowardplanet_seedTOPlanet;
         Vector3 diff;
-        public float strength=1.5f;
+        public float strength=2.5f;
 
+        public float divideRadiusby = 1.5f; //2 is a good value
+        public float testvalue;
+
+        float minDistToApplyGravity;
+        float DeltaDistancefromBellowSurface;
+        float unchangingDistFronPseudosurface;
+        float smallerradius;
+
+       public bool castleNotYetGenerated = true;
         GameManager_Master _gameManager;
 
         EnemyGeneratorScript egs;
@@ -42,11 +51,13 @@ namespace nabspace {
         {
             // _gameManager.CAllGameOverEvent();
             Gizmos.color = color;
-            Gizmos.DrawLine(Vector3.zero, transform.position);
+            if(player != null)
+            Gizmos.DrawLine(player.transform.position, transform.position);
         }
 
         void Start()
         {
+           
             egs = GameObject.Find("EnemyANDplanetGenerator").GetComponent<EnemyGeneratorScript>(); 
             _gameManager = GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
             lastDist_speedTOPlanet = 0f;
@@ -59,10 +70,13 @@ namespace nabspace {
            
             mypos = transform.position;
             radius = transform.localScale.y / 2;
-            gravforce = radius * 2.5f;
+            minDistToApplyGravity = radius * 2.5f;
+
+            smallerradius = radius - (radius / 10);
+            unchangingDistFronPseudosurface = minDistToApplyGravity - smallerradius;
 
            //roverref = player.transform.GetChild(0).gameObject;
-          //  RScript = roverref.GetComponent<Rover_Script>();
+           //  RScript = roverref.GetComponent<Rover_Script>();
 
         }
 
@@ -113,12 +127,12 @@ namespace nabspace {
                 mypos = transform.position;
                 playerpos = player.transform.position;
                 oppositplayer = (mypos - playerpos);
-                GravitationalpullDirectionAndForce = mypos + (oppositplayer.normalized) * gravforce;
+                GravitationalpullDirectionAndForce = mypos + (oppositplayer.normalized) * minDistToApplyGravity;
                 if (applyGravity)
                 {
-                    if (Vector3.Distance(mypos, playerpos) < gravforce)
+                    if (Vector3.Distance(mypos, playerpos) < minDistToApplyGravity)
                     {
-                        player.GetComponent<Rigidbody>().AddForce((oppositplayer / (radius / 2)) * strength);
+                        player.GetComponent<Rigidbody>().AddForce((oppositplayer *2 / (radius * divideRadiusby)) * strength );
                     }
                 }
 
@@ -135,11 +149,20 @@ namespace nabspace {
                 mypos = transform.position;
                 foreach (GameObject go in egs.listofbadies) {
                     Vector3 opositenemy = mypos - go.transform.position;
+                    float distfromcenter = opositenemy.magnitude;
                     if (applyGravity)
                     {
-                        if (Vector3.Distance(mypos, go.transform.position) < gravforce)
+                        if (Vector3.Distance(mypos, go.transform.position) < minDistToApplyGravity)
                         {
-                            go.transform.GetComponent<Rigidbody>().AddForce((opositenemy / (radius / 2)) * strength);
+                            DeltaDistancefromBellowSurface = distfromcenter - smallerradius;
+
+                            //  go.transform.GetComponent<Rigidbody>().AddForce(    ( (opositenemy*radius/ gravforce) / (distfromcenter)) );
+                            go.transform.GetComponent<Rigidbody>().AddForce( (opositenemy/50) *  4*(unchangingDistFronPseudosurface/DeltaDistancefromBellowSurface) );
+
+                            Debug.Log(DeltaDistancefromBellowSurface + " ");
+                          
+
+                            Debug.DrawLine(transform.position, go.transform.position, Color.red);
                         }
                     }
                 }

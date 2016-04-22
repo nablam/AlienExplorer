@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace nabspace {
 
-    public class EnemyFly : MonoBehaviour
+    public class EnemyExplode : MonoBehaviour
     {
         GameManager_Master _gameManager;
 
