@@ -42,7 +42,7 @@ namespace nabspace
         {
             if (CrossPlatformInputManager.GetButtonUp("OnButtonEscape")  && !_gameManager.isGameOver && !_gameManager.isInvetoryUiOn) {
                 ToggleMenu();
-                print("escape");
+               // print("escape");
             }
         }
 

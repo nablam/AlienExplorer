@@ -92,7 +92,7 @@ namespace nabspace{
 
 
         float maxdisd = 200f;
-        float mindist = 60f;
+        float mindist = 199f;
         float cnt = 0;
         void doslowup() {
 
