@@ -6,13 +6,13 @@ namespace nabspace {
     {
 
         public delegate void EventManagerWhatSector(GameObject thissector);
-        public event EventManagerWhatSector Iaminthissector;
+        public event EventManagerWhatSector IhaveBeenCreated;
 
-        public void CAllHeyManIamCurr(GameObject thissector)
+        public void CAllThisSectorWasCreated(GameObject thissector)
         {
-            if (Iaminthissector != null)
+            if (IhaveBeenCreated != null)
             {
-                Iaminthissector(thissector);
+                IhaveBeenCreated(thissector);
             }
         }
     }

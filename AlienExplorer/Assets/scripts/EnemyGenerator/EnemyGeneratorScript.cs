@@ -10,17 +10,22 @@ namespace nabspace {
         GameObject player;
         private GameManager_Master _gameManager;
         public List<GameObject> listofbadies;
+        SpaceMaster _spaceMaster;
 
 
         void OnEnable()
         {
+            _spaceMaster = transform.GetComponent<SpaceMaster>();
             _gameManager = GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
             _gameManager.EnemyHasDied += TakeOutThisEnemy;
+            _spaceMaster.IhaveBeenCreated += makesomeenemiesHere;
+
         }
 
         void OnDisable()
         {
             _gameManager.EnemyHasDied -= TakeOutThisEnemy;
+            _spaceMaster.IhaveBeenCreated -= makesomeenemiesHere;
         } 
 
 
@@ -57,6 +62,28 @@ namespace nabspace {
         // Update is called once per frame
         void Update()
         {
+
+        }
+
+        void makesomeenemiesHere(GameObject thisQuad) {
+            print("SECTOR WAS GENEREATED " + thisQuad.transform.position);
+
+            float _sizeofQuad = thisQuad.transform.localScale.x;
+
+            float curMinX = thisQuad.transform.position.x - (_sizeofQuad / 2);
+            float curmaxX = thisQuad.transform.position.x + (_sizeofQuad / 2);
+            float curMinY = thisQuad.transform.position.y - (_sizeofQuad / 2);
+            float curmaxY = thisQuad.transform.position.y + (_sizeofQuad / 2);
+
+            for (int cnt = 0; cnt < 10; cnt++)
+            {
+                float x = Random.Range(curMinX, curmaxX);
+                float y = Random.Range(curMinY, curmaxY);
+
+                GameObject go = Instantiate(Resources.Load("EnemySkyResources/SkyEnemy1"), new Vector3(x, y, 0), transform.rotation) as GameObject;
+                listofbadies.Add(go);
+            }
+
 
         }
     }

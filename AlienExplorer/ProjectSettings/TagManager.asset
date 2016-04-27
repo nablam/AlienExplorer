@@ -12,6 +12,7 @@ TagManager:
   - playerbottomTAG
   - missileTAG
   - enemymissileTAG
+  - sectorTAG
   layers:
   - Default
   - TransparentFX

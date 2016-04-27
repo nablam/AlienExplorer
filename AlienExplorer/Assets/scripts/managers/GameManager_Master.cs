@@ -21,7 +21,11 @@ namespace nabspace
 
         public delegate void EnemyManagerEventHandler(GameObject thisenemy);
         public event EnemyManagerEventHandler EnemyHasDied;
-   
+
+        public delegate void playerIsbeingPulledHAndler(GameObject bythisplanet);
+        public event playerIsbeingPulledHAndler playerIsBeingPulled;
+        public event playerIsbeingPulledHAndler playerIsNOTBeingPulled;
+
 
 
 
@@ -33,9 +37,26 @@ namespace nabspace
         public bool isRoverMode;
         public bool isRocketMode;
         public bool isLanded;
-        public bool what;
+        public bool playerIsBeigPulledin;
         public bool useAndroidControls;
 
+
+
+
+        public void CAllPlayerisBeingpulled(GameObject thisplanet)
+        {
+            if (playerIsBeingPulled != null)
+            {
+                playerIsBeingPulled(thisplanet);
+            }
+        }
+        public void CAllplayerEscapedPull(GameObject thisplanet)
+        {
+            if (playerIsNOTBeingPulled != null)
+            {
+                playerIsNOTBeingPulled(thisplanet);
+            }
+        }
 
 
 

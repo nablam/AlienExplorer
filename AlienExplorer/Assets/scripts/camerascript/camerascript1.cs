@@ -66,7 +66,10 @@ namespace nabspace{
         // Update is called once per frame
         void Update()
         {
-            foccusRocketlerp();
+            if (_gammaster.playerIsBeigPulledin) maxdisd = 110f;
+            else
+                maxdisd = 200;
+             foccusRocketlerp();
             foccusRover();
 
         }
@@ -92,7 +95,7 @@ namespace nabspace{
 
 
         float maxdisd = 200f;
-        float mindist = 199f;
+        float mindist = 100;
         float cnt = 0;
         void doslowup() {
 

@@ -47,18 +47,18 @@ namespace nabspace {
 
         public float getRadius() { return radius; }
         
-        void OnDrawGizmos()
-        {
-            // _gameManager.CAllGameOverEvent();
-            Gizmos.color = color;
-            if(player != null)
-            Gizmos.DrawLine(player.transform.position, transform.position);
-        }
+        //void OnDrawGizmos()
+        //{
+        //    // _gameManager.CAllGameOverEvent();
+        //    Gizmos.color = color;
+        //    if(player != null)
+        //    Gizmos.DrawLine(player.transform.position, transform.position);
+        //}
 
         void Start()
         {
            
-            egs = GameObject.Find("EnemyANDplanetGenerator").GetComponent<EnemyGeneratorScript>(); 
+            egs = GameObject.Find("SkyenemyGeneratorObject").GetComponent<EnemyGeneratorScript>(); 
             _gameManager = GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
             lastDist_speedTOPlanet = 0f;
             speedtowardplanet_seedTOPlanet = 0f;
@@ -75,8 +75,10 @@ namespace nabspace {
             smallerradius = radius - (radius / 10);
             unchangingDistFronPseudosurface = minDistToApplyGravity - smallerradius;
 
-           //roverref = player.transform.GetChild(0).gameObject;
-           //  RScript = roverref.GetComponent<Rover_Script>();
+            //roverref = player.transform.GetChild(0).gameObject;
+            //  RScript = roverref.GetComponent<Rover_Script>();
+          //  GetComponent<Shader>().m
+          //  transform.renderer.materials[0].color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 
         }
 
@@ -122,22 +124,30 @@ namespace nabspace {
 
         void okpullfix()
         {
-            if (player != null)
+            if (_gameManager.isRocketMode)
             {
-                mypos = transform.position;
-                playerpos = player.transform.position;
-                oppositplayer = (mypos - playerpos);
-                GravitationalpullDirectionAndForce = mypos + (oppositplayer.normalized) * minDistToApplyGravity;
-                if (applyGravity)
+                if (player != null)
                 {
-                    if (Vector3.Distance(mypos, playerpos) < minDistToApplyGravity)
+                    mypos = transform.position;
+                    playerpos = player.transform.position;
+                    oppositplayer = (mypos - playerpos);
+                    GravitationalpullDirectionAndForce = mypos + (oppositplayer.normalized) * minDistToApplyGravity;
+                    if (applyGravity)
                     {
-                        player.GetComponent<Rigidbody>().AddForce((oppositplayer *2 / (radius * divideRadiusby)) * strength );
-                    }
-                }
 
-               // Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
+                        if (Vector3.Distance(mypos, playerpos) < minDistToApplyGravity)
+                        {
+                            _gameManager.playerIsBeigPulledin = true;
+                            player.GetComponent<Rigidbody>().AddForce((oppositplayer * 2 / (radius * divideRadiusby)) * strength);
+                        }
+                    //    else { _gameManager.playerIsBeigPulledin = false; }
+                          
+                    }
+
+                    // Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
+                }
             }
+   
         }
 
 
@@ -159,7 +169,7 @@ namespace nabspace {
                             //  go.transform.GetComponent<Rigidbody>().AddForce(    ( (opositenemy*radius/ gravforce) / (distfromcenter)) );
                             go.transform.GetComponent<Rigidbody>().AddForce( (opositenemy/50) *  4*(unchangingDistFronPseudosurface/DeltaDistancefromBellowSurface) );
 
-                            Debug.Log(DeltaDistancefromBellowSurface + " ");
+                           // Debug.Log(DeltaDistancefromBellowSurface + " ");
                           
 
                             Debug.DrawLine(transform.position, go.transform.position, Color.red);
