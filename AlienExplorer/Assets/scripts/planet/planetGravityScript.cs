@@ -137,7 +137,8 @@ namespace nabspace {
 
                         if (Vector3.Distance(mypos, playerpos) < minDistToApplyGravity)
                         {
-                            _gameManager.playerIsBeigPulledin = true;
+                            
+                           // _gameManager.playerIsBeigPulledin = true;
                             player.GetComponent<Rigidbody>().AddForce((oppositplayer * 2 / (radius * divideRadiusby)) * strength);
                         }
                     //    else { _gameManager.playerIsBeigPulledin = false; }
