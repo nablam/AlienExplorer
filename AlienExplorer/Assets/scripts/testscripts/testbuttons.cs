@@ -13,7 +13,7 @@ public class testbuttons : MonoBehaviour {
     {
         buttontester();
 
-        transform.Translate(new Vector3(Time.deltaTime, transform.position.y, transform.position.z));
+    //    transform.Translate(new Vector3(transform.position.x, Time.deltaTime * 0.001f, transform.position.z));
     }
 
     void buttontester() {

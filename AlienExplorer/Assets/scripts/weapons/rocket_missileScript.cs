@@ -2,7 +2,7 @@
 
 public class rocket_missileScript : MonoBehaviour {
 
-     float speed = 100f;
+     float speed = 200f;
     Transform playertrans;
     Vector3 playerpos;
 
@@ -37,7 +37,7 @@ public class rocket_missileScript : MonoBehaviour {
 
     void checkdestroyByDistance() {
 
-        if (distToRocket() > 100f) Destroy(gameObject);
+        if (distToRocket() > 200f) Destroy(gameObject);
     }
 
 

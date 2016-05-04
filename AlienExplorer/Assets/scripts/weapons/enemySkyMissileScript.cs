@@ -5,15 +5,15 @@ using System.Collections;
 namespace nabspace {
     public class enemySkyMissileScript : MonoBehaviour
     {
-
+        int damageanount;
         Player_Master pm;
         GameManager_Master gm;
-        float enemyrocketspeed = 100;
+        float enemyrocketspeed = 200;
         void Start()
         {
-            
 
-            gm= GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
+            damageanount = 5;
+            gm = GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
             if (!gm.isGameOver)
             {
                 pm = GameObject.Find("rocketprefab").GetComponent<Player_Master>();
@@ -39,7 +39,8 @@ namespace nabspace {
         {
             if (other.gameObject.tag == "playerTAG")
             {
-                pm.CALLEventPlayerHealthDown(1);
+                pm.CALLEventPlayerHealthDown(damageanount);
+                Instantiate(Resources.Load("Explosions/enemyMissileExplosion"), transform.position, transform.rotation );
                 Destroy(this.gameObject);
 
             }

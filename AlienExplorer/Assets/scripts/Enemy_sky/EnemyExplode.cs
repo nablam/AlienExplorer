@@ -18,9 +18,10 @@ namespace nabspace {
 
         void OnCollisionEnter(Collision collider)
         {
-            if (collider.gameObject.tag == "missileTAG")
+            if (collider.gameObject.tag == "missileTAG"  )
             {
                 _gameManager.CAllEnemyDied(this.gameObject);
+                Instantiate(Resources.Load("Explosions/SkyEnemyExplosion1"), transform.position, transform.rotation);
                 Destroy(gameObject);
             }
         }

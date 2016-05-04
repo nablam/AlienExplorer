@@ -67,23 +67,26 @@ public class SectorPlanets : MonoBehaviour {
         curMinX = transform.position.x - (_sizeofQuad / 2) + 100;
         curmaxX = transform.position.x + (_sizeofQuad / 2);
         curMinY = transform.position.y - (_sizeofQuad / 2);
-        curmaxY = transform.position.y + (_sizeofQuad / 2);        
+        curmaxY = transform.position.y + (_sizeofQuad / 2);
     }
 
-    void buildArrayOfYvalues() {
+    void buildArrayOfYvalues()
+    {
         float _sizeofQuad = transform.localScale.x;
         HowmanyRows = ((int)_sizeofQuad / 1000) * 4;
         distanceBetweenRows = (int)_sizeofQuad / HowmanyRows;
         planetLineY = new float[HowmanyRows];
 
         float baseline = 0;
-        for (int cnt = 0; cnt < HowmanyRows; cnt++) {
+        for (int cnt = 0; cnt < HowmanyRows; cnt++)
+        {
             planetLineY[cnt] = curMinY + baseline;
             baseline = baseline + distanceBetweenRows;
         }
     }
 
-    void builsArrayOfPlanetPaths() {
+    void builsArrayOfPlanetPaths()
+    {
         //mars20_128_64
         planetPaths = new string[6];
         planetPaths[0] = "planets/mars20_128_64";
@@ -100,9 +103,9 @@ public class SectorPlanets : MonoBehaviour {
         float x = Random.Range(curMinX, curmaxX);
         return x;
     }
- 
 
-    void makerandStarHere(  int yindex)
+
+    void makerandStarHere(int yindex)
     {
 
         float theyline = planetLineY[yindex];

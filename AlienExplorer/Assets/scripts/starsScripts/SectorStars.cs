@@ -39,7 +39,8 @@ public class SectorStars : MonoBehaviour {
     {
         calculateLocalbounds();
 
-        for (int x = 0; x < howmanystars; x++) {
+        for (int x = 0; x < howmanystars; x++)
+        {
 
             makerandStarHere(getrandX(), getrandY());
         }

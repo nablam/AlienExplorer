@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 
 
-namespace nabspace {
+namespace nabspace
+{
     public class rocketVector : MonoBehaviour
     {
 
@@ -27,12 +29,22 @@ namespace nabspace {
         float shiprotationspeed = 6f;
         public bool ismoving = false;
 
-        //void Awake() { }
 
-        //void Start()
-        //{
+        public bool turningRIGHT = false;
+        public bool turningLEFT = false;
+        public bool goingForward = false;
 
-        //}
+        public float valSide = 0f;
+
+        void updateVales()
+        {
+
+            if (turningLEFT) valSide = 5f;
+            else
+            if (turningRIGHT) valSide = -5f;
+            else
+                valSide = 0f;
+        }
 
         void OnEnable()
         {
@@ -59,15 +71,16 @@ namespace nabspace {
             _playerMaster.EventGarageRover -= garageARoverOutofTheWorld;
         }
 
-        void popARoverinTheWorld() {
-          //  print("pop a rover");
-            _rover= Instantiate(Resources.Load("Rover_Resource/rover1"), spawnPointForRover.transform.position, spawnPointForRover.transform.rotation) as GameObject;
+        void popARoverinTheWorld()
+        {
+            //  print("pop a rover");
+            _rover = Instantiate(Resources.Load("Rover_Resource/rover1"), spawnPointForRover.transform.position, spawnPointForRover.transform.rotation) as GameObject;
             _rover.GetComponent<RoverOuterShellScript>().setCurPlanetOUTERSHELL(planetITouched);
         }
 
         void garageARoverOutofTheWorld()
         {
-            Destroy(_rover);  
+            Destroy(_rover);
         }
 
 
@@ -77,10 +90,11 @@ namespace nabspace {
         {
             if (_gameManager.isRocketMode)
             {
-                if(_gameManager.useAndroidControls) androidcontrols(shipspeed, shiprotationspeed);
+                updateVales();
+                if (_gameManager.useAndroidControls) androidcontrols(shipspeed, shiprotationspeed);
                 else
-                normalcontrols(shipspeed, shiprotationspeed);
-           
+                    normalcontrols(shipspeed, shiprotationspeed);
+
                 rocketspeed = transform.InverseTransformDirection(rb.velocity).z;
 
             }
@@ -103,6 +117,8 @@ namespace nabspace {
         {
             cf.relativeForce = new Vector3(0f, 0f, 0f);
             ismoving = false;
+            turningRIGHT = false;
+            turningLEFT = false;
 
             if (Input.GetKey("up"))
             {
@@ -118,25 +134,31 @@ namespace nabspace {
 
             if (Input.GetKey("left"))
             {
+               
+                turningLEFT = true;
                 this.gameObject.GetComponent<Rigidbody>().freezeRotation = false;
+                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
                 cf.relativeTorque = new Vector3(0f, -rotationValue, 0f);
             }
             else
             if (Input.GetKeyUp("left"))
             {
-                this.gameObject.GetComponent<Rigidbody>().freezeRotation = true;
+              this.gameObject.GetComponent<Rigidbody>().freezeRotation = true;
             }
 
 
             if (Input.GetKey("right"))
             {
+                turningRIGHT = true;                
                 this.gameObject.GetComponent<Rigidbody>().freezeRotation = false;
+                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ  | RigidbodyConstraints.FreezeRotationX;
+                //this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ;
                 cf.relativeTorque = new Vector3(0f, rotationValue, 0f);
             }
             else
             if (Input.GetKeyUp("right"))
             {
-                this.gameObject.GetComponent<Rigidbody>().freezeRotation = true;
+                 this.gameObject.GetComponent<Rigidbody>().freezeRotation = true;
             }
 
             this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
@@ -147,6 +169,8 @@ namespace nabspace {
             cf.relativeForce = new Vector3(0f, 0f, 0f);
 
             ismoving = false;
+            turningRIGHT = false;
+            turningLEFT = false;
             if (CrossPlatformInputManager.GetButton("OnButtonBoost"))
             {
                 ismoving = true;
@@ -162,7 +186,9 @@ namespace nabspace {
 
             if (CrossPlatformInputManager.GetButton("OnButtonLeft"))
             {
+                turningLEFT = true;
                 this.gameObject.GetComponent<Rigidbody>().freezeRotation = false;
+                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
                 cf.relativeTorque = new Vector3(0f, -rotationValue, 0f);
             }
             else
@@ -174,7 +200,9 @@ namespace nabspace {
 
             if (CrossPlatformInputManager.GetButton("OnButtonRight"))
             {
+                turningRIGHT = true;
                 this.gameObject.GetComponent<Rigidbody>().freezeRotation = false;
+                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
                 cf.relativeTorque = new Vector3(0f, rotationValue, 0f);
             }
             else
@@ -195,7 +223,7 @@ namespace nabspace {
                 this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                 planetITouched = collider.gameObject;
             }
-    
+
             // print(this.gameObject.GetComponent<Rigidbody>().velocity);
         }
 
@@ -203,3 +231,4 @@ namespace nabspace {
     }
 }
 
+ 

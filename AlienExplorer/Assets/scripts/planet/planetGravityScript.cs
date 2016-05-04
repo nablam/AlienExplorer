@@ -202,7 +202,10 @@ namespace nabspace {
                // print("XXXXXcollision at speed" + speedtowardplanet_seedTOPlanet);
                 if (speedtowardplanet_seedTOPlanet > 5f || AngleOfShipRelativeToPlanet() > 9f)
                 {
-                    _gameManager.CAllGameOverEvent();
+                    StartCoroutine("waitforGameOver");
+                    //Instantiate(Resources.Load("Explosions/ShipExplosion"), transform.position, transform.rotation);
+                   // _gameManager.CAllGameOverEvent();
+
                     Destroy(collider.gameObject);
                 }
                 else //landed properly
@@ -217,15 +220,20 @@ namespace nabspace {
 
 
             if (collider.gameObject.tag == "enemyshipTAG") {
-                print("enemy collision");
+              //  print("enemy collision");
                 _gameManager.CAllEnemyDied(collider.gameObject);
+                Instantiate(Resources.Load("Explosions/SkyEnemyExplosion1"), transform.position, transform.rotation);
                 Destroy(collider.gameObject);
             }
 
 
         }
 
-
+        IEnumerator waitforGameOver() {
+            Instantiate(Resources.Load("Explosions/ShipExplosion"), player.transform.position, transform.rotation);
+            yield return new WaitForSeconds(2);
+            _gameManager.CAllGameOverEvent();
+        }
 
         void OnCollisionExit(Collision collider)
         {

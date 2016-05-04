@@ -53,29 +53,37 @@ namespace nabspace {
             if (!_gameManager.isGameOver)
             {
                 findCurrQuad();
-                Vector3 playerpos = _playership.transform.position;
-                if (playerpos.x > curmaxX || playerpos.x < curMinX || playerpos.y > curmaxY || playerpos.y < curMinY) buildallquad();
+                if (_playership != null)
+                {
+                    Vector3 playerpos = _playership.transform.position;
+                    if (playerpos.x > curmaxX || playerpos.x < curMinX || playerpos.y > curmaxY || playerpos.y < curMinY) buildallquad();
+                }
+
             }
 
         }
 
         void findCurrQuad()
         {
-            Vector3 playerpos = _playership.transform.position;
-            Vector3 raycasterStart = new Vector3(_playership.transform.position.x, _playership.transform.position.y, _playership.transform.position.z - 2);
-            Debug.DrawLine(raycasterStart, new Vector3(_playership.transform.position.x, _playership.transform.position.y, _playership.transform.position.z - 12), Color.blue);
-            //Physics.Raycast(raycasterStart, Vector3.back * 15f);
-            Ray theray = new Ray(playerpos, Vector3.back);
-            RaycastHit hit;
-            //if (Physics.Raycast(raycasterStart, new Vector3(_playership.transform.position.x, _playership.transform.position.y, _playership.transform.position.z - 12), out hit))
-            if (Physics.Raycast(  theray, out hit, 15f))
+            if (_playership != null)
             {
-             
-                if (hit.collider.tag == "sectorTAG")
+                Vector3 playerpos = _playership.transform.position;
+                Vector3 raycasterStart = new Vector3(_playership.transform.position.x, _playership.transform.position.y, _playership.transform.position.z - 2);
+                Debug.DrawLine(raycasterStart, new Vector3(_playership.transform.position.x, _playership.transform.position.y, _playership.transform.position.z - 12), Color.blue);
+                //Physics.Raycast(raycasterStart, Vector3.back * 15f);
+                Ray theray = new Ray(playerpos, Vector3.back);
+                RaycastHit hit;
+                //if (Physics.Raycast(raycasterStart, new Vector3(_playership.transform.position.x, _playership.transform.position.y, _playership.transform.position.z - 12), out hit))
+                if (Physics.Raycast(theray, out hit, 15f))
                 {
-                    currquad = hit.collider.gameObject;                 
+
+                    if (hit.collider.tag == "sectorTAG")
+                    {
+                        currquad = hit.collider.gameObject;
+                    }
                 }
             }
+           
         }
 
 

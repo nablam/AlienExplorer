@@ -35,24 +35,26 @@ namespace nabspace {
             player = GameObject.Find("rocketprefab");
             pathtoenemy = "EnemySkyResources/SkyEnemy1";
             listofbadies = new List<GameObject>();
-            for (int x = 1; x < 5; x++)
-            {
-                GameObject go = Instantiate(Resources.Load(pathtoenemy), new Vector3(-400, 100*x ,0),  transform.rotation ) as GameObject;
-                listofbadies.Add(go);
-            }
 
-            for (int x = 0; x < 5; x++)
-            {
-                GameObject go = Instantiate(Resources.Load(pathtoenemy), new Vector3(400, 100 * x, 0), transform.rotation) as GameObject;
-                listofbadies.Add(go);
-            }
+
+            //for (int x = 1; x < 5; x++)
+            //{
+            //    GameObject go = Instantiate(Resources.Load(pathtoenemy), new Vector3(-400, 100*x ,0),  transform.rotation ) as GameObject;
+            //    listofbadies.Add(go);
+            //}
+
+            //for (int x = 0; x < 5; x++)
+            //{
+            //    GameObject go = Instantiate(Resources.Load(pathtoenemy), new Vector3(400, 100 * x, 0), transform.rotation) as GameObject;
+            //    listofbadies.Add(go);
+            //}
        
 
-            for (int x = 0; x < 5; x++)
-            {
-                GameObject go = Instantiate(Resources.Load(pathtoenemy), new Vector3(-400, -100 * x, 0), transform.rotation) as GameObject;
-                listofbadies.Add(go);
-            }
+            //for (int x = 0; x < 5; x++)
+            //{
+            //    GameObject go = Instantiate(Resources.Load(pathtoenemy), new Vector3(-400, -100 * x, 0), transform.rotation) as GameObject;
+            //    listofbadies.Add(go);
+            //}
         }
         void TakeOutThisEnemy(GameObject go) {
           
@@ -66,7 +68,7 @@ namespace nabspace {
         }
 
         void makesomeenemiesHere(GameObject thisQuad) {
-            print("SECTOR WAS GENEREATED " + thisQuad.transform.position);
+          //  print("SECTOR WAS GENEREATED " + thisQuad.transform.position);
 
             float _sizeofQuad = thisQuad.transform.localScale.x;
 
@@ -75,13 +77,13 @@ namespace nabspace {
             float curMinY = thisQuad.transform.position.y - (_sizeofQuad / 2);
             float curmaxY = thisQuad.transform.position.y + (_sizeofQuad / 2);
 
-            for (int cnt = 0; cnt < 10; cnt++)
+            for (int cnt = 0; cnt < 3; cnt++)
             {
                 float x = Random.Range(curMinX, curmaxX);
-                float y = Random.Range(curMinY, curmaxY);
+            float y = Random.Range(curMinY, curmaxY);
 
-                GameObject go = Instantiate(Resources.Load("EnemySkyResources/SkyEnemy1"), new Vector3(x, y, 0), transform.rotation) as GameObject;
-                listofbadies.Add(go);
+            GameObject go = Instantiate(Resources.Load("EnemySkyResources/SkyEnemy1"), new Vector3(x, y, 0), transform.rotation) as GameObject;
+            listofbadies.Add(go);
             }
 
 
