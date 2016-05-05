@@ -36,8 +36,16 @@ namespace nabspace
 
         public float valSide = 0f;
 
+        void drawbaseline() {
+            Vector3 pos = this.transform.position;
+
+            Debug.DrawLine(Vector3.zero, pos, Color.red);
+        }
+
         void updateVales()
         {
+
+
 
             if (turningLEFT) valSide = 5f;
             else
@@ -88,6 +96,8 @@ namespace nabspace
 
         void Update()
         {
+
+            drawbaseline();
             if (_gameManager.isRocketMode)
             {
                 updateVales();

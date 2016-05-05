@@ -12,6 +12,9 @@ namespace nabspace {
         public List<GameObject> listofbadies;
         SpaceMaster _spaceMaster;
 
+        void Awake() {
+            listofbadies = new List<GameObject>();
+        }
 
         void OnEnable()
         {
@@ -34,7 +37,7 @@ namespace nabspace {
            
             player = GameObject.Find("rocketprefab");
             pathtoenemy = "EnemySkyResources/SkyEnemy1";
-            listofbadies = new List<GameObject>();
+          
 
 
             //for (int x = 1; x < 5; x++)
@@ -83,7 +86,11 @@ namespace nabspace {
             float y = Random.Range(curMinY, curmaxY);
 
             GameObject go = Instantiate(Resources.Load("EnemySkyResources/SkyEnemy1"), new Vector3(x, y, 0), transform.rotation) as GameObject;
-            listofbadies.Add(go);
+               
+                go.transform.parent = thisQuad.transform;
+              //   go.transform.localScale = new Vector3(thisQuad.transform.localScale.y , thisQuad.transform.localScale.y, thisQuad.transform.localScale.y);
+
+                listofbadies.Add(go);
             }
 
 

@@ -88,14 +88,14 @@ namespace nabspace {
 
 
         void buildallquad() {
-            biuildQuad1();
-            biuildQuad2();
-            biuildQuad3();
-            biuildQuad4();
-            biuildQuad6();
-            biuildQuad7();
-            biuildQuad8();
-            biuildQuad9();
+         //   biuildQuad1();
+        //    biuildQuad2();
+        //    biuildQuad3();
+        //    biuildQuad4();
+        //    biuildQuad6();
+        //    biuildQuad7();
+           biuildQuad8();
+        //    biuildQuad9();
             calculateLocalbounds();
         }
 

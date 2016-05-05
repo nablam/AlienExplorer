@@ -32,7 +32,7 @@ namespace nabspace {
         public float divideRadiusby = 1.5f; //2 is a good value
         public float testvalue;
 
-        float minDistToApplyGravity;
+      public   float minDistToApplyGravity;
         float DeltaDistancefromBellowSurface;
         float unchangingDistFronPseudosurface;
         float smallerradius;
@@ -41,6 +41,7 @@ namespace nabspace {
         GameManager_Master _gameManager;
 
         EnemyGeneratorScript egs;
+        SpaceManager sm;
  
 
 
@@ -57,8 +58,8 @@ namespace nabspace {
 
         void Start()
         {
-           
-            egs = GameObject.Find("SkyenemyGeneratorObject").GetComponent<EnemyGeneratorScript>(); 
+            sm = GameObject.Find("Space_The_Final_Frontier").GetComponent<SpaceManager>();
+             egs = GameObject.Find("SkyenemyGeneratorObject").GetComponent<EnemyGeneratorScript>(); 
             _gameManager = GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
             lastDist_speedTOPlanet = 0f;
             speedtowardplanet_seedTOPlanet = 0f;
@@ -69,7 +70,7 @@ namespace nabspace {
 
            
             mypos = transform.position;
-            radius = transform.localScale.y / 2;
+            radius = transform.localScale.z / 2;
             minDistToApplyGravity = radius * 2.5f;
 
             smallerradius = radius - (radius / 10);
@@ -86,7 +87,7 @@ namespace nabspace {
         void FixedUpdate()
         {
             okpullfix();
-            okpullEnemyfix();
+          //  okpullEnemyfix();
             playerosgettingclosser();
         
         }
@@ -124,12 +125,14 @@ namespace nabspace {
 
         void okpullfix()
         {
+
             if (_gameManager.isRocketMode)
             {
                 if (player != null)
                 {
                     mypos = transform.position;
                     playerpos = player.transform.position;
+                    Debug.DrawLine(mypos, playerpos, Color.blue);
                     oppositplayer = (mypos - playerpos);
                     GravitationalpullDirectionAndForce = mypos + (oppositplayer.normalized) * minDistToApplyGravity;
                     if (applyGravity)
@@ -145,7 +148,7 @@ namespace nabspace {
                           
                     }
 
-                    // Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
+                     Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
                 }
             }
    
@@ -155,33 +158,34 @@ namespace nabspace {
 
         void okpullEnemyfix()
         {
-            if (egs != null)
+            if (egs != null && sm != null )
             {
-                mypos = transform.position;
-                foreach (GameObject go in egs.listofbadies) {
-                    Vector3 opositenemy = mypos - go.transform.position;
-                    float distfromcenter = opositenemy.magnitude;
-                    if (applyGravity)
+             
+                    if (transform.parent == sm.currquad.transform)
                     {
-                        if (Vector3.Distance(mypos, go.transform.position) < minDistToApplyGravity)
+                        mypos = transform.position;
+                        foreach (GameObject go in egs.listofbadies)
                         {
-                            DeltaDistancefromBellowSurface = distfromcenter - smallerradius;
+                            Vector3 opositenemy = mypos - go.transform.position;
+                            float distfromcenter = opositenemy.magnitude;
+                            if (applyGravity)
+                            {
+                                if (Vector3.Distance(mypos, go.transform.position) < minDistToApplyGravity)
+                                {
+                                    DeltaDistancefromBellowSurface = distfromcenter - smallerradius;
 
-                            //  go.transform.GetComponent<Rigidbody>().AddForce(    ( (opositenemy*radius/ gravforce) / (distfromcenter)) );
-                            go.transform.GetComponent<Rigidbody>().AddForce( (opositenemy/50) *  4*(unchangingDistFronPseudosurface/DeltaDistancefromBellowSurface) );
+                                    //  go.transform.GetComponent<Rigidbody>().AddForce(    ( (opositenemy*radius/ gravforce) / (distfromcenter)) );
+                                    go.transform.GetComponent<Rigidbody>().AddForce((opositenemy / 50) * 4 * (unchangingDistFronPseudosurface / DeltaDistancefromBellowSurface));
 
-                           // Debug.Log(DeltaDistancefromBellowSurface + " ");
-                          
+                                    // Debug.Log(DeltaDistancefromBellowSurface + " ");
 
-                            Debug.DrawLine(transform.position, go.transform.position, Color.red);
+
+                                    Debug.DrawLine(transform.position, go.transform.position, Color.red);
+                                }
+                            }
                         }
                     }
-                }
-
-       
-           
-               
-
+                                 
                 // Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
             }
         }
@@ -204,7 +208,7 @@ namespace nabspace {
                 {
                     StartCoroutine("waitforGameOver");
                     //Instantiate(Resources.Load("Explosions/ShipExplosion"), transform.position, transform.rotation);
-                   // _gameManager.CAllGameOverEvent();
+                   _gameManager.CAllGameOverEvent();
 
                     Destroy(collider.gameObject);
                 }
@@ -230,6 +234,8 @@ namespace nabspace {
         }
 
         IEnumerator waitforGameOver() {
+            // _gameManager.isGameOver = true;  
+            _gameManager.CAllGameOverEvent();
             Instantiate(Resources.Load("Explosions/ShipExplosion"), player.transform.position, transform.rotation);
             yield return new WaitForSeconds(2);
             _gameManager.CAllGameOverEvent();

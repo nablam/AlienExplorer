@@ -26,6 +26,7 @@ namespace nabspace {
         void Update()
         {
             transform.Translate(Vector3.forward * Time.deltaTime * enemyrocketspeed, Space.Self);
+            if (gm.isGameOver) Destroy(gameObject);
         }
 
         IEnumerator killmissilein5seconds()

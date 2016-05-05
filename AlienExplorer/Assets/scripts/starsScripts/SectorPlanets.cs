@@ -32,12 +32,17 @@ public class SectorPlanets : MonoBehaviour {
 
         if (!iscentertile)
         {
+          
             SetInitialReferences();
-            int sizeofYlines = planetLineY.Length;
-            for (int cnt = 0; cnt < sizeofYlines; cnt++)
-            {
-                makerandStarHere(cnt);
-            }
+
+
+            GameObject go = Instantiate(Resources.Load("planets/mars200_128_64"), new Vector3(0f, 200f, 0f), Quaternion.identity) as GameObject;
+            go.transform.parent = this.transform;
+            //int sizeofYlines = planetLineY.Length;
+            //for (int cnt = 0; cnt < sizeofYlines; cnt++)
+            //{
+            //    makerandStarHere(cnt);
+            //}
         }
 
     }
@@ -85,6 +90,9 @@ public class SectorPlanets : MonoBehaviour {
         }
     }
 
+
+
+
     void builsArrayOfPlanetPaths()
     {
         //mars20_128_64
@@ -111,7 +119,8 @@ public class SectorPlanets : MonoBehaviour {
         float theyline = planetLineY[yindex];
         int randomIndex = Random.Range(0, 6);//0 1 2 3 4 5 
         string randompath = planetPaths[randomIndex];
-        Instantiate(Resources.Load(randompath), new Vector3(getrandX(), theyline, 0f), Quaternion.identity);
+        GameObject go=  Instantiate(Resources.Load(randompath), new Vector3(getrandX(), theyline, 0f), Quaternion.identity) as GameObject;
+        go.transform.parent = this.transform;
     }
 
 
