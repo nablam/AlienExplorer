@@ -32,7 +32,7 @@ namespace nabspace {
 
         void Update()
         {
-            if (_gameManager.isGameOver) Destroy(gameObject);
+           
             par = transform.parent;
             cur = sm.currquad.transform;
             if (!_gameManager.isGameOver) {
@@ -93,20 +93,13 @@ namespace nabspace {
         }
 
 
-
-        void facePlayer() {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position, Vector3.back), enemyshipRotationSpeed * Time.deltaTime);
-        }
-
         void faceThisPOsition(Vector3 here)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(here - transform.position, Vector3.back), enemyshipRotationSpeed * Time.deltaTime);
         }
 
         void moveForward() {
-
             cf.relativeForce = new Vector3(0f, 0f, enemyshipForwardSpeed);
-            // transform.position += transform.forward * enemyshipForwardSpeed * Time.deltaTime;
         }
 
 

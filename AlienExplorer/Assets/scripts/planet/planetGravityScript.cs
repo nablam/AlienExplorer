@@ -106,7 +106,6 @@ namespace nabspace {
                 lastDist_speedTOPlanet = distance;
                 time_atLASTDist_speedTOPlanet = time_atDist_speedTOPlanet;
             }
-
         }
 
         float AngleOfShipRelativeToPlanet()

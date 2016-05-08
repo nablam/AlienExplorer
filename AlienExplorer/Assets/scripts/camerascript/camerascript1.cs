@@ -32,7 +32,7 @@ namespace nabspace{
             _playermaster.EventGarageRover += forgetCreatedRover;
         }
 
-        void findCreatedRover() { roverref = GameObject.Find("rover1(Clone)"); }
+        void findCreatedRover() { roverref = GameObject.Find("rover2(Clone)"); }
         void forgetCreatedRover() { roverref = null; }
 
         void OnDisable()

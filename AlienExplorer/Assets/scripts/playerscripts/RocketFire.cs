@@ -13,7 +13,7 @@ namespace nabspace {
         EllipsoidParticleEmitter leftemitor;
         EllipsoidParticleEmitter rightemitor;
 
-        rocketVector rv;
+        b_rocket_Vector rv;
         void Awake()
         {
             SetInitialReferences();
@@ -41,7 +41,7 @@ namespace nabspace {
             leftbooster = this.transform.GetChild(3).gameObject;
             rightemitor = rightbooster.GetComponent<EllipsoidParticleEmitter>();
             leftemitor = leftbooster.GetComponent<EllipsoidParticleEmitter>();
-            rv = transform.GetComponent<rocketVector>();
+            rv = transform.GetComponent<b_rocket_Vector>();
         }
 
 

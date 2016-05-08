@@ -13,6 +13,7 @@ TagManager:
   - missileTAG
   - enemymissileTAG
   - sectorTAG
+  - roverTAG
   layers:
   - Default
   - TransparentFX
