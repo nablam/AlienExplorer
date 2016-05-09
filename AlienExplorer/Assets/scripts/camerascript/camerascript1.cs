@@ -8,7 +8,7 @@ namespace nabspace{
         private GameManager_Master _gammaster;
         private GameObject rocket;
 
-        private rocketVector rv;
+        private b_rocket_Vector rv;
         private Player_Master _playermaster;
 
 
@@ -32,7 +32,7 @@ namespace nabspace{
             _playermaster.EventGarageRover += forgetCreatedRover;
         }
 
-        void findCreatedRover() { roverref = GameObject.Find("rover2(Clone)"); }
+        void findCreatedRover() { roverref = GameObject.Find("roverOuterInner(Clone)"); }
         void forgetCreatedRover() { roverref = null; }
 
         void OnDisable()
@@ -45,7 +45,7 @@ namespace nabspace{
         {
             _gammaster = GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
             rocket = GameObject.Find("rocketprefab");
-            rv = rocket.GetComponent<rocketVector>();
+            rv = rocket.GetComponent<b_rocket_Vector> ();
             _playermaster = rocket.GetComponent<Player_Master>();
             //  roverref = rocket.transform.GetChild(0).gameObject;
             //  RScript = roverref.GetComponent<Rover_Script>();
@@ -66,10 +66,10 @@ namespace nabspace{
         // Update is called once per frame
         void Update()
         {
-            if (_gammaster.playerIsBeigPulledin) maxdisd = 110f;
+            if (_playermaster.isBeingPulled) maxdisd = 60;
             else
                 maxdisd = 200;
-             foccusRocketlerp();
+            foccusRocketlerp();
             foccusRover();
 
         }

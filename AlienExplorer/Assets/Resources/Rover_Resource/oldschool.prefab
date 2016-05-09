@@ -34,7 +34,7 @@ GameObject:
   - 54: {fileID: 5427162}
   - 114: {fileID: 11492330}
   m_Layer: 0
-  m_Name: whwhwhw
+  m_Name: oldschool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -236,7 +236,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73be56cbcbf0a084985ef9bd8b440afe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunpoint: {fileID: 137320}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

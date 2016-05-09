@@ -600,6 +600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c0c795f6c60fd0459f584307a4c9bc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBeingPulled: 0
 --- !u!212 &21219652
 SpriteRenderer:
   m_ObjectHideFlags: 1

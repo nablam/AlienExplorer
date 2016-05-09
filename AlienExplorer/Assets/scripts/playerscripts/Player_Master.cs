@@ -24,8 +24,8 @@ namespace nabspace {
         public event PlayerRoversEventHandler EventCreateRover;
         public event PlayerRoversEventHandler EventGarageRover;
 
-    
 
+        public bool isBeingPulled;
 
         //methods to call
         public void CALLEventInventoryChanged() { if (EventInventoryChanged != null) { EventInventoryChanged(); } }

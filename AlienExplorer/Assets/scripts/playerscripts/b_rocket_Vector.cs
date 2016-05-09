@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
 namespace nabspace
@@ -13,6 +14,7 @@ namespace nabspace
         public bool turningLEFT = false;
         public bool goingForward = false;
         public float valSide = 0f;
+        public Text speedText;
 
         private GameManager_Master _gameManager;
         private Player_Master _playerMaster;
@@ -66,12 +68,14 @@ namespace nabspace
                     normalcontrols(_shipSpeed, _shipRotationSpeed);
                 rocketspeed = transform.InverseTransformDirection(_rb.velocity).z;
             }
+            int myspeed = (int)rocketspeed;
+                speedText.text = "speed=" + myspeed;
         }
 
         void popARoverinTheWorld()
         {
-          //  _rover = Instantiate(Resources.Load("Rover_Resource/rover2"), _spawnPointForRover.transform.position, _spawnPointForRover.transform.rotation) as GameObject;
-          //  _rover.GetComponent<RoverOuterShellScript>().setCurPlanetOUTERSHELL(_planetITouched);
+            _rover = Instantiate(Resources.Load("Rover_Resource/roverOuterInner"), _spawnPointForRover.transform.position, _spawnPointForRover.transform.rotation) as GameObject;
+            _rover.GetComponent<b_RoverOuterShell>().SetCurPlanetOUTERSHELL(_planetITouched);
         }
 
         void garageARoverOutofTheWorld()
@@ -200,10 +204,27 @@ namespace nabspace
 
 
         void OnTriggerStay(Collider other) { }
-        void OnTriggerEnter(Collider other) { }
-        void OnTriggerExit(Collider other) { }
-        void OnCollisionEnter(Collision collider) { }
-        void OnCollisionExit(Collision collider) { }
+        void OnTriggerEnter(Collider other)
+        {
+            GetComponent<Player_Master>().isBeingPulled = true;//works
+        }
+        void OnTriggerExit(Collider other)
+        {
+            GetComponent<Player_Master>().isBeingPulled = false;//works
+        }
+        void OnCollisionEnter(Collision collider)
+        {  
+            if (collider.gameObject.tag == "planetTAG")
+            {
+                
+                this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                _planetITouched = collider.gameObject;
+                }
+
+                // print(this.gameObject.GetComponent<Rigidbody>().velocity);
+            }
+        
+        void OnCollisionExit(Collision collider) {  }
 
 
     }

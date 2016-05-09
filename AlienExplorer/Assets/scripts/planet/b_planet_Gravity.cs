@@ -6,6 +6,7 @@ namespace nabspace
     {
         public bool applyGravity;
         public bool playerLandedOnMe;
+        public bool castleNotYetGenerated = true;
 
         private GameManager_Master _gameManager;
 		private Player_Master _playermaster;
@@ -19,6 +20,7 @@ namespace nabspace
         private float _time_atDist_speedTOPlanet;
         private float _time_atLastRecordedDist_speedTOPlanet;
         private float _speedtowardplanet_seedTOPlanet;
+        private float _maxEntrySpeed;
 
         void Awake() {
         SetInitialReferences();
@@ -30,19 +32,19 @@ namespace nabspace
 		
         void SetInitialReferences()
         {
-            _gameManager = GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
-			_player = GameObject.Find("rocketprefab");		
-            _playermaster = _player.GetComponent<Player_Master>();
+        _gameManager = GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
+        _player = GameObject.Find("rocketprefab");		
+        _playermaster = _player.GetComponent<Player_Master>();
 
-            applyGravity = true;
-            _radius = transform.FindChild("atmosphere").GetComponent<SphereCollider>().radius;
-            print(_radius);
+        _radius = transform.FindChild("atmosphere").GetComponent<SphereCollider>().radius;
+        print(_radius);
 
-         _lastRecordedDist_speedTOPlanet=0f;
-         _time_atDist_speedTOPlanet = 0f;
-         _time_atLastRecordedDist_speedTOPlanet = 0f;
-         _speedtowardplanet_seedTOPlanet = 0f;
-    }
+        _lastRecordedDist_speedTOPlanet=0f;
+        _time_atDist_speedTOPlanet = 0f;
+        _time_atLastRecordedDist_speedTOPlanet = 0f;
+        _speedtowardplanet_seedTOPlanet = 0f;
+        _maxEntrySpeed = 6f;
+      }
 
 		void Update(){}
 		
@@ -54,9 +56,11 @@ namespace nabspace
             Debug.DrawLine(here, toHere, Color.blue);
         }
 
+        public float getRadius() { return _radius; }
+
         void ApplyGravityToObject(GameObject obj)
         {
-            if (testForEnemyOrPlayer(obj))
+            if (testForEnemyOrPlayerOrRover(obj))
             {
                 float forceFactor = 1f;
                 if (obj.transform.tag == "playerTAG") forceFactor = 15f;
@@ -84,13 +88,12 @@ namespace nabspace
 
         }
 
-        bool testForEnemyOrPlayer(GameObject obj) {
+        bool testForEnemyOrPlayerOrRover(GameObject obj) {
             if (obj.transform.tag == "playerTAG" || obj.transform.tag == "enemyshipTAG" || obj.transform.tag == "roverTAG") return true;
             else
                 return false;
              
         }
-
 
         void playerosgettingclosser()
         {
@@ -101,7 +104,7 @@ namespace nabspace
                 if (distance < _lastRecordedDist_speedTOPlanet)
                 {
                     _speedtowardplanet_seedTOPlanet = (distance - _lastRecordedDist_speedTOPlanet) / (_time_atLastRecordedDist_speedTOPlanet - _time_atDist_speedTOPlanet);
-                    //  print("speed toward planet " + speedtowardplanet);
+                 //  print("speed toward planet " + _speedtowardplanet_seedTOPlanet);
                 }
                 _lastRecordedDist_speedTOPlanet = distance;
                 _time_atLastRecordedDist_speedTOPlanet = _time_atDist_speedTOPlanet;
@@ -126,24 +129,33 @@ namespace nabspace
                 DrawBlueLine(other.transform.position, this.transform.position);
                 if (applyGravity)
                 {
+                   
+                    playerosgettingclosser();
                     ApplyGravityToObject(other.gameObject);
                 }
                 
             }
         }
 
- 
-
+        void OnCollisionExit(Collision collider) {
+            print("out of grips");
+            if (collider.gameObject.tag == "playerTAG")
+            {
+               
+                _playermaster.isBeingPulled = false;
+            }
+        }
+        
 
         void OnCollisionEnter(Collision collider)
         {
             print("collision");
             if (collider.gameObject.tag == "playerTAG")
             {
-                if (_speedtowardplanet_seedTOPlanet > 5f || AngleOfShipRelativeToPlanet() > 9f)
+               
+                if (_speedtowardplanet_seedTOPlanet > _maxEntrySpeed || AngleOfShipRelativeToPlanet() > 9f)
                 {
-                    StartCoroutine("waitforGameOver");
-                   // _gameManager.CAllGameOverEvent();
+                    StartCoroutine("waitforGameOver");                   
                    Destroy(collider.gameObject);
                 }
                 else //landed properly
@@ -163,15 +175,6 @@ namespace nabspace
             }
         }
 
-
-
-        void OnCollisionExit(Collision collider)
-        {
-            if (collider.gameObject.tag == "playerTAG")
-            {
-                playerLandedOnMe = false;
-            }
-        }
 
         IEnumerator waitforGameOver()
         {                        

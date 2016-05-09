@@ -45,9 +45,7 @@ namespace nabspace
         {
             if (_gameManager.isRoverMode)
             {
-                DoAndroidControls(_gameManager.useAndroidControls);
- 
-             
+                DoAndroidControls(_gameManager.useAndroidControls);            
             }
         }
 

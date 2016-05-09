@@ -82,7 +82,7 @@ namespace nabspace
         void popARoverinTheWorld()
         {
             //  print("pop a rover");
-            _rover = Instantiate(Resources.Load("Rover_Resource/rover2"), spawnPointForRover.transform.position, spawnPointForRover.transform.rotation) as GameObject;
+            _rover = Instantiate(Resources.Load("Rover_Resource/roverOuterInner"), spawnPointForRover.transform.position, spawnPointForRover.transform.rotation) as GameObject;
             _rover.GetComponent<RoverOuterShellScript>().setCurPlanetOUTERSHELL(planetITouched);
         }
 
