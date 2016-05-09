@@ -39,7 +39,7 @@ namespace nabspace
         Vector3 DoOppositLine()
         {
             Vector3 diff = (transform.position - _player.transform.position);
-            Vector3 oppositPlayer = transform.position + (diff.normalized) *  GetComponent<b_planet_Gravity>().getRadius()/4;
+            Vector3 oppositPlayer = transform.position + (diff.normalized) *  GetComponent<b_planet_Gravity>().getRadius();
             return oppositPlayer;
         }
 

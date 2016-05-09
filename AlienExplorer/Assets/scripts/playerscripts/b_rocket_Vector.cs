@@ -15,6 +15,7 @@ namespace nabspace
         public bool goingForward = false;
         public float valSide = 0f;
         public Text speedText;
+        public GameObject planetITouched;
 
         private GameManager_Master _gameManager;
         private Player_Master _playerMaster;
@@ -22,7 +23,7 @@ namespace nabspace
         private Rigidbody _rb;
         private GameObject _spawnPointForRover;
         private GameObject _rover;
-        private GameObject _planetITouched;
+        
 
         private float _moveCtrl;
         private float _moveSpeed = 60f;
@@ -75,7 +76,7 @@ namespace nabspace
         void popARoverinTheWorld()
         {
             _rover = Instantiate(Resources.Load("Rover_Resource/roverOuterInner"), _spawnPointForRover.transform.position, _spawnPointForRover.transform.rotation) as GameObject;
-            _rover.GetComponent<b_RoverOuterShell>().SetCurPlanetOUTERSHELL(_planetITouched);
+            _rover.GetComponent<b_RoverOuterShell>().SetCurPlanetOUTERSHELL(planetITouched);
         }
 
         void garageARoverOutofTheWorld()
@@ -218,7 +219,7 @@ namespace nabspace
             {
                 
                 this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                _planetITouched = collider.gameObject;
+                planetITouched = collider.gameObject;
                 }
 
                 // print(this.gameObject.GetComponent<Rigidbody>().velocity);

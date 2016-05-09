@@ -36,14 +36,14 @@ namespace nabspace
         _player = GameObject.Find("rocketprefab");		
         _playermaster = _player.GetComponent<Player_Master>();
 
-        _radius = transform.FindChild("atmosphere").GetComponent<SphereCollider>().radius;
+        _radius = transform.GetComponent<SphereCollider>().radius;
         print(_radius);
 
         _lastRecordedDist_speedTOPlanet=0f;
         _time_atDist_speedTOPlanet = 0f;
         _time_atLastRecordedDist_speedTOPlanet = 0f;
         _speedtowardplanet_seedTOPlanet = 0f;
-        _maxEntrySpeed = 6f;
+        _maxEntrySpeed = 100f;
       }
 
 		void Update(){}
