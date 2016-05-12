@@ -63,6 +63,7 @@ namespace nabspace
         {
             if (_gameManager.isRocketMode)
             {
+                Debug.DrawLine(transform.position, Vector3.zero, Color.cyan);
                 updateVales();
                 if (_gameManager.useAndroidControls) androidcontrols(_shipSpeed, _shipRotationSpeed);
                 else
@@ -71,6 +72,8 @@ namespace nabspace
             }
             int myspeed = (int)rocketspeed;
                 speedText.text = "speed=" + myspeed;
+
+
         }
 
         void popARoverinTheWorld()
@@ -215,7 +218,7 @@ namespace nabspace
         }
         void OnCollisionEnter(Collision collider)
         {  
-            if (collider.gameObject.tag == "planetTAG")
+            if (collider.gameObject.CompareTag("planetTAG"))
             {
                 
                 this.gameObject.GetComponent<Rigidbody>().isKinematic = true;

@@ -13,6 +13,7 @@ namespace nabspace {
         private Vector3 _initialCameraPositionAbovPlayer;
         private Vector3 _finalCameraPositionAbovePlayer;
         public GameObject roverref;
+        public bool doSimpleFollow;
 
         float minDistFromShip = 60f;
         float maxDistFRomShip = 220f;
@@ -50,19 +51,20 @@ namespace nabspace {
 
         void Start()
         {
-
             fraction = 0f;
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (_playermaster.isBeingPulled) maxdisd = 60;
+            if (_playermaster.isBeingPulled) maxdisd = 100;
             else
-                maxdisd = 200;
+                maxdisd = 450;
             foccusRocketlerp();
             foccusRover();
+     
 
+      //  transform.position = new Vector3(_rocket.transform.position.x, _rocket.transform.position.y, -450);
         }
 
         void foccusRocketlerp()
@@ -71,14 +73,6 @@ namespace nabspace {
             {
                 if (_rocket != null)
                 {
-                    //    if(rv.ismoving) transform.position = Vector3.Lerp( new Vector3(rocket.transform.position.x, rocket.transform.position.y, rocket.transform.position.z- minDistFromShip) , new Vector3(rocket.transform.position.x, rocket.transform.position.y, rocket.transform.position.z - maxDistFRomShip), 10*Time.deltaTime);
-                    //     else
-                    //        transform.position = Vector3.Lerp(new Vector3(rocket.transform.position.x, rocket.transform.position.y, rocket.transform.position.z - maxDistFRomShip), new Vector3(rocket.transform.position.x, rocket.transform.position.y, rocket.transform.position.z - minDistFromShip), distanceFormshipFactor);
-
-
-                    //if (rv.ismoving) transform.position = new Vector3(rocket.transform.position.x, rocket.transform.position.y, rocket.transform.position.z - maxDistFRomShip );
-                    //else
-                    //    transform.position = new Vector3(rocket.transform.position.x, rocket.transform.position.y, rocket.transform.position.z - minDistFromShip);
                     doslowup();
                 }
             }

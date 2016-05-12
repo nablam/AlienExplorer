@@ -13,3 +13,5 @@ EditorBuildSettings:
     path: Assets/scenes/GameScene.unity
   - enabled: 0
     path: Assets/blank.unity
+  - enabled: 1
+    path: Assets/scenes/GameSceneOptimzed.unity

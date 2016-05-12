@@ -15,7 +15,7 @@ namespace nabspace {
             damageanount = 5;
             gm = GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
             if (!gm.isGameOver)
-            {
+            {               
                 pm = GameObject.Find("rocketprefab").GetComponent<Player_Master>();
                 StartCoroutine("killmissilein5seconds");
             }
@@ -38,7 +38,7 @@ namespace nabspace {
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "playerTAG")
+            if (other.gameObject.CompareTag("playerTAG"))
             {
                 pm.CALLEventPlayerHealthDown(damageanount);
                 Instantiate(Resources.Load("Explosions/enemyMissileExplosion"), transform.position, transform.rotation );

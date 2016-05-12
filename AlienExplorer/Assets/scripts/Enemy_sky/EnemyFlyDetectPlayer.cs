@@ -17,12 +17,11 @@ namespace nabspace {
         SpaceManager sm;
         ConstantForce cf;
 
-        public Transform par;
-        public Transform cur;
+  
         public bool AGRO;
         void Start()
         {
-            sm = GameObject.Find("Space_The_Final_Frontier").GetComponent<SpaceManager>();
+            sm = GameObject.Find("Space_The_Final_Frontier_MANAGER").GetComponent<SpaceManager>();
             cf = GetComponent<ConstantForce>();
             AGRO = false;
             initialposition = transform.position;
@@ -32,15 +31,12 @@ namespace nabspace {
 
         void Update()
         {
-           
-            par = transform.parent;
-            cur = sm.currquad.transform;
+ 
             if (!_gameManager.isGameOver) {
                 if (player != null)
                 {
 
-                    if (transform.parent == sm.currquad.transform)
-                    {
+                    
 
 
                         if (disttoplayer() < mindistanceTotriggerattack)
@@ -52,18 +48,7 @@ namespace nabspace {
                             AGRO = false;
                             startGotoinitpos();
                         }
-
-                    }
-                    else
-                    if (transform.parent != sm.currquad.transform && AGRO) {
-                        startFindPlayermovetoPlayer();
-                        AGRO = true;
-                    }
-                    else
-                    {
-                        AGRO = false;
-                        startGotoinitpos();
-                    }
+ 
 
 
                 }
@@ -95,6 +80,7 @@ namespace nabspace {
 
         void faceThisPOsition(Vector3 here)
         {
+            if(here - transform.position != Vector3.zero)
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(here - transform.position, Vector3.back), enemyshipRotationSpeed * Time.deltaTime);
         }
 

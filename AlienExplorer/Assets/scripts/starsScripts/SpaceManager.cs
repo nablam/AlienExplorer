@@ -28,7 +28,7 @@ namespace nabspace {
           _aquad.transform.parent = this.transform;
           _aquad.GetComponent<SectorPlanets>().iscentertile = true;
           _listofsectors.Add(_aquad);
-          _spaceMaster = GameObject.Find("SkyenemyGeneratorObject").GetComponent<SpaceMaster>();
+          _spaceMaster = GameObject.Find("Space_The_Final_Frontier_MANAGER").GetComponent<SpaceMaster>();
         }
 
         void OnEnable()
@@ -69,7 +69,7 @@ namespace nabspace {
             {
                 Vector3 playerpos = _playership.transform.position;
                 Vector3 raycasterStart = new Vector3(_playership.transform.position.x, _playership.transform.position.y, _playership.transform.position.z - 2);
-                Debug.DrawLine(raycasterStart, new Vector3(_playership.transform.position.x, _playership.transform.position.y, _playership.transform.position.z - 12), Color.blue);
+               // Debug.DrawLine(raycasterStart, new Vector3(_playership.transform.position.x, _playership.transform.position.y, _playership.transform.position.z - 12), Color.blue);
                 //Physics.Raycast(raycasterStart, Vector3.back * 15f);
                 Ray theray = new Ray(playerpos, Vector3.back);
                 RaycastHit hit;
@@ -77,7 +77,7 @@ namespace nabspace {
                 if (Physics.Raycast(theray, out hit, 15f))
                 {
 
-                    if (hit.collider.tag == "sectorTAG")
+                    if (hit.collider.CompareTag("sectorTAG"))
                     {
                         currquad = hit.collider.gameObject;
                     }

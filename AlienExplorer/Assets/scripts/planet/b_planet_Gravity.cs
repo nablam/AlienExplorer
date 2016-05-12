@@ -7,6 +7,7 @@ namespace nabspace
         public bool applyGravity;
         public bool playerLandedOnMe;
         public bool castleNotYetGenerated = true;
+        public Color32 planetColor;
 
         private GameManager_Master _gameManager;
 		private Player_Master _playermaster;
@@ -27,7 +28,9 @@ namespace nabspace
         }
 
         void OnEnable(){}
-        void Start(){}
+        void Start(){
+             GetComponent<Renderer>().material.color = planetColor;
+        }
         void OnDisable(){} 
 		
         void SetInitialReferences()
@@ -44,7 +47,21 @@ namespace nabspace
         _time_atLastRecordedDist_speedTOPlanet = 0f;
         _speedtowardplanet_seedTOPlanet = 0f;
         _maxEntrySpeed = 100f;
+
+        planetColor = MakeRandColor();
       }
+
+        Color32 MakeRandColor() {
+            int intr = Random.RandomRange(0, 255);
+            int intg = Random.RandomRange(0, 255);
+            int intb = Random.RandomRange(0, 255);
+
+            byte r = (byte)intr;
+            byte g = (byte)intg;
+            byte b = (byte)intb;
+            Color32 colr = new Color32(r, g, b, 255);
+            return colr;
+        }
 
 		void Update(){}
 		
@@ -53,7 +70,7 @@ namespace nabspace
 
         void DrawBlueLine(Vector3 here, Vector3 toHere)
         {
-            Debug.DrawLine(here, toHere, Color.blue);
+          Debug.DrawLine(here, toHere, Color.blue);
         }
 
         public float getRadius() { return _radius; }
@@ -63,9 +80,10 @@ namespace nabspace
             if (testForEnemyOrPlayerOrRover(obj))
             {
                 float forceFactor = 1f;
-                if (obj.transform.tag == "playerTAG") forceFactor = 15f;
-                if (obj.transform.tag == "enemyshipTAG") forceFactor = 20f;
-                if (obj.transform.tag == "roverTAG") forceFactor = 20f;
+                if (obj.transform.CompareTag("playerTAG")) forceFactor = 15f;
+
+                if (obj.transform.CompareTag("enemyshipTAG")) forceFactor = 20f;
+                if (obj.transform.CompareTag("roverTAG")) forceFactor = 20f;
 
                 if (_gameManager.isRocketMode)
                 {
@@ -73,7 +91,7 @@ namespace nabspace
                     {
                         _planetPosition = transform.position;
                         _playerPosition = obj.transform.position;
-                        DrawBlueLine(_planetPosition, _playerPosition);
+                       // DrawBlueLine(_planetPosition, _playerPosition);
                         _vectorOppositPlayer = (_planetPosition - _playerPosition);
                         _vectorGravityDirectionAndForce = _planetPosition + (_vectorOppositPlayer.normalized) * 100f;
                         if (applyGravity)
@@ -81,7 +99,7 @@ namespace nabspace
                             obj.transform.GetComponent<Rigidbody>().AddForce((_vectorOppositPlayer.normalized) * forceFactor);
                         }
 
-                        Debug.DrawLine(_planetPosition, _vectorGravityDirectionAndForce, Color.red);
+                      //  Debug.DrawLine(_planetPosition, _vectorGravityDirectionAndForce, Color.red);
                     }
                 }
             }
@@ -89,7 +107,7 @@ namespace nabspace
         }
 
         bool testForEnemyOrPlayerOrRover(GameObject obj) {
-            if (obj.transform.tag == "playerTAG" || obj.transform.tag == "enemyshipTAG" || obj.transform.tag == "roverTAG") return true;
+            if (obj.transform.CompareTag("playerTAG") || obj.transform.CompareTag("enemyshipTAG") || obj.transform.CompareTag("roverTAG")) return true;
             else
                 return false;
              
@@ -126,7 +144,7 @@ namespace nabspace
         {
             if (_player != null)
             {
-                DrawBlueLine(other.transform.position, this.transform.position);
+              //  DrawBlueLine(other.transform.position, this.transform.position);
                 if (applyGravity)
                 {
                    
@@ -139,7 +157,7 @@ namespace nabspace
 
         void OnCollisionExit(Collision collider) {
             print("out of grips");
-            if (collider.gameObject.tag == "playerTAG")
+            if (collider.gameObject.CompareTag("playerTAG"))
             {
                
                 _playermaster.isBeingPulled = false;
@@ -150,11 +168,12 @@ namespace nabspace
         void OnCollisionEnter(Collision collider)
         {
             print("collision");
-            if (collider.gameObject.tag == "playerTAG")
+            if (collider.gameObject.CompareTag("playerTAG"))
             {
                
                 if (_speedtowardplanet_seedTOPlanet > _maxEntrySpeed || AngleOfShipRelativeToPlanet() > 9f)
                 {
+
                     StartCoroutine("waitforGameOver");                   
                    Destroy(collider.gameObject);
                 }
@@ -166,18 +185,19 @@ namespace nabspace
             }
 
 
-            if (collider.gameObject.tag == "enemyshipTAG")
+            if (collider.gameObject.CompareTag("enemyshipTAG"))
             {
                 //  print("enemy collision");
                 _gameManager.CAllEnemyDied(collider.gameObject);
-                Instantiate(Resources.Load("Explosions/SkyEnemyExplosion1"), transform.position, transform.rotation);
+                Instantiate(Resources.Load("Explosions/SkyEnemyExplosion1"), collider.gameObject.transform.position, transform.rotation);
                 Destroy(collider.gameObject);
             }
         }
 
 
         IEnumerator waitforGameOver()
-        {                        
+        {
+            _gameManager.isGameOver = true;
             Instantiate(Resources.Load("Explosions/ShipExplosion"), _player.transform.position, transform.rotation);
             yield return new WaitForSeconds(2);
             _gameManager.CAllGameOverEvent();

@@ -29,7 +29,7 @@ public class missile1_rover : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "enemylandTAG")
+        if (other.gameObject.CompareTag("enemylandTAG"))
         {
             Destroy(this.gameObject);
             Destroy(other.gameObject);

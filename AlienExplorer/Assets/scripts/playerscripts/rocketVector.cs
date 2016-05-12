@@ -39,7 +39,7 @@ namespace nabspace
         void drawbaseline() {
             Vector3 pos = this.transform.position;
 
-            Debug.DrawLine(Vector3.zero, pos, Color.red);
+         //   Debug.DrawLine(Vector3.zero, pos, Color.red);
         }
 
         void updateVales()
@@ -228,7 +228,7 @@ namespace nabspace
         void OnCollisionEnter(Collision collider)
         {
 
-            if (collider.gameObject.tag != "enemymissileTAG")
+            if (!collider.gameObject.CompareTag("enemymissileTAG"))
             {
                 this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                 planetITouched = collider.gameObject;

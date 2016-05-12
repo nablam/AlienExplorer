@@ -32,7 +32,7 @@ namespace nabspace {
         }
 
 
-        public void PlayGame() { SceneManager.LoadScene("GameScene"); }
+        public void PlayGame() { SceneManager.LoadScene("GameSceneOptimzed"); }
 
         public void ExitGame() { Application.Quit();}
     }

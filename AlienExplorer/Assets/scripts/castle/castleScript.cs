@@ -20,6 +20,7 @@ public class castleScript : MonoBehaviour {
 
     void MakeOneALien() {
         alien = Instantiate(Resources.Load(alienPath), transform.position, transform.rotation) as GameObject;
+        alien.transform.parent = this.transform;
         alien.GetComponent<AlienLandScript>().setMyplanetCEnterandRadius(myplanetCenter, myplanetRadius);
     }
 

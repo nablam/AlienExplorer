@@ -17,7 +17,7 @@ public class rocket_missileScript : MonoBehaviour {
     float distToRocket() {
         Vector3 diff = transform.position - playerpos;
 
-        Debug.DrawLine(transform.position, playerpos, Color.red);
+      //  Debug.DrawLine(transform.position, playerpos, Color.red);
 
         return diff.magnitude;
     }

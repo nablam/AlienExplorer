@@ -47,7 +47,7 @@ namespace nabspace
                 DoAndroidControls(_gameManager.useAndroidControls);
             }
 
-            Debug.DrawLine(transform.position, Vector3.forward * 5, Color.red);
+           // Debug.DrawLine(transform.position, Vector3.forward * 5, Color.red);
         }
 
         void DoAndroidControls(bool android)
@@ -56,9 +56,9 @@ namespace nabspace
             if (curplanetOUTERSHELL != null)
             {
                 Vector3 diff = curplanetOUTERSHELL.transform.position - transform.position;
-                Debug.DrawLine(transform.position, transform.position + diff, Color.blue);
+               // Debug.DrawLine(transform.position, transform.position + diff, Color.yellow);
                 Vector3 myup = transform.position - curplanetOUTERSHELL.transform.position;
-                Debug.DrawLine(transform.position, transform.position + (myup.normalized * 2), Color.black);
+              //  Debug.DrawLine(transform.position, transform.position + (myup.normalized * 2), Color.black);
             }
 
             if (android)
@@ -79,13 +79,13 @@ namespace nabspace
             if (CrossPlatformInputManager.GetButton("OnButtonRightRover"))
             {
                 goingright = true;
-                if (curplanetOUTERSHELL != null) { transform.RotateAround(curplanetOUTERSHELL.transform.position, curplanetOUTERSHELL.transform.up, Time.deltaTime * movespeed); }
+                if (curplanetOUTERSHELL != null) { transform.RotateAround(curplanetOUTERSHELL.transform.position, curplanetOUTERSHELL.transform.forward, -Time.deltaTime * movespeed); }
             }
 
             if (CrossPlatformInputManager.GetButton("OnButtonLeftRover"))
             {
                 goingright = false;
-                if (curplanetOUTERSHELL != null) { transform.RotateAround(curplanetOUTERSHELL.transform.position, curplanetOUTERSHELL.transform.up, -Time.deltaTime * movespeed); }
+                if (curplanetOUTERSHELL != null) { transform.RotateAround(curplanetOUTERSHELL.transform.position, curplanetOUTERSHELL.transform.forward, Time.deltaTime * movespeed); }
 
             }
         }
@@ -96,12 +96,12 @@ namespace nabspace
             if (Input.GetKey("right"))
             {
                 goingright = true;
-                if (curplanetOUTERSHELL != null) { transform.RotateAround(curplanetOUTERSHELL.transform.position, curplanetOUTERSHELL.transform.up, Time.deltaTime * movespeed); }
+                if (curplanetOUTERSHELL != null) { transform.RotateAround(curplanetOUTERSHELL.transform.position, curplanetOUTERSHELL.transform.forward,-Time.deltaTime * movespeed); }
             }
             if (Input.GetKey("left"))
             {
                 goingright = false;
-                if (curplanetOUTERSHELL != null) { transform.RotateAround(curplanetOUTERSHELL.transform.position, curplanetOUTERSHELL.transform.up, -Time.deltaTime * movespeed); }
+                if (curplanetOUTERSHELL != null) { transform.RotateAround(curplanetOUTERSHELL.transform.position, curplanetOUTERSHELL.transform.forward, Time.deltaTime * movespeed); }
             }
         }
 
@@ -173,7 +173,7 @@ namespace nabspace
         void OnTriggerStay(Collider other) { }
         void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "planetTAG")
+            if (other.gameObject.CompareTag("planetTAG"))
             {
                 print(" grounded");
                 isgroundedIguess = true;

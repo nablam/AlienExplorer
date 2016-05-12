@@ -36,13 +36,15 @@ public class SectorPlanets : MonoBehaviour {
             SetInitialReferences();
 
 
-            GameObject go = Instantiate(Resources.Load("planets/mars200_128_64"), new Vector3(0f, 200f, 0f), Quaternion.identity) as GameObject;
-            go.transform.parent = this.transform;
-            //int sizeofYlines = planetLineY.Length;
-            //for (int cnt = 0; cnt < sizeofYlines; cnt++)
-            //{
-            //    makerandStarHere(cnt);
-            //}
+            //  GameObject go = Instantiate(Resources.Load("planets/B_Planet_dir/Planet1"), new Vector3(0f, 200f, 0f), Quaternion.identity) as GameObject;
+            //  go.transform.parent = this.transform;
+
+
+            int sizeofYlines = planetLineY.Length;
+            for (int cnt = 0; cnt < sizeofYlines; cnt++)
+            {
+                makerandStarHere(cnt);
+            }
         }
 
     }
@@ -57,11 +59,7 @@ public class SectorPlanets : MonoBehaviour {
         calculateLocalbounds();
         buildArrayOfYvalues();
         builsArrayOfPlanetPaths();
-        //for (int x = 0; x < howmanystars; x++)
-        //{
-
-        //    makerandStarHere(getrandX(), getrandY());
-        //}
+ 
     }
 
 
@@ -97,12 +95,12 @@ public class SectorPlanets : MonoBehaviour {
     {
         //mars20_128_64
         planetPaths = new string[6];
-        planetPaths[0] = "planets/mars20_128_64";
-        planetPaths[1] = "planets/mars100_128_64";
-        planetPaths[2] = "planets/mars200_128_64";
-        planetPaths[3] = "planets/moon20_128_64";
-        planetPaths[4] = "planets/moon100_128_64";
-        planetPaths[5] = "planets/moon100_128_64";
+        planetPaths[0] = "planets/B_Planet_dir/Planet1";
+        planetPaths[1] = "planets/B_Planet_dir/Planet2";
+        planetPaths[2] = "planets/B_Planet_dir/Planet3";
+        planetPaths[3] = "planets/B_Planet_dir/Planet4";
+        planetPaths[4] = "planets/B_Planet_dir/Planet5";
+        planetPaths[5] = "planets/B_Planet_dir/Planet1";
 
     }
 

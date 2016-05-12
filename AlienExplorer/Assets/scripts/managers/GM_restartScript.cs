@@ -23,7 +23,7 @@ namespace nabspace {
             _gameManager = GetComponent<GameManager_Master>();
         }
 
-        void restartLevel() { SceneManager.LoadScene("GameScene"); }
+        void restartLevel() { SceneManager.LoadScene("GameSceneOptimzed"); }
     }
 
 }

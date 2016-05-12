@@ -131,7 +131,7 @@ namespace nabspace {
                 {
                     mypos = transform.position;
                     playerpos = player.transform.position;
-                    Debug.DrawLine(mypos, playerpos, Color.blue);
+                 //   Debug.DrawLine(mypos, playerpos, Color.blue);
                     oppositplayer = (mypos - playerpos);
                     GravitationalpullDirectionAndForce = mypos + (oppositplayer.normalized) * minDistToApplyGravity;
                     if (applyGravity)
@@ -147,7 +147,7 @@ namespace nabspace {
                           
                     }
 
-                     Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
+                 //    Debug.DrawLine(mypos, GravitationalpullDirectionAndForce, Color.red);
                 }
             }
    
@@ -179,7 +179,7 @@ namespace nabspace {
                                     // Debug.Log(DeltaDistancefromBellowSurface + " ");
 
 
-                                    Debug.DrawLine(transform.position, go.transform.position, Color.red);
+                                    //Debug.DrawLine(transform.position, go.transform.position, Color.red);
                                 }
                             }
                         }
@@ -199,8 +199,9 @@ namespace nabspace {
 
         void OnCollisionEnter(Collision collider)
         {
+            print(collider.gameObject.name + " KILLED ME");
           
-            if (collider.gameObject.tag == "playerTAG")
+            if (collider.gameObject.CompareTag("playerTAG"))
             {
                // print("XXXXXcollision at speed" + speedtowardplanet_seedTOPlanet);
                 if (speedtowardplanet_seedTOPlanet > 5f || AngleOfShipRelativeToPlanet() > 9f)
@@ -222,7 +223,7 @@ namespace nabspace {
             }
 
 
-            if (collider.gameObject.tag == "enemyshipTAG") {
+            if (collider.gameObject.CompareTag("enemyshipTAG")) {
               //  print("enemy collision");
                 _gameManager.CAllEnemyDied(collider.gameObject);
                 Instantiate(Resources.Load("Explosions/SkyEnemyExplosion1"), transform.position, transform.rotation);
@@ -243,7 +244,7 @@ namespace nabspace {
         void OnCollisionExit(Collision collider)
         {
 
-            if (collider.gameObject.tag == "playerTAG")
+            if (collider.gameObject.CompareTag("playerTAG"))
             {
             
                     playerLandedOnMe = false;

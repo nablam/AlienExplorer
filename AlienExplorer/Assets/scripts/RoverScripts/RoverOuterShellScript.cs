@@ -57,9 +57,9 @@ namespace nabspace
             if (curplanetOUTERSHELL != null)
             {
                 Vector3 diff = curplanetOUTERSHELL.transform.position - transform.position;
-                Debug.DrawLine(transform.position, transform.position + diff, Color.blue);
+              //  Debug.DrawLine(transform.position, transform.position + diff, Color.blue);
                 Vector3 myup = transform.position - curplanetOUTERSHELL.transform.position;
-                Debug.DrawLine(transform.position, transform.position + (myup.normalized * 2), Color.black);
+             //   Debug.DrawLine(transform.position, transform.position + (myup.normalized * 2), Color.black);
             }
 
             if (android) {
@@ -177,7 +177,7 @@ namespace nabspace
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "planetTAG")
+            if (other.gameObject.CompareTag("planetTAG"))
             {
                 print(" grounded");
                 isgroundedIguess = true;
