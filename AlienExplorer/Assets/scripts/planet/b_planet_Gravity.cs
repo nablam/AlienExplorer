@@ -7,6 +7,7 @@ namespace nabspace
         public bool applyGravity;
         public bool playerLandedOnMe;
         public bool castleNotYetGenerated = true;
+        public bool isEarth = false;
         public Color32 planetColor;
 
         private GameManager_Master _gameManager;
@@ -63,7 +64,9 @@ namespace nabspace
             return colr;
         }
 
-		void Update(){}
+		void Update(){
+            transform.Rotate(new Vector3(0, 0, Time.deltaTime * 5f));
+        }
 		
 	    //void OnDrawGizmos() { Gizmos.color = Color.red; Gizmos.DrawLine(GameObject.Find("rocketprefab").transform.position, transform.position); }
 

@@ -44,10 +44,11 @@ namespace nabspace
         {
             if (_gameManager.isRoverMode)
             {
+                dontdrwone();
                 DoAndroidControls(_gameManager.useAndroidControls);
             }
 
-           // Debug.DrawLine(transform.position, Vector3.forward * 5, Color.red);
+            Debug.DrawLine(transform.position, curplanetOUTERSHELL.transform.position , Color.red);
         }
 
         void DoAndroidControls(bool android)
@@ -65,12 +66,12 @@ namespace nabspace
             {
 
                 RawAndroidControls();
-                DoJumpAndroid();
+               DoJumpAndroid();
             }
             else
             {
                 RawPCControls();
-                DoJumpPC();
+              DoJumpPC();
             }
 
         }
@@ -79,7 +80,9 @@ namespace nabspace
             if (CrossPlatformInputManager.GetButton("OnButtonRightRover"))
             {
                 goingright = true;
-                if (curplanetOUTERSHELL != null) { transform.RotateAround(curplanetOUTERSHELL.transform.position, curplanetOUTERSHELL.transform.forward, -Time.deltaTime * movespeed); }
+                if (curplanetOUTERSHELL != null) {
+                    transform.RotateAround(curplanetOUTERSHELL.transform.position, curplanetOUTERSHELL.transform.forward, -Time.deltaTime * movespeed);
+                }
             }
 
             if (CrossPlatformInputManager.GetButton("OnButtonLeftRover"))
@@ -111,33 +114,35 @@ namespace nabspace
             if (curplanetOUTERSHELL != null)
             {
 
-                if (isgroundedIguess && Input.GetKey("up"))
-                {
-                    transform.Translate(Vector3.forward * 10 * Time.deltaTime);
-                    /*Starts Ienumerator jump*/
-                    StartCoroutine("jump");
-                }
+                //if (isgroundedIguess && Input.GetKey("up"))
+                //{
+                //    transform.Translate(Vector3.forward * 10 * Time.deltaTime);
+                //    /*Starts Ienumerator jump*/
+                //    StartCoroutine("jump");
+                //}
 
-                else
+               // else
                if (!isgroundedIguess)
                 {
                     transform.Translate(Vector3.back * 5 * Time.deltaTime);
                 }
             }
         }
+
+
         void DoJumpAndroid()
         {
 
             if (curplanetOUTERSHELL != null)
             {
 
-                if (isgroundedIguess && CrossPlatformInputManager.GetButton("OnButtonJump"))
-                {
-                    transform.Translate(Vector3.forward * 10 * Time.deltaTime);
-                    StartCoroutine("jump");
-                }
+                //if (isgroundedIguess && CrossPlatformInputManager.GetButton("OnButtonJump"))
+                //{
+                //    transform.Translate(Vector3.forward * 10 * Time.deltaTime);
+                //    StartCoroutine("jump");
+                //}
 
-                else
+                //else
                if (!isgroundedIguess)
                 {
                     transform.Translate(Vector3.back * 5 * Time.deltaTime);
@@ -150,9 +155,18 @@ namespace nabspace
             return diff.magnitude;
         }
 
+        void dontdrwone() {
+
+            Debug.DrawLine(transform.position, curplanetOUTERSHELL.transform.position, Color.red);
+            float gooddist = curplanetOUTERSHELL.GetComponent<b_planet_Gravity>().getRadius();
+            float mydist = (transform.position - curplanetOUTERSHELL.transform.position).magnitude;
+            Debug.Log(string.Format(" good= {0} my={1}", gooddist, mydist));
+
+        }
+
         IEnumerator jump()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.1f);
             isgroundedIguess = false;
         }
         void triggerAskTotakeoff()

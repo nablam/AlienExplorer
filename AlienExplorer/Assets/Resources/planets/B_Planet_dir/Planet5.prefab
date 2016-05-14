@@ -142,6 +142,10 @@ MonoBehaviour:
   applyGravity: 1
   playerLandedOnMe: 0
   castleNotYetGenerated: 1
+  isEarth: 0
+  planetColor:
+    serializedVersion: 2
+    rgba: 0
 --- !u!114 &11405748
 MonoBehaviour:
   m_ObjectHideFlags: 1

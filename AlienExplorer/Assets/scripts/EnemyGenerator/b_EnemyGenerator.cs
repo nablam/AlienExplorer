@@ -87,8 +87,11 @@ namespace nabspace
             {
                 float x = Random.Range(curMinX, curmaxX);
                 float y = Random.Range(curMinY, curmaxY);
-
-                GameObject go = Instantiate(Resources.Load("EnemySkyResources/SkyEnemy1"), new Vector3(x, y, 0), transform.rotation) as GameObject;
+                int number= Random.Range(1, 6);
+                string path = "EnemySkyResources/SkyEnemy" + number.ToString();
+                Quaternion goodrotation = Quaternion.Euler(0, 90, 0);
+                GameObject go = Instantiate(Resources.Load(path), new Vector3(x, y, 0), goodrotation) as GameObject;
+                go.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, 0);
 
                 go.transform.parent = thisQuad.transform;
                 //   go.transform.localScale = new Vector3(thisQuad.transform.localScale.y , thisQuad.transform.localScale.y, thisQuad.transform.localScale.y);

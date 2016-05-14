@@ -45,7 +45,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 122272}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -344, y: 289, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 444860}
@@ -153,6 +153,9 @@ MonoBehaviour:
   applyGravity: 1
   playerLandedOnMe: 0
   castleNotYetGenerated: 1
+  planetColor:
+    serializedVersion: 2
+    rgba: 0
 --- !u!135 &13537070
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -163,7 +166,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 195.10384
+  m_Radius: 120
   m_Center: {x: 0.0037002563, y: 0.0002059937, z: -0.0001907349}
 --- !u!135 &13541444
 SphereCollider:
@@ -175,7 +178,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 800
+  m_Radius: 400
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:

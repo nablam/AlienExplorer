@@ -72,19 +72,24 @@ namespace nabspace
             }
             int myspeed = (int)rocketspeed;
                 speedText.text = "speed=" + myspeed;
-
-
         }
+
+ 
+
 
         void popARoverinTheWorld()
         {
+
+            transform.parent = planetITouched.transform;
             _rover = Instantiate(Resources.Load("Rover_Resource/roverOuterInner"), _spawnPointForRover.transform.position, _spawnPointForRover.transform.rotation) as GameObject;
             _rover.GetComponent<b_RoverOuterShell>().SetCurPlanetOUTERSHELL(planetITouched);
+            _rover.transform.parent = planetITouched.transform;
         }
 
         void garageARoverOutofTheWorld()
         {
-            Destroy(_rover);
+            transform.parent = null;
+           Destroy(_rover);
         }
 
         void updateVales()

@@ -22,7 +22,7 @@ namespace nabspace {
 
         private float maxdisd = 200f;
         private float mindist = 60;
-        private float cnt = 0;
+        private float cnt = 0.1f;
         void OnEnable()
         {
             SetInitialReferences();
@@ -52,14 +52,15 @@ namespace nabspace {
         void Start()
         {
             fraction = 0f;
+            cnt = 0.1f;
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (_playermaster.isBeingPulled) maxdisd = 100;
+            if (_playermaster.isBeingPulled) maxdisd = 200;
             else
-                maxdisd = 450;
+                maxdisd = 400;
             foccusRocketlerp();
             foccusRover();
      
@@ -71,6 +72,7 @@ namespace nabspace {
         {
             if (_gammaster.isRocketMode)
             {
+                transform.parent = null;
                 if (_rocket != null)
                 {
                     doslowup();
@@ -85,33 +87,33 @@ namespace nabspace {
 
             if (_rv.ismoving)
             {
-                cnt++;
+                cnt=cnt+0.1f;
                 if (cnt > maxdisd) cnt = maxdisd;
                 transform.position = new Vector3(_rocket.transform.position.x, _rocket.transform.position.y, _rocket.transform.position.z - cnt);
             }
             else
             {
-                cnt--;
+                cnt = cnt - 0.1f;
                 if (cnt < mindist) cnt = mindist;
                 transform.position = new Vector3(_rocket.transform.position.x, _rocket.transform.position.y, _rocket.transform.position.z - cnt);
             }
 
         }
 
-        void foccusRocket1()
-        {
-            if (_gammaster.isRocketMode)
-            {
-                if (_rocket != null)
-                {
+        //void foccusRocket1()
+        //{
+        //    if (_gammaster.isRocketMode)
+        //    {
+        //        if (_rocket != null)
+        //        {
 
-                    if (_rv.rocketspeed != float.PositiveInfinity)
-                        transform.position = new Vector3(_rocket.transform.position.x, _rocket.transform.position.y, -minDistFromShip - (Mathf.Abs(_rv.rocketspeed * distanceFormshipFactor)));
-                    else
-                        transform.position = new Vector3(_rocket.transform.position.x, _rocket.transform.position.y, transform.position.z + 0f);
-                }
-            }
-        }
+        //            if (_rv.rocketspeed != float.PositiveInfinity)
+        //                transform.position = new Vector3(_rocket.transform.position.x, _rocket.transform.position.y, -minDistFromShip - (Mathf.Abs(_rv.rocketspeed * distanceFormshipFactor)));
+        //            else
+        //                transform.position = new Vector3(_rocket.transform.position.x, _rocket.transform.position.y, transform.position.z + 0f);
+        //        }
+        //    }
+        //}
 
 
         void foccusRover()
@@ -126,8 +128,10 @@ namespace nabspace {
 
         void followrover()
         {
-            transform.position = new Vector3(roverref.transform.position.x, roverref.transform.position.y, transform.position.z + 0f);
+            float they = -60f; //  transform.position.z + 0f
+            transform.position = new Vector3(roverref.transform.position.x, roverref.transform.position.y,they);
             transform.localRotation = new Quaternion(0, 0, -roverref.transform.localRotation.y, roverref.transform.localRotation.w);
+            transform.parent = roverref.GetComponent<b_RoverOuterShell>().curplanetOUTERSHELL.transform;
             //  roverref.transform.parent = this.transform;
         }
 
