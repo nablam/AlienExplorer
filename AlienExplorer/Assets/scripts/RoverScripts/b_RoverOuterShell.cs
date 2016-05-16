@@ -13,9 +13,11 @@ namespace nabspace
 
         public GameObject curplanetOUTERSHELL;
         public float movespeed = 20f;
-        public bool isgroundedIguess;
-        public bool goingright;
+         public bool IamGrounded;
+        public bool IamInAjump;
 
+
+        public bool goingright;
         private Vector3 _moveDir;
         private ConstantForce _cf;
 
@@ -36,15 +38,16 @@ namespace nabspace
             _gameManager = GameObject.Find("GameManager_Object").GetComponent<GameManager_Master>();
             _cf = GetComponent<ConstantForce>();
             goingright = true;
-            _innershell = transform.GetChild(0);                               
-        }
+            _innershell = transform.GetChild(0);
+            IamGrounded=false;
+            IamInAjump=false;
+    }
 
         public void SetCurPlanetOUTERSHELL(GameObject go) { curplanetOUTERSHELL = go; }
         void Update()
         {
             if (_gameManager.isRoverMode)
             {
-                dontdrwone();
                 DoAndroidControls(_gameManager.useAndroidControls);
             }
 
@@ -108,67 +111,82 @@ namespace nabspace
             }
         }
 
+        void DoJumpAndroid()
+        {
+
+            if (curplanetOUTERSHELL != null)
+            {
+                if (curplanetOUTERSHELL != null)
+                {
+
+                    if (IamGrounded && CrossPlatformInputManager.GetButtonUp("OnButtonJump") && !IamInAjump)
+                    {
+                        StartCoroutine("jump2");
+                    }
+                    else
+                     if (!IamGrounded && !IamInAjump)
+                    {
+                        transform.Translate(Vector3.back * 5 * Time.deltaTime);
+                        print("going down");
+                    }
+                    else
+                        if (IamInAjump && !IamGrounded)
+                    {
+                        transform.Translate(Vector3.forward * 10 * Time.deltaTime);
+                    }
+                }
+                
+         
+            }
+        }
+
         void DoJumpPC()
         {
 
             if (curplanetOUTERSHELL != null)
             {
 
-                //if (isgroundedIguess && Input.GetKey("up"))
-                //{
-                //    transform.Translate(Vector3.forward * 10 * Time.deltaTime);
-                //    /*Starts Ienumerator jump*/
-                //    StartCoroutine("jump");
-                //}
-
-               // else
-               if (!isgroundedIguess)
+                if (IamGrounded && Input.GetKeyUp("up") && !IamInAjump)
+                {
+                    StartCoroutine("jump2");
+                }
+                else
+                 if (!IamGrounded && !IamInAjump)
                 {
                     transform.Translate(Vector3.back * 5 * Time.deltaTime);
+                    print("going down");
+                }
+                else
+                    if (IamInAjump && !IamGrounded) {
+                    transform.Translate(Vector3.forward * 10 * Time.deltaTime);
                 }
             }
         }
 
 
-        void DoJumpAndroid()
+        IEnumerator jump2()
         {
-
-            if (curplanetOUTERSHELL != null)
-            {
-
-                //if (isgroundedIguess && CrossPlatformInputManager.GetButton("OnButtonJump"))
-                //{
-                //    transform.Translate(Vector3.forward * 10 * Time.deltaTime);
-                //    StartCoroutine("jump");
-                //}
-
-                //else
-               if (!isgroundedIguess)
-                {
-                    transform.Translate(Vector3.back * 5 * Time.deltaTime);
-                }
-            }
+            IamInAjump = true;
+            IamGrounded = false;
+            yield return new WaitForSeconds(0.5f);
+            IamInAjump =  false;
         }
+
+
         float distancefromRocket()
         {
             Vector3 diff = _player.transform.position - transform.position;
             return diff.magnitude;
         }
 
-        void dontdrwone() {
 
-            Debug.DrawLine(transform.position, curplanetOUTERSHELL.transform.position, Color.red);
-            float gooddist = curplanetOUTERSHELL.GetComponent<b_planet_Gravity>().getRadius();
-            float mydist = (transform.position - curplanetOUTERSHELL.transform.position).magnitude;
-            Debug.Log(string.Format(" good= {0} my={1}", gooddist, mydist));
-
-        }
 
         IEnumerator jump()
         {
             yield return new WaitForSeconds(0.1f);
-            isgroundedIguess = false;
+            IamGrounded = false;
         }
+ 
         void triggerAskTotakeoff()
         {
             if (distancefromRocket() < 5f && !_gameManager.isAskedToTakeOff)
@@ -183,19 +201,19 @@ namespace nabspace
         }
 
 
-
-        void OnTriggerStay(Collider other) { }
         void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("planetTAG"))
             {
                 print(" grounded");
-                isgroundedIguess = true;
+                IamGrounded = true;
+                IamInAjump = false;
             }
         }
-        void OnTriggerExit(Collider other) { }
-        void OnCollisionEnter(Collision collider) { }
-        void OnCollisionExit(Collision collider) { }
+        //  void OnTriggerStay(Collider other) { }
+        //void OnTriggerExit(Collider other) {        }
+        //void OnCollisionEnter(Collision collider) { }
+        //void OnCollisionExit(Collision collider) { }
 
     }
 

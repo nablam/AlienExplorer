@@ -64,7 +64,7 @@ namespace nabspace
                     _castleGO.transform.parent = this.transform;
 
 
-                    print("build cstle at"+GetComponent<b_planet_Gravity>().getRadius());
+                    //print("build cstle at"+GetComponent<b_planet_Gravity>().getRadius());
                      _castleGO.GetComponent<castleScript>().setMyplanetCenterAndRadius(this.transform.position, GetComponent<b_planet_Gravity>().getRadius());
                    
                     _b_planetGravScript.castleNotYetGenerated = false;

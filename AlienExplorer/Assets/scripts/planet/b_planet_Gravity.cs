@@ -41,7 +41,7 @@ namespace nabspace
         _playermaster = _player.GetComponent<Player_Master>();
 
         _radius = transform.GetComponent<SphereCollider>().radius;
-        print(_radius);
+     //   print(_radius);
 
         _lastRecordedDist_speedTOPlanet=0f;
         _time_atDist_speedTOPlanet = 0f;
@@ -159,7 +159,7 @@ namespace nabspace
         }
 
         void OnCollisionExit(Collision collider) {
-            print("out of grips");
+           // print("out of grips");
             if (collider.gameObject.CompareTag("playerTAG"))
             {
                
@@ -170,7 +170,7 @@ namespace nabspace
 
         void OnCollisionEnter(Collision collider)
         {
-            print("collision");
+           // print("collision");
             if (collider.gameObject.CompareTag("playerTAG"))
             {
                

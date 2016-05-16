@@ -2216,7 +2216,7 @@ MonoBehaviour:
   isRocketMode: 1
   isLanded: 0
   playerIsBeigPulledin: 0
-  useAndroidControls: 0
+  useAndroidControls: 1
 --- !u!114 &2141218056
 MonoBehaviour:
   m_ObjectHideFlags: 0
