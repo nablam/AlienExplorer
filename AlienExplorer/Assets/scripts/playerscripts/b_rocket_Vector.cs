@@ -57,11 +57,12 @@ namespace nabspace
             _gameManager.isRocketMode = true;
             //_shipSpeed = 0f;
             _gameManager.isAskedToTakeOff = true;
+            print("rocket start");
         }
 
         void Update()
         {
-            if (_gameManager.isRocketMode)
+            if (!_gameManager.isGameOver) {            if (_gameManager.isRocketMode)
             {
                 Debug.DrawLine(transform.position, Vector3.zero, Color.cyan);
                 updateVales();
@@ -71,10 +72,21 @@ namespace nabspace
                 rocketspeed = transform.InverseTransformDirection(_rb.velocity).z;
             }
             int myspeed = (int)rocketspeed;
-                speedText.text = "speed=" + myspeed;
+                speedText.text = "speed=" + myspeed; }
+
         }
 
- 
+
+        int fuelCounter = 0;
+        void FuelUsage() {
+            if (fuelCounter >= 500) {
+                _playerMaster.CALLEventPlayerFuelthDown(1);
+                fuelCounter = 0;
+            }
+            fuelCounter++;
+
+
+        }
 
 
         void popARoverinTheWorld()
@@ -121,6 +133,7 @@ namespace nabspace
             {
                 ismoving = true;
                 _cf.relativeForce = new Vector3(0f, 0f, forwardValue);
+                FuelUsage();
             }
 
 
@@ -134,7 +147,7 @@ namespace nabspace
 
                 turningLEFT = true;
                 this.gameObject.GetComponent<Rigidbody>().freezeRotation = false;
-                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionZ;
                 _cf.relativeTorque = new Vector3(0f, -rotationValue, 0f);
             }
             else
@@ -148,7 +161,7 @@ namespace nabspace
             {
                 turningRIGHT = true;
                 this.gameObject.GetComponent<Rigidbody>().freezeRotation = false;
-                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionZ;
                 //this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ;
                 _cf.relativeTorque = new Vector3(0f, rotationValue, 0f);
             }
@@ -172,6 +185,7 @@ namespace nabspace
             {
                 ismoving = true;
                 _cf.relativeForce = new Vector3(0f, 0f, forwardValue);
+                FuelUsage();
             }
 
 
@@ -185,7 +199,7 @@ namespace nabspace
             {
                 turningLEFT = true;
                 this.gameObject.GetComponent<Rigidbody>().freezeRotation = false;
-                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionZ;
                 _cf.relativeTorque = new Vector3(0f, -rotationValue, 0f);
             }
             else
@@ -199,7 +213,7 @@ namespace nabspace
             {
                 turningRIGHT = true;
                 this.gameObject.GetComponent<Rigidbody>().freezeRotation = false;
-                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionZ;
                 _cf.relativeTorque = new Vector3(0f, rotationValue, 0f);
             }
             else
@@ -216,10 +230,24 @@ namespace nabspace
         void OnTriggerEnter(Collider other)
         {
             GetComponent<Player_Master>().isBeingPulled = true;//works
+
+            if (other.gameObject.CompareTag("fuelTAG"))
+            {
+                print("fuleUP");
+                _playerMaster.CALLEventPlayerFuelthup(10);
+                Destroy(other.gameObject);
+
+            }
         }
         void OnTriggerExit(Collider other)
         {
-            GetComponent<Player_Master>().isBeingPulled = false;//works
+         
+          //  if (other.gameObject.CompareTag("planetTAG"))
+          //  {
+                GetComponent<Player_Master>().isBeingPulled = false;//works
+          //  }
+
+
         }
         void OnCollisionEnter(Collision collider)
         {  
@@ -230,9 +258,12 @@ namespace nabspace
                 planetITouched = collider.gameObject;
                 }
 
-                // print(this.gameObject.GetComponent<Rigidbody>().velocity);
-            }
-        
+            // print(this.gameObject.GetComponent<Rigidbody>().velocity);
+
+          
+
+        }
+
         void OnCollisionExit(Collision collider) {  }
 
 

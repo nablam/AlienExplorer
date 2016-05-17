@@ -18,7 +18,10 @@ namespace nabspace
         private float[] _planetLineY;
         private string[] _planetPaths;
 
+        private int _numberOfPlanets;
         private float _SectoreScale = 500;
+
+        private b_planetList _planetList;
 
         //public List<b_planet_DATA> listOfMyPlanets;
 
@@ -26,8 +29,9 @@ namespace nabspace
 
         void Awake()
         {
-          //  listOfMyPlanets = new List<b_planet_DATA>();
-            iscentertile = false;
+            _planetList = GameObject.Find("Space_The_Final_Frontier_MANAGER").GetComponent<b_planetList>();
+           _numberOfPlanets = 2;
+              iscentertile = false;
         }
 
         void OnEnable()
@@ -42,6 +46,7 @@ namespace nabspace
             {
                 SetInitialReferences();
                 coinToss();
+                MAkeAfuelOrnot();
             }
         }
 
@@ -70,7 +75,7 @@ namespace nabspace
         void buildArrayOfYvalues()
         {
             float _sizeofQuad = _SectoreScale;
-            _HowmanyRows = ((int)_sizeofQuad / 500) * 3;
+            _HowmanyRows = ((int)_sizeofQuad / 500) * _numberOfPlanets;
             _distanceBetweenRows = (int)_sizeofQuad / _HowmanyRows;
             _planetLineY = new float[_HowmanyRows];
 
@@ -116,9 +121,10 @@ namespace nabspace
             GameObject go = Instantiate(Resources.Load(randompath), planetLocation, Quaternion.identity) as GameObject;
             go.transform.parent = this.transform;
 
+            _planetList.listOfplanetPositions.Add(go.transform.position);
          //   Color32 planetcolor = go.GetComponent<b_planet_Gravity>().planetColor;
-          //  b_planet_DATA planetData = new b_planet_DATA(planetLocation, planetcolor, randompath, false);
-          //  listOfMyPlanets.Add(planetData);
+         //  b_planet_DATA planetData = new b_planet_DATA(planetLocation, planetcolor, randompath, false);
+         //  listOfMyPlanets.Add(planetData);
         }
 
         void BuildRightAmountOfSmallAndMedium() {
@@ -153,6 +159,17 @@ namespace nabspace
             else
                 BuildRightAmountOfSmallAndMedium();
 
+        }
+
+        void MAkeAfuelOrnot() {
+            int randomeCointoss = Random.Range(0, 2);
+            if (randomeCointoss ==1)
+            {
+                GameObject go = Instantiate(Resources.Load("fuelFolder/FuelCanSpace"),new Vector3(this.transform.position.x, this.transform.position.y,0), Quaternion.EulerRotation(new Vector3(30,0,0))) as GameObject;
+                go.transform.parent = this.transform;
+                _planetList.listOfFuelPositions.Add(go.transform.position);
+            }
+      
         }
     }
 }

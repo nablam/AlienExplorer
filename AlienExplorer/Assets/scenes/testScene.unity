@@ -208,7 +208,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 462342, guid: 8c824f75368d4024ca0c712be8cb6c7c, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 164942, guid: 8c824f75368d4024ca0c712be8cb6c7c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8c824f75368d4024ca0c712be8cb6c7c, type: 2}
@@ -311,11 +315,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 407230, guid: 775a46cce0fa5584aab59a0cd94dfb61, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 189004, guid: 775a46cce0fa5584aab59a0cd94dfb61, type: 2}
       propertyPath: m_Name
       value: skyEnemy2
+      objectReference: {fileID: 0}
+    - target: {fileID: 189004, guid: 775a46cce0fa5584aab59a0cd94dfb61, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 775a46cce0fa5584aab59a0cd94dfb61, type: 2}
@@ -357,11 +365,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463050, guid: bd4b0732020ce4246a88cbea348a5f11, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 156906, guid: bd4b0732020ce4246a88cbea348a5f11, type: 2}
       propertyPath: m_Name
       value: skyEnemy3
+      objectReference: {fileID: 0}
+    - target: {fileID: 156906, guid: bd4b0732020ce4246a88cbea348a5f11, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bd4b0732020ce4246a88cbea348a5f11, type: 2}
@@ -403,11 +415,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 452914, guid: 38f4dae63dab5274088461510175bbc9, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 126218, guid: 38f4dae63dab5274088461510175bbc9, type: 2}
       propertyPath: m_Name
       value: skyEnemy5
+      objectReference: {fileID: 0}
+    - target: {fileID: 126218, guid: 38f4dae63dab5274088461510175bbc9, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 38f4dae63dab5274088461510175bbc9, type: 2}
@@ -449,11 +465,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 464876, guid: def7038e03d354f48b5e5fc78334e13a, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 157268, guid: def7038e03d354f48b5e5fc78334e13a, type: 2}
       propertyPath: m_Name
       value: skyEnemy4
+      objectReference: {fileID: 0}
+    - target: {fileID: 157268, guid: def7038e03d354f48b5e5fc78334e13a, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: def7038e03d354f48b5e5fc78334e13a, type: 2}

@@ -56,7 +56,7 @@ namespace nabspace
             curMinY = transform.position.y - (_sizeofQuad / 2);
             curmaxY = transform.position.y + (_sizeofQuad / 2);
 
-            howmanystars = (int)_sizeofQuad / 10;
+            howmanystars = (int)_sizeofQuad / 2;
         }
 
         float getrandX()

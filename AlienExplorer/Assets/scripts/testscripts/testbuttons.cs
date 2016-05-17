@@ -79,5 +79,28 @@ public class testbuttons : MonoBehaviour {
             Debug.Log("exit");
         }
 
+
+        //GPS
+
+        if (CrossPlatformInputManager.GetButton("OnButtonUIPlanetEarth"))
+        {
+            Debug.Log("earth");
+        }
+        if (CrossPlatformInputManager.GetButton("OnButtonUINearestPlanet"))
+        {
+            Debug.Log("nearest planet");
+        }
+        if (CrossPlatformInputManager.GetButton("OnButtonUINearestFuel"))
+        {
+            Debug.Log("nearest fuel");
+        }
+        if (CrossPlatformInputManager.GetButton("OnButtonUIWeapon"))
+        {
+            Debug.Log("weapon");
+        }
+        if (CrossPlatformInputManager.GetButton("OnButtonUIGPSoff"))
+        {
+            Debug.Log("off");
+        }
     }
 }

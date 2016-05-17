@@ -33,8 +33,8 @@ namespace nabspace {
 
         void checkforInventoryUItoggleRequest() {
 
-         //   if (CrossPlatformInputManager.GetButtonUp("OnButtonInventory"))  toggleInventoryUI();
-            if (CrossPlatformInputManager.GetButtonUp("OnButtonInventory") && !_gameManager.isMenueOn && !_gameManager.isGameOver && hasInventory)
+            // if (CrossPlatformInputManager.GetButtonUp("OnButtonInventory"))  toggleInventoryUI();
+            if (CrossPlatformInputManager.GetButtonUp("OnButtonInventory") && !_gameManager.isGameOver && hasInventory)
             {
                 toggleInventoryUI();
             }

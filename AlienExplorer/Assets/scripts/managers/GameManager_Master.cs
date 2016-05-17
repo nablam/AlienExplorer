@@ -26,6 +26,11 @@ namespace nabspace
         public event playerIsbeingPulledHAndler playerIsBeingPulled;
         public event playerIsbeingPulledHAndler playerIsNOTBeingPulled;
 
+        public delegate void nearestPlanetIsBeingInqueried(Vector3 here);
+        public event nearestPlanetIsBeingInqueried inquireNearestPlanet;
+
+
+
 
 
 
@@ -152,6 +157,16 @@ namespace nabspace
             if (playerdied != null)
             {
                 playerdied();
+            }
+        }
+
+
+
+        public void CAllNearestPlanetIsBEingInquired(Vector3 thisplanetHere)
+        {
+            if (inquireNearestPlanet != null)
+            {
+                inquireNearestPlanet(thisplanetHere);
             }
         }
     }

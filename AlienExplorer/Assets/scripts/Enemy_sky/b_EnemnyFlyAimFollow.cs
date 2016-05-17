@@ -72,7 +72,7 @@ namespace nabspace {
             {
                 if (_player != null)
                 {
-                    if (distToPlayer() < _minDistanceTotriggerAttack)
+                    if (distToPlayer() < _minDistanceTotriggerAttack && _gameManager.isRocketMode)
                     {
                         StartFindPlayerMoveToPlayer();
                         AGRO = true;

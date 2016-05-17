@@ -16,15 +16,15 @@ namespace nabspace {
         {
             SetInitialReferences();
             setUI();
-            _playerMAster.EventPlayerHEalthDown += deductHealth;
-            _playerMAster.EventPlayerHEalthUp+= increastHealth;
+            _playerMAster.EventPlayerHealthDown += deductHealth;
+            _playerMAster.EventPlayerHealthUp+= increastHealth;
 
         }
 
         void OnDisable()
         {
-            _playerMAster.EventPlayerHEalthDown -= deductHealth;
-            _playerMAster.EventPlayerHEalthUp -= increastHealth;
+            _playerMAster.EventPlayerHealthDown -= deductHealth;
+            _playerMAster.EventPlayerHealthUp -= increastHealth;
 
         }
 
